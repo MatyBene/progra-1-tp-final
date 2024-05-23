@@ -1,6 +1,12 @@
 #ifndef USER_H_INCLUDED
 #define USER_H_INCLUDED
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio.h>
+#include <ctype.h>
+
 typedef struct{
     char street[50];
     int number;
@@ -24,12 +30,7 @@ typedef struct{
     int deleted;  /// 0 si está activo - 1 si está eliminado
 } stUser;
 
-void userRegister(stUser *users);
-int emailOk (char *mail, stUser *users);
-int validEmail(char *email);
-int existingEmail(char *email, stUser *users);
-void getPass(char *pass);
-int validPassword(char *pass);
-int matchPassword(char *pass1, char *pass2);
+void userRegister(stUser *users, int index);
+
 
 #endif // USER_H_INCLUDED

@@ -13,5 +13,6 @@ void menu()
     strcpy(users[2].email, "covid@yahoo.com");
 
 
-    userRegister(users);
+    userRegister(users, 3);
+    printf("%s", users[3].email);
 }

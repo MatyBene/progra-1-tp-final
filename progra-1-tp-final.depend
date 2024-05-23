@@ -5,22 +5,29 @@
 	<locale.h>
 	"menu.h"
 
-1716421926 c:\utn\programacion\progra-1-tp-final\menu.h
+1716494684 c:\utn\programacion\progra-1-tp-final\menu.h
 
-1716430747 source:c:\utn\programacion\progra-1-tp-final\menu.c
+1716493007 source:c:\utn\programacion\progra-1-tp-final\menu.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"menu.h"
 	"user.h"
 
-1716441410 c:\utn\programacion\progra-1-tp-final\user.h
-
-1716442439 source:c:\utn\programacion\progra-1-tp-final\user.c
+1716494672 c:\utn\programacion\progra-1-tp-final\user.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<conio.h>
 	<ctype.h>
+
+1716502479 source:c:\utn\programacion\progra-1-tp-final\user.c
+	"user-data.h"
+	"user.h"
+
+1716502511 source:c:\utn\programacion\progra-1-tp-final\user-data.c
+	"user-data.h"
+
+1716502421 c:\utn\programacion\progra-1-tp-final\user-data.h
 	"user.h"
 
