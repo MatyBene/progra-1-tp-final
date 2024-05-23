@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1716421926 source:c:\utn\programacion\progra-1-tp-final\main.c
+	<stdio.h>
+	<stdlib.h>
+	"menu.h"
+
+1716421926 c:\utn\programacion\progra-1-tp-final\menu.h
+
+1716424930 source:c:\utn\programacion\progra-1-tp-final\menu.c
+	"menu.h"
+	"user.h"
+
+1716423922 c:\utn\programacion\progra-1-tp-final\user.h
+
+1716424948 source:c:\utn\programacion\progra-1-tp-final\user.c
+	<stdio.h>
+	<stdlib.h>
+	"user.h"
+
