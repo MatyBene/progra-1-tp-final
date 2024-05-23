@@ -17,3 +17,22 @@
 	<stdlib.h>
 	"user.h"
 
+1716478016 source:c:\users\loren\onedrive\escritorio\utn\primer-cuatrimestre\progra1\progra-1-tp-final\main.c
+	<stdio.h>
+	<stdlib.h>
+	"menu.h"
+
+1716478016 c:\users\loren\onedrive\escritorio\utn\primer-cuatrimestre\progra1\progra-1-tp-final\menu.h
+
+1716478016 source:c:\users\loren\onedrive\escritorio\utn\primer-cuatrimestre\progra1\progra-1-tp-final\menu.c
+	"menu.h"
+	"user.h"
+
+1716478016 c:\users\loren\onedrive\escritorio\utn\primer-cuatrimestre\progra1\progra-1-tp-final\user.h
+
+1716478016 source:c:\users\loren\onedrive\escritorio\utn\primer-cuatrimestre\progra1\progra-1-tp-final\user.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"user.h"
+
