@@ -25,7 +25,11 @@ typedef struct{
 } stUser;
 
 void userRegister(stUser *users);
+int emailOk (char *mail, stUser *users);
 int validEmail(char *email);
 int existingEmail(char *email, stUser *users);
+void getPass(char *pass);
+int validPassword(char *pass);
+int matchPassword(char *pass1, char *pass2);
 
 #endif // USER_H_INCLUDED
