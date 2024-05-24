@@ -9,11 +9,11 @@
 
 typedef struct{
     char street[50];
-    int number;
-    int zipCode;
-    char city[100];
+    char number[10];
+    char zipCode[10];
+    char city[50];
     char province[50];
-    char country[100];
+    char country[50];
 } stAddress;
 
 typedef struct{
@@ -30,7 +30,7 @@ typedef struct{
     int deleted;  /// 0 si está activo - 1 si está eliminado
 } stUser;
 
-void userRegister(stUser *users, int index);
+void userRegister(stUser *users, int *index);
 
 
 #endif // USER_H_INCLUDED

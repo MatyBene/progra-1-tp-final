@@ -3,7 +3,8 @@
 void getPass(char *pass);
 void newEmail (stUser *users, int index);
 void newPassword(stUser *users, int index);
-void userName (stUser *users, int index);
+void newUserName (stUser *users, int index);
+void newAdress (stUser *users, int index);
 int validEmail(char *email);
 int existingEmail(char *email, stUser *users, int index);
 int validPassword(char *pass);

@@ -15,8 +15,10 @@ void menu()
     strcpy(users[1].username, "ramirito");
     strcpy(users[2].username, "covid");
 
+    int totalUsers = 3;
+    userRegister(users, &totalUsers);
 
-    userRegister(users, 3);
     printf("%s\n", users[3].email);
     printf("%s\n", users[3].username);
+
 }

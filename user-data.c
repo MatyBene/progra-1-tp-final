@@ -71,7 +71,7 @@ void newPassword(stUser *users, int index) // asigna una contraseña a un usuario
 
 }
 
-void userName (stUser *users, int index) // carga un nuevo nombre de usuario
+void newUserName (stUser *users, int index) // carga un nuevo nombre de usuario
 {
     printf("Ingrese su nuevo nombre de usuario: ");
     fflush(stdin);
@@ -80,8 +80,32 @@ void userName (stUser *users, int index) // carga un nuevo nombre de usuario
 
     if (!validUserName(users[index].username, users, index))
     {
-        userName(users, index);
+        newUserName(users, index);
     }
+}
+
+void newAdress (stUser *users, int index)
+{
+    printf("Domicilio: \n");
+    printf("\nCalle: ");
+    fflush(stdin);
+    gets(users[index].address.street);
+    printf("\nAltura: ");
+    fflush(stdin);
+    gets(users[index].address.number);
+    printf("\nCodigo Postal: ");
+    fflush(stdin);
+    gets(users[index].address.zipCode);
+    printf("\nCiudad: ");
+    fflush(stdin);
+    gets(users[index].address.city);
+    printf("\nProvincia: ");
+    fflush(stdin);
+    gets(users[index].address.province);
+    printf("\nPais: ");
+    fflush(stdin);
+    gets(users[index].address.country);
+    system("cls");
 }
 
 int existingEmail(char *mail, stUser *users, int index) // busca en el arreglo users.email si el mail ya existe
@@ -211,5 +235,6 @@ int validUserName(char *uName, stUser *users, int index) // comprueba que el nom
 
     return 1;
 }
+
 
 
