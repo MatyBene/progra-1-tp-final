@@ -108,6 +108,12 @@ void newAdress (stUser *users, int index)
     system("cls");
 }
 
+void newGender(users, *index)
+{
+    printf("Seleccione el genero con el que se identifica: (M / F / X)\n");
+    users[index].
+}
+
 int existingEmail(char *mail, stUser *users, int index) // busca en el arreglo users.email si el mail ya existe
 {
     int i = 0;
