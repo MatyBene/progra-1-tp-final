@@ -11,8 +11,12 @@ void menu()
     strcpy(users[0].email, "pepito@hotmail.com");
     strcpy(users[1].email, "ramirito@gmail.com");
     strcpy(users[2].email, "covid@yahoo.com");
+    strcpy(users[0].username, "pepito");
+    strcpy(users[1].username, "ramirito");
+    strcpy(users[2].username, "covid");
 
 
     userRegister(users, 3);
-    printf("%s", users[3].email);
+    printf("%s\n", users[3].email);
+    printf("%s\n", users[3].username);
 }
