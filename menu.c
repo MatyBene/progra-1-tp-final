@@ -8,7 +8,7 @@
 void menu()
 {
     stUser users[1000];
-    int totalUsers = readFile(users, "Files/F_USERS.txt", sizeof(stUser));
+    int totalUsers = readUserFile(users, "Files/F_USERS.txt", sizeof(stUser));
 
 
 
