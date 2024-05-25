@@ -270,7 +270,7 @@ void newBirthDate(stUser *users, int index)
 
     system("cls");
 
-    if(!validDate(day, month, year))
+    if(!validDate(year, month, day))
     {
         newBirthDate(users, index);
     }
@@ -281,7 +281,7 @@ void newBirthDate(stUser *users, int index)
 
 }
 
-int validDate(int day, int month, int year)
+int validDate(int year, int month, int day)
 {
     if (year < 1900 || year > 2023)
     {
@@ -291,11 +291,7 @@ int validDate(int day, int month, int year)
     {
         printf("El mes seleccionado no es valido. ");
     }
-    else if (day > 31 || (month == 2 && day > 28))
-    {
-        printf("El dia seleccionado no es valido. ");
-    }
-    else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
+    else if (day > 31 || day < 1 || (month == 2 && day > 28) || ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30))
     {
         printf("El dia seleccionado no es valido. ");
     }
@@ -308,11 +304,46 @@ int validDate(int day, int month, int year)
 
 }
 
-void newFavoriteBook(stUser users, int index)
+void newDni(stUser *users, int index)
 {
-    printf("Ingrese el ID de un libro para marcarlo como favorito: ");
+    printf("Ingrese su numero de DNI: ");
+    gets(users[index].dni);
+    if (!validDni(users[index].dni))
+    {
+        system("cls");
+        printf("El DNI ingresado no es valido. ");
+        newDni(users, index);
+    }
+}
+
+int validDni(char *dni)
+{
+    int i = 0, lon = strlen(dni);
+
+    if (lon < 9 && lon > 6)
+    {
+        while(i < lon)
+        {
+            if(!isdigit(dni[i]))
+            {
+                return 0;
+            }
+            i++;
+        }
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 
 }
+
+//void newFavoriteBook(stUser users, int index)
+//{
+//    printf("Ingrese el ID de un libro para marcarlo como favorito: ");
+//
+//}
 
 
 

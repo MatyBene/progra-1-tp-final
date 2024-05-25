@@ -12,6 +12,7 @@ void userRegister(stUser *users, int index) // registro de usuarios
     newAdress(users, index);
     newGender(users, index);
     newBirthDate(users, index);
+    newDni(users, index);
     index++;
 
 }
