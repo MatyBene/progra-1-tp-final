@@ -23,9 +23,9 @@ typedef struct{
     char username[20];
     int isAdmin;  /// 1 = si  0 = no
     char gender;
-    char birthDate[20];   /// o se puede hacer con dia, mes, año.
+    char birthDate[20];   /// yyy/mm/dd
     int favoriteBooks[50];  /// se van a guardar los id de los libros favs.
-    char ssn[10];
+    char dni[10];
     stAddress address;
     int deleted;  /// 0 si está activo - 1 si está eliminado
 } stUser;
