@@ -35,6 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="book.h" />
+		<Unit filename="files.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="files.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
