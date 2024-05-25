@@ -11,6 +11,4 @@ typedef struct{
     int deleted; /// 0 si está activo - 1 si está eliminado
 }stBook;
 
-void newBook();
-
 #endif // BOOK_H_INCLUDED
