@@ -8,7 +8,7 @@ void newEmail (stUser *users, int index) //comprueba el mail y lo carga
     gets(users[index].email);
     system("cls");
 
-    if (existingEmail(users[index].email, users, index))  // mientras el mail ya este registrado se repite el bucle recursivo
+    if (matchEmail(users[index].email, users, index))  // mientras el mail ya este registrado se repite el bucle recursivo
     {
         printf("El mail ingresado ya esta registrado. ");
 
@@ -20,10 +20,9 @@ void newEmail (stUser *users, int index) //comprueba el mail y lo carga
 
         newEmail(users, index);
     }
-
 }
 
-int existingEmail(char *mail, stUser *users, int index) // busca en el arreglo users.email si el mail ya existe
+int matchEmail(char *mail, stUser *users, int index) // busca en el arreglo users.email si el mail ya existe
 {
     int i = 0;
 
@@ -31,7 +30,7 @@ int existingEmail(char *mail, stUser *users, int index) // busca en el arreglo u
     {
         if (strcmpi(users[i].email, mail) == 0)
         {
-            return 1;
+            return i;
         }
         i++;
     }
@@ -61,6 +60,18 @@ int validEmail(char *email) // comprueba que un mail sea valido
     }
 
     return 0;
+}
+
+int idByEmail(char *email, stUser *users, int index)
+{
+    int i = 0;
+
+    while(!matchEmail(email, users, index))
+    {
+        i++;
+    }
+
+    return i;
 }
 
 void getPass(char *pass) // permite escribir una contraseña sin mostrar el contenido
@@ -101,6 +112,7 @@ void newPassword(stUser *users, int index) // asigna una contraseña a un usuario
 
         if (!matchPassword(users[index].password, pass)) // mientras la contraseñas no coincidan se repite el bucle recursivo
         {
+            printf("Las contraseñas no coinciden.\n\n");
             newPassword(users, index);
         }
     }
@@ -166,8 +178,6 @@ int matchPassword(char *pass1, char *pass2) // evalua que las contraseñas coinci
 {
     if (strcmp(pass1, pass2) != 0)
     {
-        printf("Las contraseñas no coinciden.\n\n");
-
         return 0;
     }
 
@@ -192,10 +202,10 @@ int validUserName(char *uName, stUser *users, int index) // comprueba que el nom
     int size = strlen(uName);
     int i = 0;
 
-    if (size < 4 || size > 15)
+    if (size < 4 || size > 20)
     {
         system("cls");
-        printf("El nombre de usuario debe tener entre 4 y 15 caracteres.\n\n");
+        printf("El nombre de usuario debe tener entre 4 y 20 caracteres.\n\n");
         return 0;
     }
 
@@ -241,10 +251,9 @@ void newGender(stUser *users, int index)
 {
     printf("Seleccione el genero con el que se identifica: (M / F)\n");
     fflush(stdin);
-    users[index].gender = getch();
-    users[index].gender = tolower(users[index].gender);
+    users[index].gender = toupper(getchar());
 
-    if (users[index].gender != 'm' && users[index].gender != 'f')
+    if (users[index].gender != 'M' && users[index].gender != 'F')
     {
         system("cls");
         printf("El valor ingresado es incorrecto. \n");
@@ -307,13 +316,16 @@ int validDate(int year, int month, int day)
 void newDni(stUser *users, int index)
 {
     printf("Ingrese su numero de DNI: ");
+    fflush(stdin);
     gets(users[index].dni);
+
     if (!validDni(users[index].dni))
     {
         system("cls");
         printf("El DNI ingresado no es valido. ");
         newDni(users, index);
     }
+    system("cls");
 }
 
 int validDni(char *dni)

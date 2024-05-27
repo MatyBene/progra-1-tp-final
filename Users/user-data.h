@@ -2,7 +2,7 @@
 
 void newEmail (stUser *users, int index);
 int validEmail(char *email);
-int existingEmail(char *email, stUser *users, int index);
+int matchEmail(char *email, stUser *users, int index);
 void getPass(char *pass);
 void newPassword(stUser *users, int index);
 int validPassword(char *pass);

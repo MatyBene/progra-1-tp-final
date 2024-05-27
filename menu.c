@@ -2,14 +2,24 @@
 #include <stdlib.h>
 #include <string.h>
 #include "menu.h"
-#include "user.h"
+#include "Users/user.h"
 #include "files.h"
 
 void menu()
 {
     stUser users[1000];
-    int totalUsers = readUserFile(users, "Files/F_USERS.txt", sizeof(stUser));
+    int totalUsers = readUserFile(users, "Users/F_USERS.dat");
 
+//    userRegister(users, &totalUsers);
+
+    for(int i = 0; i < totalUsers; i++)
+    {
+        printUser(users, i);
+    }
+
+    userLogin(users, totalUsers);
+
+    saveUserFile(users, "Users/F_USERS.dat", totalUsers);
 
 
 //    userRegister(users, totalUsers);

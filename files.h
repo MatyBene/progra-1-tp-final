@@ -3,8 +3,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "user.h"
+#include "Users/user.h"
 
-int readUserFile (stUser *users, char *fileName, size_t st);
+int readUserFile (stUser *users, char *fileName);
+void saveUserFile (stUser *users, char *fileName, int totalUsers);
 
 #endif // FILES_H_INCLUDED
