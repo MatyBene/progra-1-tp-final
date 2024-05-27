@@ -2,24 +2,49 @@
 #include <stdlib.h>
 #include <string.h>
 #include "menu.h"
-#include "user.h"
 
 void menu()
 {
     stUser users[1000];
-    //adsads
 
-    strcpy(users[0].email, "pepito@hotmail.com");
-    strcpy(users[1].email, "ramirito@gmail.com");
-    strcpy(users[2].email, "covid@yahoo.com");
-    strcpy(users[0].username, "pepito");
-    strcpy(users[1].username, "ramirito");
-    strcpy(users[2].username, "covid");
+    printf("MENU DE ACCIONES");
 
-    int *totalUsers = 3;
-    userRegister(users, totalUsers);
+//    userRegister(users, &totalUsers);
 
-    printf("%s\n", users[3].email);
-    printf("%s\n", users[3].username);
+//    for(int i = 0; i < totalUsers; i++)
+//    {
+//        printUser(users, i);
+//    }
+
+//    userLogin(users, totalUsers);
+
+
+
+
+
+}
+
+void registerLogin(stUser *users, int *index)
+{
+    char opcion[9];
+
+    printf(">>>>>>>>>>>>>>>BOOKET<<<<<<<<<<<<<<<<<<\n\n");
+    printf("Ingrese la accion que desea realizar: (Registrar/Ingresar)\n");
+    fflush(stdin);
+    gets(opcion);
+
+    if (strcmpi(opcion,"registrar") == 0)
+    {
+        userRegister(users, index);
+    }
+    else if (strcmpi(opcion,"ingresar") == 0)
+    {
+        userLogin(users, *index);
+    }
+    else
+    {
+        system("cls");
+        printf("La opcion seleccionada no se reconoce. Intente nuevamente.\n");
+    }
 
 }

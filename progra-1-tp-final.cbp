@@ -31,10 +31,29 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+<<<<<<< .merge_file_QhVCc4
 		<Unit filename="books/book.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="books/book.h" />
+=======
+		<Unit filename="Users/user-data.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Users/user-data.h" />
+		<Unit filename="Users/user.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Users/user.h" />
+		<Unit filename="book.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="book.h" />
+		<Unit filename="files.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="files.h" />
+>>>>>>> .merge_file_M61BQZ
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -42,14 +61,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="menu.h" />
-		<Unit filename="user-data.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="user-data.h" />
-		<Unit filename="user.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="user.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
