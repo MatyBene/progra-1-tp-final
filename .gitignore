@@ -1,8 +1,31 @@
-# specific to CodeBlocks IDE
+# Archivos específicos de Code::Blocks
+*.depend
+*.layout
+*.cbp
 *.layout
 *.depend
-*.save-failed
+*.layout
+*.cbcache
+*.bak
+*.swp
 
-# generated directories
-bin/
-obj/
+# Archivos generados por el compilador
+*.o
+*.obj
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.map
+*.exp
+*.lib
+*.out
+
+# Archivos temporales y de configuración específicos de Windows
+*.tmp
+*.log
+Thumbs.db
+desktop.ini
+
+# Archivos y directorios específicos del sistema
+.DS_Store

@@ -31,12 +31,12 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-<<<<<<< .merge_file_QhVCc4
+
 		<Unit filename="books/book.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="books/book.h" />
-=======
+
 		<Unit filename="Users/user-data.c">
 			<Option compilerVar="CC" />
 		</Unit>
