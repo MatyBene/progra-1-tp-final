@@ -3,19 +3,26 @@
 #include <string.h>
 #include "menu.h"
 
-void menu(stUser *users, int index)
+int menu(stUser *users, int index)
 {
-
-    printUser(users, index);
-//    userRegister(users, &totalUsers);
-
-//    for(int i = 0; i < totalUsers; i++)
+//    if (users[index].isAdmin == 1)
 //    {
-//        printUser(users, i);
+//        menuAdmin();
 //    }
 
-//    userLogin(users, totalUsers);
+    printf("0)  Cerrar sesion.");
 
+    fflush(stdin);
+    char option = getch();
+
+    switch(option)
+    {
+        case 0:
+        {
+            printf("Se cerro la sesion de %s.\n", users[index]);
+            return 0;
+        }
+    }
 
 
 
@@ -24,34 +31,38 @@ void menu(stUser *users, int index)
 
 int registerLogin(stUser *users, int *index)
 {
-    char opcion[9];
+    char option[9];
     int id = -1;
 
     printf(">>>>>>>>>>>>>>>BOOKET<<<<<<<<<<<<<<<<<<\n\n");
 
-    while (strcmpi(opcion,"registrar") != 0 && strcmpi(opcion,"ingresar") != 0)
-    {
-        printf("Ingrese la accion que desea realizar: (Registrar/Ingresar)\n");
-        fflush(stdin);
-        gets(opcion);
+    printf("Ingrese la accion que desea realizar: (Registrar/Ingresar)\n");
+    fflush(stdin);
+    gets(option);
 
-        if (strcmpi(opcion,"registrar") == 0)
-        {
-            system("cls");
-            id = userRegister(users, index);
-        }
-        else if (strcmpi(opcion,"ingresar") == 0)
-        {
-            system("cls");
-            id = userLogin(users, *index);
-        }
-        else
-        {
-            system("cls");
-            printf("La opcion seleccionada no se reconoce.\n");
-        }
+    if (strcmpi(option,"registrar") == 0)
+    {
+        system("cls");
+        id = userRegister(users, index);
     }
+    else if (strcmpi(option,"ingresar") == 0)
+    {
+        system("cls");
+        id = userLogin(users, *index);
+    }
+    else
+    {
+        system("cls");
+        printf("La opcion seleccionada no se reconoce.\n");
+        registerLogin(users, index);
+    }
+
 
     return id;
 
+}
+
+void userInfo(stUser *users, int index)
+{
+    printUser(users, index);
 }

@@ -12,7 +12,12 @@ int main()
     stUser users[1000];
     int totalUsers = readUserFile(users, USERS);
 
-    menu(users, registerLogin(users, &totalUsers));
+    int quit = 0;
+
+    do
+    {
+        quit = menu(users, registerLogin(users, &totalUsers));
+    } while(quit != 0);
 
 
     saveUserFile(users, USERS, totalUsers);

@@ -13,10 +13,10 @@ int userRegister(stUser *users, int *index) // registro de usuarios
     newGender(users, *index);
     newBirthDate(users, *index);
     newDni(users, *index);
-    printf("El usuario %s fue registrado con exito. Id de usuario: %d.", users[*index].username, users[*index].userId);
+    printf("El usuario %s fue registrado con exito. Id de usuario: %d.\n", users[*index].username, users[*index].userId);
     (*index)++;
 
-    return users[*index].userId;
+    return userLogin(users, index);
 
 }
 
@@ -25,6 +25,7 @@ int userLogin(stUser *users, int index)
     char email[100];
     char password[20];
 
+    printf("Iniciar sesion: \n");
 
     do
     {
@@ -34,7 +35,7 @@ int userLogin(stUser *users, int index)
         if(!existingEmail(email, users, index))
         {
             system("cls");
-            printf("El mail ingresado no corresponde con un email registrado. ");
+            printf("El mail ingresado no corresponde con un email registrado. \n");
         }
     } while(!existingEmail(email, users, index));
 
