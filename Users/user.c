@@ -15,6 +15,7 @@ void userRegister(stUser *users, int *index) // registro de usuarios
     newDni(users, *index);
     printf("El usuario %s fue registrado con exito. Id de usuario: %d.", users[*index].username, users[*index].userId);
     (*index)++;
+
 }
 
 void userLogin(stUser *users, int index)
@@ -22,16 +23,18 @@ void userLogin(stUser *users, int index)
     char email[100];
     char password[20];
 
-    printf("Ingrese su correo electronico: ");
-    fflush(stdin);
-    gets(email);
 
-    if(!matchEmail(email, users, index))
+    do
     {
-        system("cls");
-        printf("El mail ingresado no corresponde con un email registrado. ");
-        userLogin(users, index);
-    }
+        printf("Ingrese su correo electronico: ");
+        fflush(stdin);
+        gets(email);
+        if(!matchEmail(email, users, index))
+        {
+            system("cls");
+            printf("El mail ingresado no corresponde con un email registrado. ");
+        }
+    } while(!matchEmail(email, users, index));
 
     int i = 0;
     do
