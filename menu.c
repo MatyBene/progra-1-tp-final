@@ -7,6 +7,7 @@
 void menu()
 {
     stUser users[1000];
+    //adsads
 
     strcpy(users[0].email, "pepito@hotmail.com");
     strcpy(users[1].email, "ramirito@gmail.com");
