@@ -1,9 +1,5 @@
 #include "book.h"
-
-/* --VALIDACIONES-- */
-int isNotEmpty(char field[]);
-int existingBook(char title[], stBook books[], int index);
-/* --VALIDACIONES-- */
+#include "../validations.h"
 
 void newTitle(stBook books[], int index);
 void newField(char field[], char prompt[]);

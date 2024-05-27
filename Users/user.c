@@ -1,11 +1,11 @@
 #include "user-data.h"
 #include "user.h"
 
-void userRegister(stUser *users, int *index) // registro de usuarios
+int userRegister(stUser *users, int *index) // registro de usuarios
 {
     users[*index].isAdmin = 0;
     users[*index].deleted = 0;
-    users[*index].userId = (*index) + 1;
+    users[*index].userId = (*index);
     newEmail(users, *index);
     newPassword(users, *index);
     newUserName(users, *index);
@@ -16,9 +16,11 @@ void userRegister(stUser *users, int *index) // registro de usuarios
     printf("El usuario %s fue registrado con exito. Id de usuario: %d.", users[*index].username, users[*index].userId);
     (*index)++;
 
+    return users[*index].userId;
+
 }
 
-void userLogin(stUser *users, int index)
+int userLogin(stUser *users, int index)
 {
     char email[100];
     char password[20];
@@ -29,12 +31,12 @@ void userLogin(stUser *users, int index)
         printf("Ingrese su correo electronico: ");
         fflush(stdin);
         gets(email);
-        if(!matchEmail(email, users, index))
+        if(!existingEmail(email, users, index))
         {
             system("cls");
             printf("El mail ingresado no corresponde con un email registrado. ");
         }
-    } while(!matchEmail(email, users, index));
+    } while(!existingEmail(email, users, index));
 
     int i = 0;
     do
@@ -44,7 +46,7 @@ void userLogin(stUser *users, int index)
         i++;
         system("cls");
 
-        if (!matchPassword(password, users[matchEmail(email, users, index)].password))
+        if (!matchPassword(password, users[existingEmail(email, users, index)].password))
         {
             if (i == 3)
             {
@@ -54,7 +56,9 @@ void userLogin(stUser *users, int index)
             printf("Contraseña incorrecta, quedan %d intentos restantes. ", 3-i);
         }
 
-    } while (!matchPassword(password, users[matchEmail(email, users, index)].password));
+    } while (!matchPassword(password, users[existingEmail(email, users, index)].password));
+
+    return existingEmail(email, users, index);
 
 }
 

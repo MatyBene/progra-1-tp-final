@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include "menu.h"
-#define USERS "Users/F_USERS.dat"
+#define USERS "Files/F_USERS.dat"
 
 
 int main()
@@ -12,8 +12,8 @@ int main()
     stUser users[1000];
     int totalUsers = readUserFile(users, USERS);
 
-    registerLogin(users, &totalUsers);
-    menu();
+    menu(users, registerLogin(users, &totalUsers));
+
 
     saveUserFile(users, USERS, totalUsers);
 

@@ -3,12 +3,10 @@
 #include <string.h>
 #include "menu.h"
 
-void menu()
+void menu(stUser *users, int index)
 {
-    stUser users[1000];
 
-    printf("MENU DE ACCIONES");
-
+    printUser(users, index);
 //    userRegister(users, &totalUsers);
 
 //    for(int i = 0; i < totalUsers; i++)
@@ -24,27 +22,36 @@ void menu()
 
 }
 
-void registerLogin(stUser *users, int *index)
+int registerLogin(stUser *users, int *index)
 {
     char opcion[9];
+    int id = -1;
 
     printf(">>>>>>>>>>>>>>>BOOKET<<<<<<<<<<<<<<<<<<\n\n");
-    printf("Ingrese la accion que desea realizar: (Registrar/Ingresar)\n");
-    fflush(stdin);
-    gets(opcion);
 
-    if (strcmpi(opcion,"registrar") == 0)
+    while (strcmpi(opcion,"registrar") != 0 && strcmpi(opcion,"ingresar") != 0)
     {
-        userRegister(users, index);
+        printf("Ingrese la accion que desea realizar: (Registrar/Ingresar)\n");
+        fflush(stdin);
+        gets(opcion);
+
+        if (strcmpi(opcion,"registrar") == 0)
+        {
+            system("cls");
+            id = userRegister(users, index);
+        }
+        else if (strcmpi(opcion,"ingresar") == 0)
+        {
+            system("cls");
+            id = userLogin(users, *index);
+        }
+        else
+        {
+            system("cls");
+            printf("La opcion seleccionada no se reconoce.\n");
+        }
     }
-    else if (strcmpi(opcion,"ingresar") == 0)
-    {
-        userLogin(users, *index);
-    }
-    else
-    {
-        system("cls");
-        printf("La opcion seleccionada no se reconoce. Intente nuevamente.\n");
-    }
+
+    return id;
 
 }
