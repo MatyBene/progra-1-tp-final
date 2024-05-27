@@ -20,4 +20,6 @@ typedef struct{
     int deleted; /// 0 si está activo - 1 si está eliminado
 }stBook;
 
+void bookRegister(stBook books[], int *index);
+
 #endif // BOOK_H_INCLUDED
