@@ -8,12 +8,13 @@
 
 
 int isNotEmpty(char field[]);
-int existingBook(char title[], stBook books[], int index);
+int yesNo (char option);
 
 
 /* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
 
 
+int existingBook(char title[], stBook books[], int index);
 
 
 /* >>>>>>>>>>>>>>>>>>>USERS<<<<<<<<<<<<<<<<<<<<< */
@@ -27,6 +28,7 @@ int validUserName(char *uName, stUser *users, int index);
 int validGender(char gender);
 int validDate(int year, int month, int day);
 int validDni(char *dni);
+int isUserDeleted(stUser user);
 
 
 /* >>>>>>>>>>>>>>>>>>>USERS<<<<<<<<<<<<<<<<<<<<< */

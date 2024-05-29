@@ -3,12 +3,9 @@
 #include <string.h>
 #include "menu.h"
 
-int menu(stUser *users, int *index)
+int menu(stUser *users, int index)
 {
-//    if (users[index].isAdmin == 1)
-//    {
-//        menuAdmin();
-//    }
+
     int option;
 
     do
@@ -18,7 +15,8 @@ int menu(stUser *users, int *index)
         printf(" 0)  Cerrar sesion.\n");
         printf(" 1)  Perfil.\n");
         printf(" 2)  Editar informacion personal.\n");
-        if (users[*index].isAdmin == 1)
+        printf(" 3)  Salir.\n");
+        if (users[index].isAdmin == 1)
         {
             printf(" ) Menu admin");
         }
@@ -46,103 +44,10 @@ int menu(stUser *users, int *index)
                 break;
             }
         }
-    }while (option != 0);
+    }while (option != 0 && option != 3);
 
     return option;
 
-}
-
-void userInfo (stUser *users, int index)
-{
-    int option;
-
-    do
-    {
-        system("cls");
-        printf("INFORMACION PERSONAL\n\n");
-
-        printf(" 0)  Volver.\n");
-        printf(" 1)  Editar Email.\n");
-        printf(" 2)  Editar Contraseña.\n");
-        printf(" 3)  Editar Nombre de Usuario.\n");
-        printf(" 4)  Editar Genero (?.\n");
-        printf(" 5)  Editar Fecha de Nacimiento.\n");
-        printf(" 6)  Editar Libros Favoritos.\n");
-        printf(" 7)  Editar DNI.\n");
-        printf(" 8)  Editar Direccion.\n");
-
-        scanf("%d", &option);
-
-        switch(option)
-        {
-            case 0:
-            {
-                break;
-            }
-            case 1:
-            {
-                system("cls");
-                newEmail(users, index);
-                printf("El mail ha sido actualizado a %s\n", users[index].email);
-                system("pause");
-                break;
-            }
-            case 2:
-            {
-                system("cls");
-                newPassword(users, index);
-                printf("La contraseña ha sido actualizada\n");
-                system("pause");
-                break;
-            }
-            case 3:
-            {
-                system("cls");
-                newUserName(users, index);
-                printf("El nombre de usuario ha sido actualizado a %s\n", users[index].username);
-                system("pause");
-                break;
-            }
-            case 4:
-            {
-                system("cls");
-                newGender(users, index);
-                printf("El genero ha sido actualizado a %c\n", users[index].gender);
-                system("pause");
-                break;
-            }
-            case 5:
-            {
-                system("cls");
-                newBirthDate(users, index);
-                printf("La fecha de nacimiento ha sido actualizada a %s\n", users[index].birthDate);
-                system("pause");
-                break;
-            }
-            case 6:
-            {
-
-                break;
-            }
-            case 7:
-            {
-                system("cls");
-                newDni(users, index);
-                printf("El DNI ha sido actualizado a %s\n", users[index].dni);
-                system("pause");
-                break;
-            }
-            case 8:
-            {
-                system("cls");
-                newAdress(users, index);
-                printf("La direccion ha sido actualizada\n");
-                system("pause");
-                break;
-            }
-
-        }
-    }while(option != 0);
 }
 
 int registerLogin(stUser *users, int *index)
@@ -176,7 +81,70 @@ int registerLogin(stUser *users, int *index)
 
 }
 
-void adminMenu()
+void adminMenu(stUser *users, int index, int *totalUsers)
 {
+    int option, id;
+    char yn;
 
+    do
+    {
+        system("cls");
+        printf("MENU ADMIN\n\n");
+        printf(" 0)  Cerrar sesion.\n");
+        printf(" 1)  Ver usuarios registrados.\n");
+        printf(" 2)  Eliminar usuario.\n");
+        printf(" 3)  Ir al menu de usuario.\n");
+
+        scanf("%d", &option);
+
+        switch(option)
+        {
+            case 0:
+            {
+                system("cls");
+                break;
+            }
+            case 1:
+            {
+                system("cls");
+                printAllUsers(users, *totalUsers);
+                system("pause");
+                break;
+            }
+            case 2:
+            {
+                system("cls");
+                printf("Seleccione el ID del usuario a eliminar: \n");
+                scanf("%d", &id);
+                do
+                {
+                    printf("Desea eliminar al usuario %s? (y/n)\n", users[id].username);
+                    fflush(stdin);
+                    yn = getch();
+                    system("cls");
+                }while(!yesNo(yn));
+
+                if (yn == 'y' && users[id].isAdmin == 0)
+                {
+                    deleteUser(users, id, totalUsers);
+                    printf("El usuario %d fue eliminado.\n", id);
+                    system("pause");
+                }
+                else
+                {
+                    printf("No se elimino al usuario.\n", id);
+                    system("pause");
+                }
+                break;
+            }
+            case 3:
+            {
+                system("cls");
+                menu(users, index);
+                system("pause");
+                break;
+            }
+        }
+
+    }while (option != 0);
 }

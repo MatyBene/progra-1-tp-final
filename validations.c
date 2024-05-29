@@ -7,6 +7,17 @@ int isNotEmpty(char field[]) // valida que un string no este vacio
     return strlen(field) > 0;
 }
 
+int yesNo (char option)
+{
+    option = tolower(option);
+    if(option != 'y' && option != 'n')
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
 
 
 /* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
@@ -216,6 +227,11 @@ int validDni(char *dni)
         return 0;
     }
 
+}
+
+int isUserDeleted(stUser user)
+{
+    return user.deleted;
 }
 
 /* >>>>>>>>>>>>>>>>>>>USERS<<<<<<<<<<<<<<<<<<<<< */

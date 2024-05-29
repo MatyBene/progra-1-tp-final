@@ -7,5 +7,6 @@
 
 int readUserFile (stUser *users, char *fileName);
 void saveUserFile (stUser *users, char *fileName, int totalUsers);
+void appendUserFile (stUser *users, char *fileName, int id);
 
 #endif // FILES_H_INCLUDED
