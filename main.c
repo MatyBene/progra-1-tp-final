@@ -16,7 +16,8 @@ int main()
 
     do
     {
-        quit = menu(users, registerLogin(users, &totalUsers));
+        registerLogin(users, &totalUsers);
+        quit = menu(users, &totalUsers);
     } while(quit != 27);
 
 

@@ -1,5 +1,5 @@
-#include "user-data.h"
 #include "user.h"
+#include "user-data.h"
 
 int userRegister(stUser *users, int *index) // registro de usuarios
 {
@@ -16,7 +16,7 @@ int userRegister(stUser *users, int *index) // registro de usuarios
     printf("El usuario %s fue registrado con exito. Id de usuario: %d.\n", users[*index].username, users[*index].userId);
     (*index)++;
 
-    return userLogin(users, index);
+    return userLogin(users, *index);
 
 }
 

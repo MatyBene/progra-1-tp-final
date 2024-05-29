@@ -8,6 +8,7 @@
 #include <ctype.h>
 
 
+
 typedef struct{
     char street[50];
     char number[10];
@@ -34,5 +35,7 @@ typedef struct{
 int userRegister(stUser *users, int *index);
 int userLogin(stUser *users, int index);
 void printUser(stUser *users, int index);
+void printAllUsers(stUser *users, int index);
+void deleteUser(stUser *users, int *index);
 
 #endif // USER_H_INCLUDED

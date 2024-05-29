@@ -162,6 +162,16 @@ int validUserName(char *uName, stUser *users, int index) // valida que el nombre
     return 1;
 }
 
+int validGender(char gender)
+{
+    if (gender != 'M' && gender != 'F')
+    {
+        printf("El valor ingresado es incorrecto. \n");
+        return 0;
+    }
+    return 1;
+}
+
 int validDate(int year, int month, int day)
 {
     if (year < 1900 || year > 2023)

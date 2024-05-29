@@ -140,12 +140,12 @@ void newGender(stUser *users, int index)
     fflush(stdin);
     users[index].gender = toupper(getchar());
 
-    if (users[index].gender != 'M' && users[index].gender != 'F')
+    if (!validGender(users[index].gender))
     {
         system("cls");
-        printf("El valor ingresado es incorrecto. \n");
         newGender(users, index);
     }
+
     system("cls");
 }
 

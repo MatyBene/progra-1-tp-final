@@ -24,6 +24,7 @@ int existingEmail(char *email, stUser *users, int index);
 int validPassword(char *pass);
 int matchPassword(char *pass1, char *pass2);
 int validUserName(char *uName, stUser *users, int index);
+int validGender(char gender);
 int validDate(int year, int month, int day);
 int validDni(char *dni);
 
