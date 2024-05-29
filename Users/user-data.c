@@ -87,6 +87,16 @@ void newUserName (stUser *users, int index) // carga un nuevo nombre de usuario
 
 void newAdress (stUser *users, int index)
 {
+    newStreet(users, index);
+    newZipCode(users, index);
+    newCity(users, index);
+    newProvince(users, index);
+    newCountry(users, index);
+    system("cls");
+}
+
+void newStreet(stUser *users, int index)
+{
     printf("Domicilio: \n");
     printf("\nCalle: ");
     fflush(stdin);
@@ -94,19 +104,34 @@ void newAdress (stUser *users, int index)
     printf("\nAltura: ");
     fflush(stdin);
     gets(users[index].address.number);
+}
+
+void newZipCode(stUser *users, int index)
+{
     printf("\nCodigo Postal: ");
     fflush(stdin);
     gets(users[index].address.zipCode);
+}
+
+void newCity(stUser *users, int index)
+{
     printf("\nCiudad: ");
     fflush(stdin);
     gets(users[index].address.city);
+}
+
+void newProvince(stUser *users, int index)
+{
     printf("\nProvincia: ");
     fflush(stdin);
     gets(users[index].address.province);
+}
+
+void newCountry(stUser *users, int index)
+{
     printf("\nPais: ");
     fflush(stdin);
     gets(users[index].address.country);
-    system("cls");
 }
 
 void newGender(stUser *users, int index)

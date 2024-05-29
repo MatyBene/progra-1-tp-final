@@ -17,7 +17,7 @@ int main()
     do
     {
         quit = menu(users, registerLogin(users, &totalUsers));
-    } while(quit != 0);
+    } while(quit != 27);
 
 
     saveUserFile(users, USERS, totalUsers);

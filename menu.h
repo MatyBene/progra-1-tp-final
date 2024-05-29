@@ -3,6 +3,7 @@
 
 #include "menu.h"
 #include "Users/user.h"
+#include "Users/user-data.h"
 #include "files.h"
 
 int menu(stUser *users, int index);
