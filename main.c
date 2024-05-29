@@ -12,29 +12,23 @@ int main()
     stUser users[1000];
     int totalUsers = readUserFile(users, USERS);
 
-//    for(int i = 0; i < totalUsers; i ++)
-//    {
-//        users[i].userId--;
-//    }
-//    users[100].isAdmin = 1;
-
-    int quit = 0;
+    char quit;
 
     do
     {
         int id = registerLogin(users, &totalUsers);
         if (users[id].isAdmin == 1)
         {
-            adminMenu(users, id, &totalUsers);
+            quit = adminMenu(users, id, &totalUsers);
         }
         else
         {
             quit = menu(users, id);
         }
-    } while(quit != 3);
+    } while(quit != '0' && quit != 27);
 
 
-    saveUserFile(users, USERS, totalUsers);
+//    saveUserFile(users, USERS, totalUsers);
 
     return 0;
 }

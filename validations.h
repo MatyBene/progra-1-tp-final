@@ -29,6 +29,8 @@ int validGender(char gender);
 int validDate(int year, int month, int day);
 int validDni(char *dni);
 int isUserDeleted(stUser user);
+int isAdmin(stUser user);
+int posId (stUser *users, int id, int totalUsers);
 
 
 /* >>>>>>>>>>>>>>>>>>>USERS<<<<<<<<<<<<<<<<<<<<< */

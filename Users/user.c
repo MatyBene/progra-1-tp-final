@@ -4,6 +4,7 @@
 
 #define USERS "Files/F_USERS.dat"
 
+
 int userRegister(stUser *users, int *index) // registro de usuarios
 {
     users[*index].isAdmin = 0;
@@ -19,7 +20,7 @@ int userRegister(stUser *users, int *index) // registro de usuarios
     printf("El usuario %s fue registrado con exito. Id de usuario: %d.\n", users[*index].username, users[*index].userId);
     (*index)++;
 
-    saveUserFile(users, USERS, *index);
+    appendUserFile(users, *index, USERS);
 
     return userLogin(users, *index);
 
@@ -68,51 +69,57 @@ int userLogin(stUser *users, int index)
 
 }
 
-void printUser(stUser *users, int index)
+void printUser(stUser user)
 {
-    printf("\t\tADMIN\n\n");
-    printf("ID:....................... %d\n", users[index].userId);
-    printf("User Name:................ %s\n", users[index].username);
-    printf("Email:.................... %s\n", users[index].email);
-    printf("Genero:................... %c\n", users[index].gender);
-    printf("DNI:...................... %s\n", users[index].dni);
-    printf("Direccion:................ %s %s\n", users[index].address.street, users[index].address.number);
-    printf("Ciudad:................... %s\n", users[index].address.city);
-    printf("Provincia:................ %s\n", users[index].address.province);
-    printf("Pais:..................... %s\n", users[index].address.country);
-    printf("Codigo Postal:............ %s\n", users[index].address.zipCode);
-    printf("Fecha de nacimiento:...... %s\n", users[index].birthDate);
+    if(user.isAdmin)
+    {
+        printf("\t\tADMIN\n\n");
+    }
+
+    printf("ID:....................... %d\n", user.userId);
+    printf("User Name:................ %s\n", user.username);
+    printf("Email:.................... %s\n", user.email);
+    printf("Genero:................... %c\n", user.gender);
+    printf("DNI:...................... %s\n", user.dni);
+    printf("Direccion:................ %s %s\n", user.address.street, user.address.number);
+    printf("Ciudad:................... %s\n", user.address.city);
+    printf("Provincia:................ %s\n", user.address.province);
+    printf("Pais:..................... %s\n", user.address.country);
+    printf("Codigo Postal:............ %s\n", user.address.zipCode);
+    printf("Fecha de nacimiento:...... %s\n", user.birthDate);
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 
 void userInfo (stUser *users, int index)
 {
-    int option;
+    char option;
 
     do
     {
         system("cls");
         printf("INFORMACION PERSONAL\n\n");
 
-        printf(" 0)  Volver.\n");
-        printf(" 1)  Editar Email.\n");
-        printf(" 2)  Editar Contraseña.\n");
-        printf(" 3)  Editar Nombre de Usuario.\n");
-        printf(" 4)  Editar Genero (?.\n");
-        printf(" 5)  Editar Fecha de Nacimiento.\n");
-        printf(" 6)  Editar Libros Favoritos.\n");
-        printf(" 7)  Editar DNI.\n");
-        printf(" 8)  Editar Direccion.\n");
+        printf("  1)  Editar Email.\n");
+        printf("  2)  Editar Contraseña.\n");
+        printf("  3)  Editar Nombre de Usuario.\n");
+        printf("  4)  Editar Genero (?.\n");
+        printf("  5)  Editar Fecha de Nacimiento.\n");
+        printf("  6)  Editar Libros Favoritos.\n");
+        printf("  7)  Editar DNI.\n");
+        printf("  8)  Editar Direccion.\n");
+        printf("esc)  Volver.\n");
 
-        scanf("%d", &option);
+        fflush(stdin);
+        option = getch();
 
         switch(option)
         {
-            case 0:
+            case 27:
             {
+                system("cls");
                 break;
             }
-            case 1:
+            case '1':
             {
                 system("cls");
                 newEmail(users, index);
@@ -120,7 +127,7 @@ void userInfo (stUser *users, int index)
                 system("pause");
                 break;
             }
-            case 2:
+            case '2':
             {
                 system("cls");
                 newPassword(users, index);
@@ -128,7 +135,7 @@ void userInfo (stUser *users, int index)
                 system("pause");
                 break;
             }
-            case 3:
+            case '3':
             {
                 system("cls");
                 newUserName(users, index);
@@ -136,7 +143,7 @@ void userInfo (stUser *users, int index)
                 system("pause");
                 break;
             }
-            case 4:
+            case '4':
             {
                 system("cls");
                 newGender(users, index);
@@ -144,7 +151,7 @@ void userInfo (stUser *users, int index)
                 system("pause");
                 break;
             }
-            case 5:
+            case '5':
             {
                 system("cls");
                 newBirthDate(users, index);
@@ -152,12 +159,12 @@ void userInfo (stUser *users, int index)
                 system("pause");
                 break;
             }
-            case 6:
+            case '6':
             {
 
                 break;
             }
-            case 7:
+            case '7':
             {
                 system("cls");
                 newDni(users, index);
@@ -165,7 +172,7 @@ void userInfo (stUser *users, int index)
                 system("pause");
                 break;
             }
-            case 8:
+            case '8':
             {
                 system("cls");
                 newAdress(users, index);
@@ -175,20 +182,48 @@ void userInfo (stUser *users, int index)
             }
 
         }
-    }while(option != 0);
+    }while(option != '0');
 }
 
 void printAllUsers(stUser *users, int totalUsers)
 {
     for (int i = 0; i < totalUsers; i++)
     {
-        printUser(users, i);
+        printUser(users[i]);
     }
 }
 
 void deleteUser(stUser *users, int id, int *totalUsers)
 {
-    users[id].deleted = 1;
-    saveUserFile(users, USERS, *totalUsers);
-    *totalUsers = readUserFile(users, USERS);
+    if (posId(users, id, *totalUsers) != -1)
+    {
+        users[posId(users, id, *totalUsers)].deleted = 1;
+        saveUserFile(users, USERS, *totalUsers);
+        *totalUsers = readUserFile(users, USERS);
+    }
+    else
+    {
+        printf("El usuario no existe.");
+    }
 }
+
+
+///TODO
+//void restoreUser(stUser *users, int *totalUsers)
+//{
+//    stUser deletedUsers[100];
+//    int totalDeletedUsers = readUserFile(deletedUsers, DELETED_USERS);
+//
+//    system("cls");
+//    printAllUsers(deletedUsers, totalDeletedUsers);
+//    printf("Ingrese el ID del usuario que desea restaurar. ");
+//
+//    scanf("%d", &id);
+//
+//    if (existingId(id))
+//    {
+//        users[*totalUsers] = deletedUsers[id];
+//        u
+//
+//    }
+//}

@@ -11,7 +11,7 @@ int readUserFile (stUser *users, char *fileName)
     {
         while (fread(&users[read], sizeof(stUser), 1, fi) == 1)
         {
-            users[read].userId = read;
+//            users[read].userId = read;
             read++;
         }
 
@@ -44,6 +44,7 @@ void saveUserFile (stUser *users, char *fileName, int totalUsers)
             else
             {
                 printf("No se guarda\n");
+                appendUserFile(users, i, DELETED_USERS);
             }
 
         }
@@ -56,7 +57,7 @@ void saveUserFile (stUser *users, char *fileName, int totalUsers)
     }
 }
 
-void appendUserFile (stUser *users, char *fileName, int id)
+void appendUserFile (stUser *users, int id, char *fileName)
 {
     FILE * fi = fopen(fileName, "ab");
 
@@ -71,3 +72,14 @@ void appendUserFile (stUser *users, char *fileName, int id)
         printf("No se pudo abrir el archivo.");
     }
 }
+
+//int restoreUserFile (stUser *users, char *fileName, int id)
+//{
+//    stUser deletedUsers[100];
+//    int totalDeletedUsers = readUserFile(deletedUsers, DELETED_USERS);
+//
+//    printAllUsers(deletedUsers, totalDeletedUsers);
+//    printf("Ingrese el ID del usuario que desea restaurar. ")
+//    deletedUsers[id].deleted = 0;
+//
+//}

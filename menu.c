@@ -3,48 +3,49 @@
 #include <string.h>
 #include "menu.h"
 
-int menu(stUser *users, int index)
+char menu(stUser *users, int index)
 {
 
-    int option;
+    char option;
+
 
     do
     {
         system("cls");
         printf("MENU PRINCIPAL\n\n");
-        printf(" 0)  Cerrar sesion.\n");
-        printf(" 1)  Perfil.\n");
-        printf(" 2)  Editar informacion personal.\n");
-        printf(" 3)  Salir.\n");
+        printf("  0)  Cerrar sesion.\n");
+        printf("  1)  Perfil.\n");
+        printf("  2)  Editar informacion personal.\n");
+        printf("esc)  Salir.\n");
         if (users[index].isAdmin == 1)
         {
             printf(" ) Menu admin");
         }
 
-
-        scanf("%d", &option);
+        fflush(stdin);
+        option = getch();
 
         switch(option)
         {
-            case 0:
+            case '0':
             {
                 system("cls");
-                return 0;
+                break;
             }
-            case 1:
+            case '1':
             {
                 system("cls");
-                printUser(users, index);
+                printUser(users[index]);
                 system("pause");
                 break;
             }
-            case 2:
+            case '2':
             {
                 userInfo(users, index);
                 break;
             }
         }
-    }while (option != 0 && option != 3);
+    }while (option != '0' && option != 27);
 
     return option;
 
@@ -81,37 +82,39 @@ int registerLogin(stUser *users, int *index)
 
 }
 
-void adminMenu(stUser *users, int index, int *totalUsers)
+char adminMenu(stUser *users, int index, int *totalUsers)
 {
-    int option, id;
-    char yn;
+    int id;
+    char option, yn;
 
     do
     {
         system("cls");
         printf("MENU ADMIN\n\n");
-        printf(" 0)  Cerrar sesion.\n");
-        printf(" 1)  Ver usuarios registrados.\n");
-        printf(" 2)  Eliminar usuario.\n");
-        printf(" 3)  Ir al menu de usuario.\n");
+        printf("  0)  Cerrar sesion.\n");
+        printf("  1)  Ver usuarios registrados.\n");
+        printf("  2)  Eliminar usuario.\n");
+        printf("  3)  Ir al menu de usuario.\n");
+        printf("esc)  Salir.\n");
 
-        scanf("%d", &option);
+        fflush(stdin);
+        option = getch();
 
         switch(option)
         {
-            case 0:
+            case '0':
             {
                 system("cls");
                 break;
             }
-            case 1:
+            case '1':
             {
                 system("cls");
                 printAllUsers(users, *totalUsers);
                 system("pause");
                 break;
             }
-            case 2:
+            case '2':
             {
                 system("cls");
                 printf("Seleccione el ID del usuario a eliminar: \n");
@@ -124,7 +127,7 @@ void adminMenu(stUser *users, int index, int *totalUsers)
                     system("cls");
                 }while(!yesNo(yn));
 
-                if (yn == 'y' && users[id].isAdmin == 0)
+                if (yn == 'y' && !isAdmin(users[id]))
                 {
                     deleteUser(users, id, totalUsers);
                     printf("El usuario %d fue eliminado.\n", id);
@@ -132,19 +135,26 @@ void adminMenu(stUser *users, int index, int *totalUsers)
                 }
                 else
                 {
-                    printf("No se elimino al usuario.\n", id);
+                    printf("No se elimino al usuario.\n");
                     system("pause");
                 }
                 break;
             }
-            case 3:
+            case '3':
             {
                 system("cls");
                 menu(users, index);
                 system("pause");
                 break;
             }
+            case '4':
+            {
+                system("cls");
+                break;
+            }
         }
 
-    }while (option != 0);
+    }while (option != '0' && option != 27);
+
+    return option;
 }
