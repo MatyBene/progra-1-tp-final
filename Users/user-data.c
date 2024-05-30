@@ -85,7 +85,7 @@ void newUserName (stUser *users, int index) // carga un nuevo nombre de usuario
     }
 }
 
-void newAdress (stUser *users, int index)
+void newAdress (stUser *users, int index) // llama a las funciones de carga de domicilio
 {
     newStreet(users, index);
     newZipCode(users, index);
@@ -95,7 +95,7 @@ void newAdress (stUser *users, int index)
     system("cls");
 }
 
-void newStreet(stUser *users, int index)
+void newStreet(stUser *users, int index) // carga una nueva calle
 {
     printf("Domicilio: \n");
     printf("\nCalle: ");
@@ -106,35 +106,35 @@ void newStreet(stUser *users, int index)
     gets(users[index].address.number);
 }
 
-void newZipCode(stUser *users, int index)
+void newZipCode(stUser *users, int index) // carga un nuevo codigo postal
 {
     printf("\nCodigo Postal: ");
     fflush(stdin);
     gets(users[index].address.zipCode);
 }
 
-void newCity(stUser *users, int index)
+void newCity(stUser *users, int index)  // carga una nueva ciudad
 {
     printf("\nCiudad: ");
     fflush(stdin);
     gets(users[index].address.city);
 }
 
-void newProvince(stUser *users, int index)
+void newProvince(stUser *users, int index)  // carga una nueva provincia
 {
     printf("\nProvincia: ");
     fflush(stdin);
     gets(users[index].address.province);
 }
 
-void newCountry(stUser *users, int index)
+void newCountry(stUser *users, int index)   // carga un nuevo pais
 {
     printf("\nPais: ");
     fflush(stdin);
     gets(users[index].address.country);
 }
 
-void newGender(stUser *users, int index)
+void newGender(stUser *users, int index) // carga un nuevo genero
 {
     printf("Seleccione el genero con el que se identifica: (M / F)\n");
     fflush(stdin);
@@ -149,7 +149,7 @@ void newGender(stUser *users, int index)
     system("cls");
 }
 
-void newBirthDate(stUser *users, int index)
+void newBirthDate(stUser *users, int index) // carga una nueva fecha de nacimiento
 {
     int day, month, year;
 
@@ -177,7 +177,7 @@ void newBirthDate(stUser *users, int index)
 
 }
 
-void newDni(stUser *users, int index)
+void newDni(stUser *users, int index) // carga un nuevo dni
 {
     printf("Ingrese su numero de DNI: ");
     fflush(stdin);
@@ -192,11 +192,6 @@ void newDni(stUser *users, int index)
     system("cls");
 }
 
-//void newFavoriteBook(stUser users, int index)
-//{
-//    printf("Ingrese el ID de un libro para marcarlo como favorito: ");
-//
-//}
 
 
 

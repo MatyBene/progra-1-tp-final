@@ -20,13 +20,13 @@ int userRegister(stUser *users, int *index) // registro de usuarios
     printf("El usuario %s fue registrado con exito. Id de usuario: %d.\n", users[*index].username, users[*index].userId);
     (*index)++;
 
-    appendUserFile(users, *index, USERS);
+    appendUserFile(users, USERS, *index);   // guarda el nuevo usuario en el archivo
 
     return userLogin(users, *index);
 
 }
 
-int userLogin(stUser *users, int index)
+int userLogin(stUser *users, int index) // permite al usuario iniciar sesion
 {
     char email[100];
     char password[20];
@@ -180,7 +180,6 @@ void userInfo (stUser *users, int index)
                 system("pause");
                 break;
             }
-
         }
     }while(option != '0');
 }
@@ -195,35 +194,14 @@ void printAllUsers(stUser *users, int totalUsers)
 
 void deleteUser(stUser *users, int id, int *totalUsers)
 {
-    if (posId(users, id, *totalUsers) != -1)
-    {
-        users[posId(users, id, *totalUsers)].deleted = 1;
-        saveUserFile(users, USERS, *totalUsers);
-        *totalUsers = readUserFile(users, USERS);
-    }
-    else
-    {
-        printf("El usuario no existe.");
-    }
+    users[id].deleted = 1;
+    deleteUserFile(users, *totalUsers);
+    *totalUsers = readUserFile(users, USERS);
 }
 
+void restoreUser(stUser *deletedUsers, int id, int totalDeleted)
+{
+    deletedUsers[id].deleted = 0;
+    restoreUserFile(deletedUsers, totalDeleted);
+}
 
-///TODO
-//void restoreUser(stUser *users, int *totalUsers)
-//{
-//    stUser deletedUsers[100];
-//    int totalDeletedUsers = readUserFile(deletedUsers, DELETED_USERS);
-//
-//    system("cls");
-//    printAllUsers(deletedUsers, totalDeletedUsers);
-//    printf("Ingrese el ID del usuario que desea restaurar. ");
-//
-//    scanf("%d", &id);
-//
-//    if (existingId(id))
-//    {
-//        users[*totalUsers] = deletedUsers[id];
-//        u
-//
-//    }
-//}

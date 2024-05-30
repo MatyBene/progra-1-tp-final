@@ -8,7 +8,7 @@
 
 
 int isNotEmpty(char field[]);
-int yesNo (char option);
+char yesNo ();
 
 
 /* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
@@ -30,7 +30,8 @@ int validDate(int year, int month, int day);
 int validDni(char *dni);
 int isUserDeleted(stUser user);
 int isAdmin(stUser user);
-int posId (stUser *users, int id, int totalUsers);
+int matchId (stUser *users, int id, int totalUsers);
+int compareUserId(const void *a, const void *b);
 
 
 /* >>>>>>>>>>>>>>>>>>>USERS<<<<<<<<<<<<<<<<<<<<< */

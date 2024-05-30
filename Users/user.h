@@ -39,5 +39,6 @@ void printUser(stUser user);
 void userInfo(stUser *users, int index);
 void printAllUsers(stUser *users, int index);
 void deleteUser(stUser *users, int id, int *totalUsers);
+void restoreUser(stUser *deletedUsers, int id, int totalDeleted);
 
 #endif // USER_H_INCLUDED

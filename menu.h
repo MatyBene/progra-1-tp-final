@@ -6,8 +6,10 @@
 #include "Users/user-data.h"
 #include "files.h"
 
-char menu(stUser *users, int index);
-int registerLogin(stUser *users, int *index);
+char userMenu(stUser *users, int index);
 char adminMenu(stUser *users, int index, int *totalUsers);
+int registerLoginMenu(stUser *users, int *index);
+void deleteUserMenu(stUser *users, int *totalUsers);
+void restoreUserMenu(stUser *users, int *totalUsers);
 
 #endif // MENU_H_INCLUDED

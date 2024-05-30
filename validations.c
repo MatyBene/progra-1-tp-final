@@ -7,15 +7,17 @@ int isNotEmpty(char field[]) // valida que un string no este vacio
     return strlen(field) > 0;
 }
 
-int yesNo (char option)
+char yesNo ()
 {
-    option = tolower(option);
-    if(option != 'y' && option != 'n')
-    {
-        return 0;
-    }
+    char option;
 
-    return 1;
+    do
+    {
+        fflush(stdin);
+        option = tolower(getch());
+    }while(option != 'y' && option != 'n');
+
+    return option;
 }
 
 
@@ -258,7 +260,7 @@ int isAdmin(stUser user)
     return user.isAdmin;
 }
 
-int posId (stUser *users, int id, int totalUsers) // valida que exista un id y devuelve la posicion
+int matchId (stUser *users, int id, int totalUsers) // valida que exista un id y devuelve la posicion
 {
     int i = 0;
 
@@ -272,6 +274,13 @@ int posId (stUser *users, int id, int totalUsers) // valida que exista un id y d
     }
 
     return -1;
+}
+
+int compareUserId(const void *a, const void *b)
+{
+    stUser *userA = (stUser *) a;
+    stUser *userB = (stUser *) b;
+    return (userA->userId - userB->userId);
 }
 
 /* >>>>>>>>>>>>>>>>>>>USERS<<<<<<<<<<<<<<<<<<<<< */

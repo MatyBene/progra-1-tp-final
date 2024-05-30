@@ -16,19 +16,19 @@ int main()
 
     do
     {
-        int id = registerLogin(users, &totalUsers);
+        int id = registerLoginMenu(users, &totalUsers);
         if (users[id].isAdmin == 1)
         {
             quit = adminMenu(users, id, &totalUsers);
         }
         else
         {
-            quit = menu(users, id);
+            quit = userMenu(users, id);
         }
     } while(quit != '0' && quit != 27);
 
 
-//    saveUserFile(users, USERS, totalUsers);
+    saveUserFile(users, USERS, totalUsers);
 
     return 0;
 }

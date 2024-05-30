@@ -3,7 +3,7 @@
 #include <string.h>
 #include "menu.h"
 
-char menu(stUser *users, int index)
+char userMenu(stUser *users, int index)
 {
 
     char option;
@@ -51,41 +51,10 @@ char menu(stUser *users, int index)
 
 }
 
-int registerLogin(stUser *users, int *index)
-{
-    char option[9];
-    int id = -1;
-
-    printf("Ingrese la accion que desea realizar: (Registrar/Ingresar)\n");
-    fflush(stdin);
-    gets(option);
-
-    if (strcmpi(option,"registrar") == 0)
-    {
-        system("cls");
-        id = userRegister(users, index);
-    }
-    else if (strcmpi(option,"ingresar") == 0)
-    {
-        system("cls");
-        id = userLogin(users, *index);
-    }
-    else
-    {
-        system("cls");
-        printf("La opcion seleccionada no se reconoce.\n");
-        registerLogin(users, index);
-    }
-
-
-    return id;
-
-}
 
 char adminMenu(stUser *users, int index, int *totalUsers)
 {
-    int id;
-    char option, yn;
+    char option;
 
     do
     {
@@ -94,7 +63,8 @@ char adminMenu(stUser *users, int index, int *totalUsers)
         printf("  0)  Cerrar sesion.\n");
         printf("  1)  Ver usuarios registrados.\n");
         printf("  2)  Eliminar usuario.\n");
-        printf("  3)  Ir al menu de usuario.\n");
+        printf("  3)  Restaurar usuario.\n");
+        printf("  4)  Ir al menu de usuario.\n");
         printf("esc)  Salir.\n");
 
         fflush(stdin);
@@ -117,44 +87,125 @@ char adminMenu(stUser *users, int index, int *totalUsers)
             case '2':
             {
                 system("cls");
-                printf("Seleccione el ID del usuario a eliminar: \n");
-                scanf("%d", &id);
-                do
-                {
-                    printf("Desea eliminar al usuario %s? (y/n)\n", users[id].username);
-                    fflush(stdin);
-                    yn = getch();
-                    system("cls");
-                }while(!yesNo(yn));
-
-                if (yn == 'y' && !isAdmin(users[id]))
-                {
-                    deleteUser(users, id, totalUsers);
-                    printf("El usuario %d fue eliminado.\n", id);
-                    system("pause");
-                }
-                else
-                {
-                    printf("No se elimino al usuario.\n");
-                    system("pause");
-                }
+                deleteUserMenu(users, totalUsers);
                 break;
             }
             case '3':
             {
                 system("cls");
-                menu(users, index);
-                system("pause");
+                restoreUserMenu(users, totalUsers);
                 break;
             }
             case '4':
             {
                 system("cls");
+                userMenu(users, *totalUsers);
                 break;
+            }
+            case 27:
+            {
+                system("cls");
+                return option;
             }
         }
 
     }while (option != '0' && option != 27);
 
     return option;
+}
+
+int registerLoginMenu(stUser *users, int *index)
+{
+    char option[9];
+    int id = -1;
+
+    printf("Ingrese la accion que desea realizar: (Registrar/Ingresar)\n");
+    fflush(stdin);
+    gets(option);
+
+    if (strcmpi(option,"registrar") == 0)
+    {
+        system("cls");
+        id = userRegister(users, index);
+    }
+    else if (strcmpi(option,"ingresar") == 0)
+    {
+        system("cls");
+        id = userLogin(users, *index);
+    }
+    else
+    {
+        system("cls");
+        printf("La opcion seleccionada no se reconoce.\n");
+        registerLoginMenu(users, index);
+    }
+
+
+    return id;
+
+}
+
+void deleteUserMenu(stUser *users, int *totalUsers)
+{
+    int id;
+
+    printf("Seleccione el ID del usuario a eliminar: \n");
+    scanf("%d", &id);
+    id = matchId(users, id, *totalUsers);
+    if(id != -1)
+    {
+        printf("Desea eliminar al usuario %s? (y/n)\n", users[id].username);
+
+        if (yesNo() == 'y' && !isAdmin(users[id]))
+        {
+            deleteUser(users, id, totalUsers);
+            printf("El usuario fue eliminado.\n");
+            system("pause");
+        }
+        else
+        {
+            printf("No se elimino al usuario.\n");
+            system("pause");
+        }
+    }
+    else
+    {
+        printf("El usuario no se encuentra.");
+        system("pause");
+    }
+}
+
+void restoreUserMenu(stUser *users, int *totalUsers)
+{
+    int id;
+
+    stUser deletedUsers[100];
+    int totalDeleted = readUserFile(deletedUsers, DELETED_USERS);
+    printAllUsers(deletedUsers, totalDeleted);
+
+    printf("\nSeleccione el ID del usuario a restaurar: \n");
+    scanf("%d", &id);
+    id = matchId(deletedUsers, id, totalDeleted);
+    if(id != -1)
+    {
+        printf("Desea restaurar al usuario %s? (y/n)\n", deletedUsers[id].username);
+
+        if (yesNo() == 'y')
+        {
+            restoreUser(deletedUsers, id, totalDeleted);
+            *totalUsers = readUserFile(users, USERS);
+            printf("El usuario fue restaurado.\n");
+            system("pause");
+        }
+        else
+        {
+            printf("No se restauro al usuario.\n");
+            system("pause");
+        }
+    }
+    else
+    {
+        printf("El usuario no se encuentra.");
+        system("pause");
+    }
 }
