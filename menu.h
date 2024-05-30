@@ -8,6 +8,7 @@
 
 char userMenu(stUser *users, int index);
 char adminMenu(stUser *users, int index, int *totalUsers);
+void userInfoMenu(stUser *users, int index);
 int registerLoginMenu(stUser *users, int *index);
 void deleteUserMenu(stUser *users, int *totalUsers);
 void restoreUserMenu(stUser *users, int *totalUsers);

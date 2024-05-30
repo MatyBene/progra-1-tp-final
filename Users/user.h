@@ -33,12 +33,11 @@ typedef struct{
     int deleted;  /// 0 si está activo - 1 si está eliminado
 } stUser;
 
-int userRegister(stUser *users, int *index);
+void userRegister(stUser *users, int *index);
 int userLogin(stUser *users, int index);
 void printUser(stUser user);
-void userInfo(stUser *users, int index);
 void printAllUsers(stUser *users, int index);
-void deleteUser(stUser *users, int id, int *totalUsers);
-void restoreUser(stUser *deletedUsers, int id, int totalDeleted);
+void deleteUser(stUser *users, int index, int *totalUsers);
+void restoreUser(stUser *deletedUsers, int index, int totalDeleted);
 
 #endif // USER_H_INCLUDED

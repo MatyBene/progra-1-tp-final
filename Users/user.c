@@ -5,7 +5,7 @@
 #define USERS "Files/F_USERS.dat"
 
 
-int userRegister(stUser *users, int *index) // registro de usuarios
+void userRegister(stUser *users, int *index) // registro de usuarios
 {
     users[*index].isAdmin = 0;
     users[*index].deleted = 0;
@@ -18,12 +18,9 @@ int userRegister(stUser *users, int *index) // registro de usuarios
     newBirthDate(users, *index);
     newDni(users, *index);
     printf("El usuario %s fue registrado con exito. Id de usuario: %d.\n", users[*index].username, users[*index].userId);
-    (*index)++;
 
     appendUserFile(users, USERS, *index);   // guarda el nuevo usuario en el archivo
-
-    return userLogin(users, *index);
-
+    (*index)++;
 }
 
 int userLogin(stUser *users, int index) // permite al usuario iniciar sesion
@@ -66,7 +63,6 @@ int userLogin(stUser *users, int index) // permite al usuario iniciar sesion
     } while (!matchPassword(password, users[existingEmail(email, users, index)].password));
 
     return existingEmail(email, users, index);
-
 }
 
 void printUser(stUser user)
@@ -90,100 +86,6 @@ void printUser(stUser user)
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 
-void userInfo (stUser *users, int index)
-{
-    char option;
-
-    do
-    {
-        system("cls");
-        printf("INFORMACION PERSONAL\n\n");
-
-        printf("  1)  Editar Email.\n");
-        printf("  2)  Editar Contraseña.\n");
-        printf("  3)  Editar Nombre de Usuario.\n");
-        printf("  4)  Editar Genero (?.\n");
-        printf("  5)  Editar Fecha de Nacimiento.\n");
-        printf("  6)  Editar Libros Favoritos.\n");
-        printf("  7)  Editar DNI.\n");
-        printf("  8)  Editar Direccion.\n");
-        printf("esc)  Volver.\n");
-
-        fflush(stdin);
-        option = getch();
-
-        switch(option)
-        {
-            case 27:
-            {
-                system("cls");
-                break;
-            }
-            case '1':
-            {
-                system("cls");
-                newEmail(users, index);
-                printf("El mail ha sido actualizado a %s\n", users[index].email);
-                system("pause");
-                break;
-            }
-            case '2':
-            {
-                system("cls");
-                newPassword(users, index);
-                printf("La contraseña ha sido actualizada\n");
-                system("pause");
-                break;
-            }
-            case '3':
-            {
-                system("cls");
-                newUserName(users, index);
-                printf("El nombre de usuario ha sido actualizado a %s\n", users[index].username);
-                system("pause");
-                break;
-            }
-            case '4':
-            {
-                system("cls");
-                newGender(users, index);
-                printf("El genero ha sido actualizado a %c\n", users[index].gender);
-                system("pause");
-                break;
-            }
-            case '5':
-            {
-                system("cls");
-                newBirthDate(users, index);
-                printf("La fecha de nacimiento ha sido actualizada a %s\n", users[index].birthDate);
-                system("pause");
-                break;
-            }
-            case '6':
-            {
-
-                break;
-            }
-            case '7':
-            {
-                system("cls");
-                newDni(users, index);
-                printf("El DNI ha sido actualizado a %s\n", users[index].dni);
-                system("pause");
-                break;
-            }
-            case '8':
-            {
-                system("cls");
-                newAdress(users, index);
-                printf("La direccion ha sido actualizada\n");
-                system("pause");
-                break;
-            }
-        }
-    }while(option != '0');
-}
-
 void printAllUsers(stUser *users, int totalUsers)
 {
     for (int i = 0; i < totalUsers; i++)
@@ -192,16 +94,16 @@ void printAllUsers(stUser *users, int totalUsers)
     }
 }
 
-void deleteUser(stUser *users, int id, int *totalUsers)
+void deleteUser(stUser *users, int index, int *totalUsers)
 {
-    users[id].deleted = 1;
+    users[index].deleted = 1;
     deleteUserFile(users, *totalUsers);
     *totalUsers = readUserFile(users, USERS);
 }
 
-void restoreUser(stUser *deletedUsers, int id, int totalDeleted)
+void restoreUser(stUser *deletedUsers, int index, int totalDeleted)
 {
-    deletedUsers[id].deleted = 0;
+    deletedUsers[index].deleted = 0;
     restoreUserFile(deletedUsers, totalDeleted);
 }
 
