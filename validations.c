@@ -7,7 +7,7 @@ int isNotEmpty(char field[]) // valida que un string no este vacio
     return strlen(field) > 0;
 }
 
-char yesNo ()
+int yesNo ()
 {
     char option;
 
@@ -17,7 +17,14 @@ char yesNo ()
         option = tolower(getch());
     }while(option != 'y' && option != 'n');
 
-    return option;
+    if(option == 'y')
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 

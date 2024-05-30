@@ -3,7 +3,7 @@
 #include <string.h>
 #include "menu.h"
 
-char userMenu(stUser *users, int index)
+char userMenu(stUser *users, int index, int *totalUsers)
 {
 
     char option;
@@ -16,9 +16,10 @@ char userMenu(stUser *users, int index)
         printf("  0)  Cerrar sesion.\n");
         printf("  1)  Perfil.\n");
         printf("  2)  Editar informacion personal.\n");
+        printf("  3)  Eliminar cuenta.\n");
         if (users[index].isAdmin == 1)
         {
-            printf("  3)  Menu admin\n");
+            printf("  4)  Menu admin\n");
         }
         printf("esc)  Salir.\n");
 
@@ -46,7 +47,27 @@ char userMenu(stUser *users, int index)
             }
             case '3':
             {
+                printf("Deseas eliminar tu cuenta %s? (y/n)\n", users[index].username);
+                if(yesNo())
+                {
+                    deleteUser(users, index, totalUsers);
+                    printf("Se elimino la cuenta.");
+                    system("pause");
+                }
+                else
+                {
+                    printf("No se elimino la cuenta.");
+                    system("pause");
+                }
+                break;
+            }
+            case '4':
+            {
                 system("cls");
+                if(!isAdmin(users[index]))
+                {
+                    option = 1;
+                }
                 break;
             }
             case 27:
@@ -55,7 +76,7 @@ char userMenu(stUser *users, int index)
                 break;
             }
         }
-    }while (option != '0' && option != 27 && option != '3');
+    }while (option != '0' && option != 27 && option != '4');
 
     return option;
 
@@ -165,9 +186,10 @@ char adminMenu(stUser *users, int index, int *totalUsers)
         printf("MENU ADMIN\n\n");
         printf("  0)  Cerrar sesion.\n");
         printf("  1)  Ver usuarios registrados.\n");
-        printf("  2)  Eliminar usuario.\n");
-        printf("  3)  Restaurar usuario.\n");
-        printf("  4)  Ir al menu de usuario.\n");
+        printf("  2)  Hacer admin.\n");
+        printf("  3)  Eliminar usuario.\n");
+        printf("  4)  Restaurar usuario.\n");
+        printf("  5)  Ir al menu de usuario.\n");
         printf("esc)  Salir.\n");
 
         fflush(stdin);
@@ -190,19 +212,25 @@ char adminMenu(stUser *users, int index, int *totalUsers)
             case '2':
             {
                 system("cls");
-                deleteUserMenu(users, totalUsers);
+                makeAdminMenu(users, *totalUsers);
                 break;
             }
             case '3':
             {
                 system("cls");
-                restoreUserMenu(users, totalUsers);
+                deleteUserMenu(users, totalUsers);
                 break;
             }
             case '4':
             {
                 system("cls");
-                option = userMenu(users, index);
+                restoreUserMenu(users, totalUsers);
+                break;
+            }
+            case '5':
+            {
+                system("cls");
+                option = userMenu(users, index, totalUsers);
                 break;
             }
             case 27:
@@ -246,7 +274,6 @@ int registerLoginMenu(stUser *users, int *totalUsers)
 
 
     return id;
-
 }
 
 void deleteUserMenu(stUser *users, int *totalUsers)
@@ -260,7 +287,7 @@ void deleteUserMenu(stUser *users, int *totalUsers)
     {
         printf("Desea eliminar al usuario %s? (y/n)\n", users[index].username);
 
-        if (yesNo() == 'y' && !isAdmin(users[index]))
+        if (yesNo() && !isAdmin(users[index]))
         {
             deleteUser(users, index, totalUsers);
             printf("El usuario fue eliminado.\n");
@@ -294,7 +321,7 @@ void restoreUserMenu(stUser *users, int *totalUsers)
     {
         printf("Desea restaurar al usuario %s? (y/n)\n", deletedUsers[index].username);
 
-        if (yesNo() == 'y')
+        if (yesNo())
         {
             restoreUser(deletedUsers, index, totalDeleted);
             *totalUsers = readUserFile(users, USERS);
@@ -312,4 +339,30 @@ void restoreUserMenu(stUser *users, int *totalUsers)
         printf("El usuario no se encuentra.");
         system("pause");
     }
+}
+
+void makeAdminMenu(stUser *users, int totalUsers)
+{
+    system("cls");
+    int id, index;
+
+    printf("Seleccione el ID del usuario a dar Admin: \n");
+    scanf("%d", &id);
+    index = matchId(users, id, totalUsers);
+
+    if(index != -1 && !isAdmin(users[index]))
+    {
+        printf("Desea dar Admin al usuario %s? (y/n)\n", users[index].username);
+
+        if (yesNo())
+        {
+            makeAdmin(users, index);
+        }
+    }
+    else
+    {
+        printf("El usuario no es valido.");
+    }
+
+    system("pause");
 }

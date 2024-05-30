@@ -8,7 +8,7 @@
 
 
 int isNotEmpty(char field[]);
-char yesNo ();
+int yesNo ();
 
 
 /* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */

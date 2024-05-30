@@ -11,7 +11,7 @@ int main()
 
     stUser users[1000];
     int totalUsers = readUserFile(users, USERS);
-
+    strcpy(users[94].password, "Llincoln_guitarist41");
     char quit;
 
     do
@@ -23,7 +23,7 @@ int main()
         }
         else
         {
-            quit = userMenu(users, index);
+            quit = userMenu(users, index, &totalUsers);
         }
     } while(quit != 27);
 

@@ -97,6 +97,7 @@ void printAllUsers(stUser *users, int totalUsers)
 void deleteUser(stUser *users, int index, int *totalUsers)
 {
     users[index].deleted = 1;
+    users[index].isAdmin = 0;
     deleteUserFile(users, *totalUsers);
     *totalUsers = readUserFile(users, USERS);
 }
@@ -107,3 +108,7 @@ void restoreUser(stUser *deletedUsers, int index, int totalDeleted)
     restoreUserFile(deletedUsers, totalDeleted);
 }
 
+void makeAdmin(stUser *users, int index)
+{
+    users[index].isAdmin = 1;
+}

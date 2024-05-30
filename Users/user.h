@@ -39,5 +39,6 @@ void printUser(stUser user);
 void printAllUsers(stUser *users, int index);
 void deleteUser(stUser *users, int index, int *totalUsers);
 void restoreUser(stUser *deletedUsers, int index, int totalDeleted);
+void makeAdmin(stUser *users, int index);
 
 #endif // USER_H_INCLUDED
