@@ -4,8 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Users/user.h"
-
+#include "Comments/coment.h"
 int readUserFile (stUser *users, char *fileName);
 void saveUserFile (stUser *users, char *fileName, int totalUsers);
+int readCommentFile (stComment *comments, char *fileName);
 
 #endif // FILES_H_INCLUDED

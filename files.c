@@ -45,3 +45,27 @@ void saveUserFile (stUser *users, char *fileName, int totalUsers)
         printf("No se pudo abrir el archivo.");
     }
 }
+
+int readCommentFile (stComment *comments, char *fileName)
+{
+    FILE * fi = fopen(fileName, "rb");
+
+    int read = 0;
+
+    if(fi)
+    {
+        while (fread(&comments[read], sizeof(stComment), 1, fi) == 1)
+        {
+            read++;
+        }
+
+        fclose(fi);
+        return read;
+
+    }
+    else
+    {
+        printf("No se pudo abrir el archivo.");
+        return 0;
+    }
+}
