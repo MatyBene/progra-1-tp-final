@@ -1,9 +1,8 @@
 #include "coment-data.h"
 
 
-void newCommentField(char field[], char prompt[])
+void newCommentField(char field[], char prompt[])// esta de prueba hasta el mergeo, despues uso la generica.
 {
-
     do
     {
         printf("%s", prompt);
