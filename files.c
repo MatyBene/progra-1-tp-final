@@ -69,3 +69,22 @@ int readCommentFile (stComment *comments, char *fileName)
         return 0;
     }
 }
+
+void saveCommentFile (stComment *comments, char *fileName, int totalComments)
+{
+    FILE * fi = fopen(fileName, "wb");
+
+    if(fi)
+    {
+        for (int i = 0; i < totalComments; i++)
+        {
+            fwrite(&comments[i], sizeof(stComment), 1, fi);
+        }
+
+        fclose(fi);
+    }
+    else
+    {
+        printf("No se pudo abrir el archivo.");
+    }
+}

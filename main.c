@@ -22,9 +22,20 @@ int main()
     printf("total comentarios = %d\n", totalComments);
     for (int i = 0; i < totalComments; i++)
     {
-        printComment(comments,i);
+        printCommentAdmin(comments,i);
         printf("\n");
     }
+    system("pause");
+    system("cls");
+    commentRegister(comments,&totalComments);
+     printf("total comentarios = %d\n", totalComments);
+    for (int i = 0; i < totalComments; i++)
+    {
+        printCommentAdmin(comments,i);
+        printf("\n");
+    }
+
+    saveCommentFile(comments,F_COMMENTS,totalComments);
 
     return 0;
 }

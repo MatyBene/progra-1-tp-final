@@ -8,5 +8,5 @@
 int readUserFile (stUser *users, char *fileName);
 void saveUserFile (stUser *users, char *fileName, int totalUsers);
 int readCommentFile (stComment *comments, char *fileName);
-
+void saveCommentFile (stComment *comments, char *fileName, int totalComments);
 #endif // FILES_H_INCLUDED

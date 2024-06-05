@@ -23,7 +23,7 @@ typedef struct
 
 void commentRegister(stComment comments[], int *index);
 void printComment(stComment comments[], int index);
-
+void printCommentAdmin(stComment comments[], int index);
 
 
 #endif // COMENT_H_INCLUDED
