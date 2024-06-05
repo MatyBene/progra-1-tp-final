@@ -188,8 +188,9 @@ char adminMenu(stUser *users, int index, int *totalUsers)
         printf("  1)  Ver usuarios registrados.\n");
         printf("  2)  Hacer admin.\n");
         printf("  3)  Eliminar usuario.\n");
-        printf("  4)  Restaurar usuario.\n");
-        printf("  5)  Ir al menu de usuario.\n");
+        printf("  4)  Desactivar usuario.\n");
+        printf("  5)  Activar usuario.\n");
+        printf("  6)  Ir al menu de usuario.\n");
         printf("esc)  Salir.\n");
 
         fflush(stdin);
@@ -224,10 +225,16 @@ char adminMenu(stUser *users, int index, int *totalUsers)
             case '4':
             {
                 system("cls");
-                restoreUserMenu(users, totalUsers);
+                disableUserMenu(users, totalUsers);
                 break;
             }
             case '5':
+            {
+                system("cls");
+                activateUserMenu(users, totalUsers);
+                break;
+            }
+            case '6':
             {
                 system("cls");
                 option = userMenu(users, index, totalUsers);
@@ -250,28 +257,30 @@ int registerLoginMenu(stUser *users, int *totalUsers)
     char option[9];
     int id = -1;
 
-    printf("Ingrese la accion que desea realizar: (Registrar/Ingresar)\n");
-    fflush(stdin);
-    gets(option);
+    while(id == -1)
+    {
+        printf("Ingrese la accion que desea realizar: (Registrar/Ingresar)\n");
+        fflush(stdin);
+        gets(option);
 
-    if (strcmpi(option,"registrar") == 0)
-    {
-        system("cls");
-        userRegister(users, totalUsers);
-        id = userLogin(users, *totalUsers);
+        if (strcmpi(option,"registrar") == 0)
+        {
+            system("cls");
+            userRegister(users, totalUsers);
+            id = userLogin(users, *totalUsers);
+        }
+        else if (strcmpi(option,"ingresar") == 0)
+        {
+            system("cls");
+            id = userLogin(users, *totalUsers);
+        }
+        else
+        {
+            system("cls");
+            printf("La opcion seleccionada no se reconoce.\n");
+            registerLoginMenu(users, totalUsers);
+        }
     }
-    else if (strcmpi(option,"ingresar") == 0)
-    {
-        system("cls");
-        id = userLogin(users, *totalUsers);
-    }
-    else
-    {
-        system("cls");
-        printf("La opcion seleccionada no se reconoce.\n");
-        registerLoginMenu(users, totalUsers);
-    }
-
 
     return id;
 }
@@ -306,33 +315,33 @@ void deleteUserMenu(stUser *users, int *totalUsers)
     }
 }
 
-void restoreUserMenu(stUser *users, int *totalUsers)
+void disableUserMenu(stUser *users, int *totalUsers)
 {
     int id, index;
 
-    stUser deletedUsers[100];
-    int totalDeleted = readUserFile(deletedUsers, DELETED_USERS);
-    printAllUsers(deletedUsers, totalDeleted);
-
-    printf("\nSeleccione el ID del usuario a restaurar: \n");
+    printf("Seleccione el ID del usuario a desactivar: \n");
     scanf("%d", &id);
-    index = matchId(deletedUsers, id, totalDeleted);
-    if(index != -1)
+    index = matchId(users, id, *totalUsers);
+    if(index != -1 && !users[index].deleted)
     {
-        printf("Desea restaurar al usuario %s? (y/n)\n", deletedUsers[index].username);
+        printf("Desea desactivar al usuario %s? (y/n)\n", users[index].username);
 
         if (yesNo())
         {
-            restoreUser(deletedUsers, index, totalDeleted);
-            *totalUsers = readUserFile(users, USERS);
-            printf("El usuario fue restaurado.\n");
+            disableUser(users, index);
+            printf("El usuario fue desactivado.\n");
             system("pause");
         }
         else
         {
-            printf("No se restauro al usuario.\n");
+            printf("No se desactivo al usuario.\n");
             system("pause");
         }
+    }
+    else if(users[index].deleted)
+    {
+        printf("El usuario ya esta desactivado.");
+        system("pause");
     }
     else
     {
@@ -340,6 +349,42 @@ void restoreUserMenu(stUser *users, int *totalUsers)
         system("pause");
     }
 }
+
+void activateUserMenu(stUser *users, int *totalUsers)
+{
+    int id, index;
+
+    printf("Seleccione el ID del usuario a activar: \n");
+    scanf("%d", &id);
+    index = matchId(users, id, *totalUsers);
+    if(index != -1 && users[index].deleted)
+    {
+        printf("Desea activar al usuario %s? (y/n)\n", users[index].username);
+
+        if (yesNo())
+        {
+            activateUser(users, index);
+            printf("El usuario fue activado.\n");
+            system("pause");
+        }
+        else
+        {
+            printf("No se activo al usuario.\n");
+            system("pause");
+        }
+    }
+    else if(!users[index].deleted)
+    {
+        printf("El usuario no esta desactivado.");
+        system("pause");
+    }
+    else
+    {
+        printf("El usuario no se encuentra.");
+        system("pause");
+    }
+}
+
 
 void makeAdminMenu(stUser *users, int totalUsers)
 {

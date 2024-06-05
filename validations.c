@@ -238,25 +238,6 @@ int validDni(char *dni)
 
 }
 
-int posID (stUser *users, int id, int totalUsers) // devuelve la posicion en el arreglo del usuario con la id pasada como parametro
-{
-    int i = 0;
-
-    while (i < totalUsers && users[i].userId != id)
-    {
-        i++;
-    }
-
-    if (i < totalUsers)
-    {
-        return i;
-    }
-    else
-    {
-        return -1;
-    }
-}
-
 int isUserDeleted(stUser user)
 {
     return user.deleted;

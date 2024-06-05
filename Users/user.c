@@ -1,6 +1,6 @@
 #include "user.h"
 #include "user-data.h"
-#include "../files.h"
+#include "../Files/files.h"
 
 #define USERS "Files/F_USERS.dat"
 
@@ -23,10 +23,11 @@ void userRegister(stUser *users, int *index) // registro de usuarios
     (*index)++;
 }
 
-int userLogin(stUser *users, int index) // permite al usuario iniciar sesion
+int userLogin(stUser *users, int totalUsers) // permite al usuario iniciar sesion
 {
     char email[100];
     char password[20];
+    int index;
 
     printf("Iniciar sesion: \n");
 
@@ -35,12 +36,19 @@ int userLogin(stUser *users, int index) // permite al usuario iniciar sesion
         printf("Ingrese su correo electronico: ");
         fflush(stdin);
         gets(email);
-        if(!existingEmail(email, users, index))
+        index = existingEmail(email, users, totalUsers);
+        if(!index)
         {
             system("cls");
             printf("El mail ingresado no corresponde con un email registrado. \n");
         }
-    } while(!existingEmail(email, users, index));
+        else if(users[index].deleted)
+        {
+            system("cls");
+            printf("El usuario esta desactivado, solicite la activacion a un admin. \n");
+            return -1;
+        }
+    } while(!index);
 
     int i = 0;
     do
@@ -50,7 +58,7 @@ int userLogin(stUser *users, int index) // permite al usuario iniciar sesion
         i++;
         system("cls");
 
-        if (!matchPassword(password, users[existingEmail(email, users, index)].password))
+        if (!matchPassword(password, users[index].password))
         {
             if (i == 3)
             {
@@ -60,9 +68,9 @@ int userLogin(stUser *users, int index) // permite al usuario iniciar sesion
             printf("Contraseña incorrecta, quedan %d intentos restantes. ", 3-i);
         }
 
-    } while (!matchPassword(password, users[existingEmail(email, users, index)].password));
+    } while (!matchPassword(password, users[index].password));
 
-    return existingEmail(email, users, index);
+    return index;
 }
 
 void printUser(stUser user)
@@ -70,6 +78,10 @@ void printUser(stUser user)
     if(user.isAdmin)
     {
         printf("\t\tADMIN\n\n");
+    }
+    else if (user.deleted)
+    {
+        printf("\t\tDESACTIVADO\n\n");
     }
 
     printf("ID:....................... %d\n", user.userId);
@@ -96,17 +108,21 @@ void printAllUsers(stUser *users, int totalUsers)
 
 void deleteUser(stUser *users, int index, int *totalUsers)
 {
-    users[index].deleted = 1;
-    users[index].isAdmin = 0;
-    deleteUserFile(users, *totalUsers);
+    deleteUserFile(users, index, *totalUsers);
     *totalUsers = readUserFile(users, USERS);
 }
 
-void restoreUser(stUser *deletedUsers, int index, int totalDeleted)
+void disableUser(stUser *users, int index)
 {
-    deletedUsers[index].deleted = 0;
-    restoreUserFile(deletedUsers, totalDeleted);
+    users[index].deleted = 1;
+    users[index].isAdmin = 0;
 }
+
+void activateUser(stUser *users, int index)
+{
+    users[index].deleted = 0;
+}
+
 
 void makeAdmin(stUser *users, int index)
 {
