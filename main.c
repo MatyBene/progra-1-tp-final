@@ -19,18 +19,10 @@ int main()
 
     stComment comments[1000];
     int totalComments = readCommentFile(comments,F_COMMENTS);
-    printf("total comentarios = %d\n", totalComments);
-    for (int i = 0; i < totalComments; i++)
-    {
-        printCommentAdmin(comments,i);
-        printf("\n");
-    }
-    system("pause");
-    system("cls");
-    commentRegister(comments,&totalComments);
      printf("total comentarios = %d\n", totalComments);
     for (int i = 0; i < totalComments; i++)
     {
+
         printCommentAdmin(comments,i);
         printf("\n");
     }
