@@ -3,7 +3,7 @@
 #include <string.h>
 #include "menu.h"
 
-char userMenu(stUser *users, int index, int *totalUsers)
+char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks)
 {
 
     char option;
@@ -17,9 +17,13 @@ char userMenu(stUser *users, int index, int *totalUsers)
         printf("  1)  Perfil.\n");
         printf("  2)  Editar informacion personal.\n");
         printf("  3)  Eliminar cuenta.\n");
+        printf("  4)  Ver listado de libros.\n");
+        printf("  5)  Agregar un libro.\n");
+        printf("  6)  Ver listado de favoritos.\n");
+        printf("  7)  Agregar un libro a favoritos.\n");
         if (users[index].isAdmin == 1)
         {
-            printf("  4)  Menu admin\n");
+            printf("  8)  Menu admin\n");
         }
         printf("esc)  Salir.\n");
 
@@ -62,6 +66,11 @@ char userMenu(stUser *users, int index, int *totalUsers)
                 break;
             }
             case '4':
+            {
+                paginated(books, *totalBooks);
+                break;
+            }
+            case '8':
             {
                 system("cls");
                 if(!isAdmin(users[index]))
@@ -176,7 +185,7 @@ void userInfoMenu (stUser *users, int index)
     }while(option != 27);
 }
 
-char adminMenu(stUser *users, int index, int *totalUsers)
+char adminMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks)
 {
     char option;
 
@@ -190,6 +199,9 @@ char adminMenu(stUser *users, int index, int *totalUsers)
         printf("  3)  Eliminar usuario.\n");
         printf("  4)  Restaurar usuario.\n");
         printf("  5)  Ir al menu de usuario.\n");
+        printf("  6)  Mostrar libros admin.\n");
+        printf("  7)  Eliminar libro.\n");
+        printf("  8)  Ocultar libro.\n");
         printf("esc)  Salir.\n");
 
         fflush(stdin);
@@ -230,7 +242,7 @@ char adminMenu(stUser *users, int index, int *totalUsers)
             case '5':
             {
                 system("cls");
-                option = userMenu(users, index, totalUsers);
+                option = userMenu(users, index, totalUsers, books, totalBooks);
                 break;
             }
             case 27:

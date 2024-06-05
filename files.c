@@ -27,6 +27,31 @@ int readUserFile (stUser *users, char *fileName) // lee un archivo de usuarios, 
     }
 }
 
+int readBookFile (stBook *books, char *fileName) // lee un archivo de usuarios y retorna la cantidad de leidos
+{
+    FILE * fi = fopen(fileName, "rb");
+
+    int read = 0;
+
+    if(fi)
+    {
+        while (fread(&books[read], sizeof(stBook), 1, fi) == 1)
+        {
+            read++;
+        }
+
+        fclose(fi);
+
+
+        return read;
+    }
+    else
+    {
+        printf("No se pudo abrir el archivo.");
+        return 0;
+    }
+}
+
 void saveUserFile (stUser *users, char *fileName, int totalUsers) // guarda la totalidad del arreglo en el archivo especificado
 {
     FILE * fi = fopen(fileName, "wb");
