@@ -1,7 +1,7 @@
 #include "files.h"
 
 
-int readUserFile (stUser *users, char *fileName) // lee un archivo de usuarios, ordena el arreglo y retorna la cantidad de leidos
+int readFile (void *st, size_t stSize, char *fileName) // lee un archivo, ordena el arreglo y retorna la cantidad de leidos
 {
     FILE * fi = fopen(fileName, "rb");
 
@@ -9,14 +9,13 @@ int readUserFile (stUser *users, char *fileName) // lee un archivo de usuarios, 
 
     if(fi)
     {
-        while (fread(&users[read], sizeof(stUser), 1, fi) == 1)
+        while (fread((char*)st + (read * stSize), stSize, 1, fi) == 1)
         {
             read++;
         }
 
         fclose(fi);
 
-        qsort(users, read, sizeof(stUser), compareUserId); // funcion de ordenamiento rapido de C
 
         return read;
     }
@@ -27,16 +26,18 @@ int readUserFile (stUser *users, char *fileName) // lee un archivo de usuarios, 
     }
 }
 
-void saveUserFile (stUser *users, char *fileName, int totalUsers) // guarda la totalidad del arreglo en el archivo especificado
+void saveFile (void *st, size_t stSize, int totalElements, char *fileName) // guarda la totalidad del arreglo en el archivo especificado
 {
+//        qsort(st, read, sizeof(st[0]), compareUserId); // funcion de ordenamiento rapido de C
+
     FILE * fi = fopen(fileName, "wb");
 
 
     if(fi)
     {
-        for (int i = 0; i < totalUsers; i++)
+        for (int i = 0; i < totalElements; i++)
         {
-            fwrite(&users[i], sizeof(stUser), 1, fi);
+            fwrite((char*)st + (i * stSize), stSize, 1, fi);
         }
 
         fclose(fi);

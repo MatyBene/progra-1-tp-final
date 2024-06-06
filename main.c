@@ -10,8 +10,8 @@ int main()
     setlocale(LC_ALL, "spanish");
 
     stUser users[1000];
-    int totalUsers = readUserFile(users, USERS);
-    strcpy(users[94].password, "Llincoln_guitarist41");
+    int totalUsers = readFile(users, sizeof(stUser), USERS);
+
     char quit;
 
     do
@@ -28,7 +28,7 @@ int main()
     } while(quit != 27);
 
 
-    saveUserFile(users, USERS, totalUsers);
+    saveFile(users, sizeof(stUser), totalUsers, USERS);
 
     return 0;
 }
