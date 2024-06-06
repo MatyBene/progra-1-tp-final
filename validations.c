@@ -217,6 +217,7 @@ int validGender(char gender)
     if (gender != 'M' && gender != 'F')
     {
         printf("El valor ingresado es incorrecto. \n");
+        system("pause");
         return 0;
     }
     return 1;

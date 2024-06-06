@@ -150,7 +150,7 @@ void newGender(stUser *users, int index) // carga un nuevo genero
 {
     printf("Seleccione el genero con el que se identifica: (M / F)\n");
     fflush(stdin);
-    users[index].gender = toupper(getchar());
+    users[index].gender = toupper(getch());
 
     if (!validGender(users[index].gender))
     {

@@ -275,7 +275,7 @@ int registerLoginMenu(stUser *users, int *totalUsers)
         {
             system("cls");
             printf("La opcion seleccionada no se reconoce.\n");
-            registerLoginMenu(users, totalUsers);
+            index = -1;
         }
     }
 
@@ -296,7 +296,6 @@ void actionUserMenu(stUser *users, int *totalUsers, char *prompt, void (*action)
         if (yesNo() && !users[index].isAdmin)
         {
             action(users, index, totalUsers);
-            printf("Se acaba de %s al usuario.\n", prompt);
         }
         else
         {
@@ -305,7 +304,7 @@ void actionUserMenu(stUser *users, int *totalUsers, char *prompt, void (*action)
     }
     else
     {
-        printf("El usuario no es valido.");
+        printf("El usuario no es valido.\n");
     }
 
     system("pause");

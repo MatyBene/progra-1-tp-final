@@ -78,7 +78,7 @@ int enterPassword(stUser *users, int index)
         {
             if (i == 3)
             {
-                printf("Demasiados intentos incorrectos.");
+                printf("Demasiados intentos incorrectos.\n");
                 return -1;
             }
             printf("Contraseña incorrecta, quedan %d intentos restantes. ", 3-i);
@@ -125,6 +125,7 @@ void deleteUser(stUser *users, int index, int *totalUsers)
 {
     deleteFile(users, sizeof(stUser), index, *totalUsers, USERS);
     *totalUsers = readFile(users, sizeof(stUser), USERS);
+    printf("Se elimino al usuario.\n");
 }
 
 void disableUser(stUser *users, int index, int *totalUsers)
@@ -133,10 +134,11 @@ void disableUser(stUser *users, int index, int *totalUsers)
     {
         users[index].deleted = 1;
         users[index].isAdmin = 0;
+        printf("Se desactivo al usuario.\n");
     }
     else
     {
-        printf("El usuario ya esta desactivado.");
+        printf("El usuario ya esta desactivado.\n");
     }
 }
 
@@ -145,10 +147,11 @@ void activateUser(stUser *users, int index, int *totalUsers)
     if(users[index].deleted)
     {
         users[index].deleted = 0;
+        printf("Se activo al usuario.\n");
     }
     else
     {
-        printf("El usuario no esta desactivado.");
+        printf("El usuario no esta desactivado.\n");
     }
 }
 
@@ -158,9 +161,10 @@ void makeAdmin(stUser *users, int index, int *totalUsers)
     if(!users[index].isAdmin)
     {
         users[index].isAdmin = 1;
+        printf("Se dio admin al usuario.\n");
     }
     else
     {
-        printf("El usuario no es valido.");
+        printf("El usuario no es valido.\n");
     }
 }
