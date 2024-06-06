@@ -1,3 +1,8 @@
+#ifndef USER_DATA_H_INCLUDED
+#define USER_DATA_H_INCLUDED
+
+#include <conio.h>
+#include <ctype.h>
 #include "user.h"
 #include "../validations.h"
 
@@ -15,3 +20,6 @@ void newCity(stUser *users, int index);
 void newProvince(stUser *users, int index);
 void newCountry(stUser *users, int index);
 //void newFavoriteBook(stUser users, int index);
+
+
+#endif // USER_DATA_H_INCLUDED

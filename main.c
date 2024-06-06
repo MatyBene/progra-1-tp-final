@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <locale.h>
 #include "menu.h"
+#include "Files/files.h"
+#include "Users/user.h"
 #define USERS "Files/F_USERS.dat"
 
 

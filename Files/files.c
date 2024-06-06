@@ -1,5 +1,5 @@
 #include "files.h"
-#include "../validations.h"
+
 
 int readUserFile (stUser *users, char *fileName) // lee un archivo de usuarios, ordena el arreglo y retorna la cantidad de leidos
 {
@@ -47,9 +47,9 @@ void saveUserFile (stUser *users, char *fileName, int totalUsers) // guarda la t
     }
 }
 
-void deleteUserFile (stUser *users, int index, int totalUsers)     // elimina un usuario del archivo F_USERS y lo envia a F_DELETED_USERS
+void deleteUserFile (stUser *users, char *fileName, int index, int totalUsers)     // elimina un usuario del archivo
 {
-    FILE * fi = fopen(USERS, "wb");
+    FILE * fi = fopen(fileName, "wb");
 
     if(fi)
     {

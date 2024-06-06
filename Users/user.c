@@ -108,7 +108,7 @@ void printAllUsers(stUser *users, int totalUsers)
 
 void deleteUser(stUser *users, int index, int *totalUsers)
 {
-    deleteUserFile(users, index, *totalUsers);
+    deleteUserFile(users, USERS, index, *totalUsers);
     *totalUsers = readUserFile(users, USERS);
 }
 

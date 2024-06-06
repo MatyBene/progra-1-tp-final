@@ -1,10 +1,11 @@
 #ifndef MENU_H_INCLUDED
 #define MENU_H_INCLUDED
 
-#include "menu.h"
+#include <stdio.h>
+#include <conio.h>
 #include "Users/user.h"
 #include "Users/user-data.h"
-#include "Files/files.h"
+#include "validations.h"
 
 char userMenu(stUser *users, int index, int *totalUsers);
 char adminMenu(stUser *users, int index, int *totalUsers);

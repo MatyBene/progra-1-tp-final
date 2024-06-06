@@ -1,6 +1,7 @@
 #include "user-data.h"
 
 
+
 void newEmail (stUser *users, int index) //comprueba el mail y lo carga
 {
     printf("Ingrese un mail valido: ");
