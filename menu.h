@@ -11,9 +11,6 @@ char userMenu(stUser *users, int index, int *totalUsers);
 char adminMenu(stUser *users, int index, int *totalUsers);
 void userInfoMenu(stUser *users, int index);
 int registerLoginMenu(stUser *users, int *index);
-void deleteUserMenu(stUser *users, int *totalUsers);
-void disableUserMenu(stUser *users, int *totalUsers);
-void activateUserMenu(stUser *users, int *totalUsers);
-void makeAdminMenu(stUser *users, int totalUsers);
+void actionUserMenu(stUser *users, int *totalUsers, char *prompt, void (*action)(stUser *, int, int *));
 
 #endif // MENU_H_INCLUDED

@@ -110,7 +110,7 @@ int validEmail(char *email) // valida que un mail sea valido
     return 0;
 }
 
-int existingEmail(char *mail, stUser *users, int index) // valida que un email esta registrado
+int existingEmail(char *mail, stUser *users, int index) // valida que un email esta registrado y devuelve la posicion en el arreglo
 {
     int i = 0;
 
@@ -266,16 +266,6 @@ int validDni(char *dni)
         return 0;
     }
 
-}
-
-int isUserDeleted(stUser user)
-{
-    return user.deleted;
-}
-
-int isAdmin(stUser user)
-{
-    return user.isAdmin;
 }
 
 int matchId (stUser *users, int id, int totalUsers) // valida que exista un id y devuelve la posicion

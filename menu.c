@@ -61,7 +61,7 @@ char userMenu(stUser *users, int index, int *totalUsers)
             case '4':
             {
                 system("cls");
-                if(!isAdmin(users[index]))
+                if(!users[index].isAdmin)
                 {
                     option = 1;
                 }
@@ -210,25 +210,25 @@ char adminMenu(stUser *users, int index, int *totalUsers)
             case '2':
             {
                 system("cls");
-                makeAdminMenu(users, *totalUsers);
+                actionUserMenu(users, totalUsers, "dar admin", makeAdmin);
                 break;
             }
             case '3':
             {
                 system("cls");
-                deleteUserMenu(users, totalUsers);
+                actionUserMenu(users, totalUsers, "eliminar", deleteUser);
                 break;
             }
             case '4':
             {
                 system("cls");
-                disableUserMenu(users, totalUsers);
+                actionUserMenu(users, totalUsers, "desactivar", disableUser);
                 break;
             }
             case '5':
             {
                 system("cls");
-                activateUserMenu(users, totalUsers);
+                actionUserMenu(users, totalUsers, "activar", activateUser);
                 break;
             }
             case '6':
@@ -282,123 +282,25 @@ int registerLoginMenu(stUser *users, int *totalUsers)
     return id;
 }
 
-void deleteUserMenu(stUser *users, int *totalUsers)
+void actionUserMenu(stUser *users, int *totalUsers, char *prompt, void (*action)(stUser *, int, int *))
 {
     int id, index;
 
-    printf("Seleccione el ID del usuario a eliminar: \n");
+    printf("Seleccione el ID del usuario a %s: \n", prompt);
     scanf("%d", &id);
     index = matchId(users, id, *totalUsers);
     if(index != -1)
     {
-        printf("Desea eliminar al usuario %s? (y/n)\n", users[index].username);
+        printf("Desea %s al usuario %s? (y/n)\n", prompt, users[index].username);
 
-        if (yesNo() && !isAdmin(users[index]))
+        if (yesNo() && !users[index].isAdmin)
         {
-            deleteUser(users, index, totalUsers);
-            printf("El usuario fue eliminado.\n");
-            system("pause");
+            action(users, index, totalUsers);
+            printf("Se acaba de %s al usuario.\n", prompt);
         }
         else
         {
-            printf("No se elimino al usuario.\n");
-            system("pause");
-        }
-    }
-    else
-    {
-        printf("El usuario no se encuentra.");
-        system("pause");
-    }
-}
-
-void disableUserMenu(stUser *users, int *totalUsers)
-{
-    int id, index;
-
-    printf("Seleccione el ID del usuario a desactivar: \n");
-    scanf("%d", &id);
-    index = matchId(users, id, *totalUsers);
-    if(index != -1 && !users[index].deleted)
-    {
-        printf("Desea desactivar al usuario %s? (y/n)\n", users[index].username);
-
-        if (yesNo())
-        {
-            disableUser(users, index);
-            printf("El usuario fue desactivado.\n");
-            system("pause");
-        }
-        else
-        {
-            printf("No se desactivo al usuario.\n");
-            system("pause");
-        }
-    }
-    else if(users[index].deleted)
-    {
-        printf("El usuario ya esta desactivado.");
-        system("pause");
-    }
-    else
-    {
-        printf("El usuario no se encuentra.");
-        system("pause");
-    }
-}
-
-void activateUserMenu(stUser *users, int *totalUsers)
-{
-    int id, index;
-
-    printf("Seleccione el ID del usuario a activar: \n");
-    scanf("%d", &id);
-    index = matchId(users, id, *totalUsers);
-    if(index != -1 && users[index].deleted)
-    {
-        printf("Desea activar al usuario %s? (y/n)\n", users[index].username);
-
-        if (yesNo())
-        {
-            activateUser(users, index);
-            printf("El usuario fue activado.\n");
-            system("pause");
-        }
-        else
-        {
-            printf("No se activo al usuario.\n");
-            system("pause");
-        }
-    }
-    else if(!users[index].deleted)
-    {
-        printf("El usuario no esta desactivado.");
-        system("pause");
-    }
-    else
-    {
-        printf("El usuario no se encuentra.");
-        system("pause");
-    }
-}
-
-
-void makeAdminMenu(stUser *users, int totalUsers)
-{
-    system("cls");
-    int id, index;
-
-    printf("Seleccione el ID del usuario a dar Admin: \n");
-    scanf("%d", &id);
-    index = matchId(users, id, totalUsers);
-
-    if(index != -1 && !isAdmin(users[index]))
-    {
-        printf("Desea dar Admin al usuario %s? (y/n)\n", users[index].username);
-
-        if (yesNo())
-        {
-            makeAdmin(users, index);
+            printf("No se pudo %s al usuario.\n", prompt);
         }
     }
     else

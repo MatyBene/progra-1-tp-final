@@ -112,19 +112,40 @@ void deleteUser(stUser *users, int index, int *totalUsers)
     *totalUsers = readFile(users, sizeof(stUser), USERS);
 }
 
-void disableUser(stUser *users, int index)
+void disableUser(stUser *users, int index, int *totalUsers)
 {
-    users[index].deleted = 1;
-    users[index].isAdmin = 0;
+    if(!users[index].deleted)
+    {
+        users[index].deleted = 1;
+        users[index].isAdmin = 0;
+    }
+    else
+    {
+        printf("El usuario ya esta desactivado.");
+    }
 }
 
-void activateUser(stUser *users, int index)
+void activateUser(stUser *users, int index, int *totalUsers)
 {
-    users[index].deleted = 0;
+    if(users[index].deleted)
+    {
+        users[index].deleted = 0;
+    }
+    else
+    {
+        printf("El usuario no esta desactivado.");
+    }
 }
 
 
-void makeAdmin(stUser *users, int index)
+void makeAdmin(stUser *users, int index, int *totalUsers)
 {
-    users[index].isAdmin = 1;
+    if(!users[index].isAdmin)
+    {
+        users[index].isAdmin = 1;
+    }
+    else
+    {
+        printf("El usuario no es valido.");
+    }
 }

@@ -33,8 +33,8 @@ int userLogin(stUser *users, int totalUsers);
 void printUser(stUser user);
 void printAllUsers(stUser *users, int index);
 void deleteUser(stUser *users, int index, int *totalUsers);
-void disableUser(stUser *users, int index);
-void activateUser(stUser *users, int index);
-void makeAdmin(stUser *users, int index);
+void disableUser(stUser *users, int index, int *totalUsers);
+void activateUser(stUser *users, int index, int *totalUsers);
+void makeAdmin(stUser *users, int index, int *totalUsers);
 
 #endif // USER_H_INCLUDED
