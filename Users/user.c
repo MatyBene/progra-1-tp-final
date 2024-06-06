@@ -9,7 +9,7 @@ void userRegister(stUser *users, int *index) // registro de usuarios
 {
     users[*index].isAdmin = 0;
     users[*index].deleted = 0;
-    users[*index].userId = (*index);
+    users[*index].userId = getFirstFreeId(users, *index);
     newEmail(users, *index);
     newPassword(users, *index);
     newUserName(users, *index);

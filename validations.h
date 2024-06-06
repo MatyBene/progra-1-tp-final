@@ -11,6 +11,7 @@
 
 int isNotEmpty(char field[]);
 int yesNo ();
+int getNumber(); // permite escribir unicamente numeros
 
 
 /* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */

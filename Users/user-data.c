@@ -46,6 +46,18 @@ void getPass(char *pass) // permite escribir una contraseña sin mostrar el conte
     pass[i] = 0;
 }
 
+int getFirstFreeId (stUser *users, int totalUsers)
+{
+    int i = 0;
+
+    do
+    {
+        i++;
+    }while (i < totalUsers && i == users[i].userId);
+
+    return i;
+}
+
 void newPassword(stUser *users, int index) // asigna una contraseña a un usuario nuevo
 {
     char pass[20];
@@ -103,8 +115,7 @@ void newStreet(stUser *users, int index) // carga una nueva calle
     fflush(stdin);
     gets(users[index].address.street);
     printf("\nAltura: ");
-    fflush(stdin);
-    gets(users[index].address.number);
+    itoa(getNumber(), users[index].address.number, 10);
 }
 
 void newZipCode(stUser *users, int index) // carga un nuevo codigo postal
@@ -157,13 +168,13 @@ void newBirthDate(stUser *users, int index) // carga una nueva fecha de nacimien
     printf("Ingrese su fecha de nacimiento: \n");
 
     printf("\nAño: ");
-    scanf("%d", &year);
+    year = getNumber();
 
     printf("\nMes: ");
-    scanf("%d", &month);
+    month = getNumber();
 
     printf("\nDia: ");
-    scanf("%d", &day);
+    day = getNumber();
 
     system("cls");
 
@@ -181,8 +192,7 @@ void newBirthDate(stUser *users, int index) // carga una nueva fecha de nacimien
 void newDni(stUser *users, int index) // carga un nuevo dni
 {
     printf("Ingrese su numero de DNI: ");
-    fflush(stdin);
-    gets(users[index].dni);
+    itoa(getNumber(), users[index].dni, 10);
 
     if (!validDni(users[index].dni))
     {

@@ -27,6 +27,36 @@ int yesNo ()
     }
 }
 
+int getNumber() // permite escribir unicamente numeros
+{
+    char num[20];
+    int i = 0;
+
+    while (num[i] != 13)
+    {
+        do
+        {
+            fflush(stdin);
+            num[i] = getch();
+        }while(!isdigit(num[i]) && num[i] != 13 && num[i] != 8);
+
+        if (num[i] != 13 && num[i] != 8) // si la tecla pulsada no es intro ni backspace imprime el numero
+        {
+            printf("%c", num[i]);
+            i++;
+        }
+        else if (num[i] == 8 && i > 0) // si se pulsa backspace mueve el cursor atras, imprime un espacio y mueve atras de nuevo
+        {
+            printf("\b \b");
+            i--;
+        }
+    }
+    num[i] = 0;
+    printf("\n");
+
+    return atoi(num);
+}
+
 
 
 /* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
