@@ -26,9 +26,9 @@ int readFile (void *st, size_t stSize, char *fileName) // lee un archivo, ordena
     }
 }
 
-void saveFile (void *st, size_t stSize, int totalElements, char *fileName) // guarda la totalidad del arreglo en el archivo especificado
+void saveFile (void *st, size_t stSize, int totalElements, char *fileName, int (*compare)(const void *, const void *)) // ordena y guarda la totalidad del arreglo en el archivo especificado
 {
-//        qsort(st, read, sizeof(st[0]), compareUserId); // funcion de ordenamiento rapido de C
+    qsort(st, totalElements, stSize, compare); // funcion de ordenamiento rapido de C
 
     FILE * fi = fopen(fileName, "wb");
 
@@ -48,17 +48,17 @@ void saveFile (void *st, size_t stSize, int totalElements, char *fileName) // gu
     }
 }
 
-void deleteUserFile (stUser *users, char *fileName, int index, int totalUsers)     // elimina un usuario del archivo
+void deleteFile (void *st, size_t stSize, int index, int totalElements, char *fileName)     // elimina un elemento del archivo
 {
     FILE * fi = fopen(fileName, "wb");
 
     if(fi)
     {
-        for (int i = 0; i < totalUsers; i++)
+        for (int i = 0; i < totalElements; i++)
         {
-            if (i != index)   // mientras un usuario no sea el eliminado eliminado lo guarda en F_USERS
+            if (i != index)   // mientras un elemento no sea el eliminado lo guarda
             {
-                fwrite(&users[i], sizeof(stUser), 1, fi);
+                fwrite((char*)st + (i * stSize), stSize, 1, fi);
             }
         }
 
@@ -71,13 +71,13 @@ void deleteUserFile (stUser *users, char *fileName, int index, int totalUsers)  
 }
 
 
-void appendUserFile (stUser *users, char *fileName, int id) // agrega un usuario a un archivo sin eliminar lo existente
+void appendFile (void *st, size_t stSize, int index, char *fileName) // agrega un elemento a un archivo sin eliminar lo existente
 {
     FILE * fi = fopen(fileName, "ab");
 
     if(fi)
     {
-        fwrite(&users[id], sizeof(stUser), 1, fi);
+        fwrite((char*)st + (index * stSize), stSize, 1, fi);
 
         fclose(fi);
     }

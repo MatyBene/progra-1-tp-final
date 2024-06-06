@@ -19,7 +19,7 @@ void userRegister(stUser *users, int *index) // registro de usuarios
     newDni(users, *index);
     printf("El usuario %s fue registrado con exito. Id de usuario: %d.\n", users[*index].username, users[*index].userId);
 
-    appendUserFile(users, USERS, *index);   // guarda el nuevo usuario en el archivo
+    appendFile(users, sizeof(stUser), *index, USERS);   // guarda el nuevo usuario en el archivo
     (*index)++;
 }
 
@@ -108,7 +108,7 @@ void printAllUsers(stUser *users, int totalUsers)
 
 void deleteUser(stUser *users, int index, int *totalUsers)
 {
-    deleteUserFile(users, USERS, index, *totalUsers);
+    deleteFile(users, sizeof(stUser), index, *totalUsers, USERS);
     *totalUsers = readFile(users, sizeof(stUser), USERS);
 }
 

@@ -28,7 +28,7 @@ int main()
     } while(quit != 27);
 
 
-    saveFile(users, sizeof(stUser), totalUsers, USERS);
+    saveFile(users, sizeof(stUser), totalUsers, USERS, compareUserId);
 
     return 0;
 }
