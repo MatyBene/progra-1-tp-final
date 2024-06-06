@@ -25,32 +25,48 @@ void userRegister(stUser *users, int *index) // registro de usuarios
 
 int userLogin(stUser *users, int totalUsers) // permite al usuario iniciar sesion
 {
-    char email[100];
-    char password[20];
     int index;
 
     printf("Iniciar sesion: \n");
 
     do
     {
-        printf("Ingrese su correo electronico: ");
-        fflush(stdin);
-        gets(email);
-        index = existingEmail(email, users, totalUsers);
-        if(!index)
-        {
-            system("cls");
-            printf("El mail ingresado no corresponde con un email registrado. \n");
-        }
-        else if(users[index].deleted)
-        {
-            system("cls");
-            printf("El usuario esta desactivado, solicite la activacion a un admin. \n");
-            return -1;
-        }
+        index = enterEmail(users, totalUsers);
     } while(!index);
 
+    index = enterPassword(users, index);
+
+    return index;
+}
+
+int enterEmail(stUser *users, int totalUsers)
+{
+    char email[100];
+    int index;
+
+    printf("Ingrese su correo electronico: ");
+    fflush(stdin);
+    gets(email);
+    index = existingEmail(email, users, totalUsers);
+    if(!index)
+    {
+        system("cls");
+        printf("El mail ingresado no corresponde con un email registrado. \n");
+    }
+    else if(users[index].deleted)
+    {
+        system("cls");
+        printf("El usuario esta desactivado, solicite la activacion a un admin. \n");
+        return -1;
+    }
+    return index;
+}
+
+int enterPassword(stUser *users, int index)
+{
+    char password[20];
     int i = 0;
+
     do
     {
         printf("Ingrese su contraseña: ");
@@ -63,11 +79,10 @@ int userLogin(stUser *users, int totalUsers) // permite al usuario iniciar sesio
             if (i == 3)
             {
                 printf("Demasiados intentos incorrectos.");
-                exit(0);
+                return -1;
             }
             printf("Contraseña incorrecta, quedan %d intentos restantes. ", 3-i);
         }
-
     } while (!matchPassword(password, users[index].password));
 
     return index;

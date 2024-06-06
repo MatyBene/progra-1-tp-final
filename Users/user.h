@@ -30,6 +30,8 @@ typedef struct{
 
 void userRegister(stUser *users, int *index);
 int userLogin(stUser *users, int totalUsers);
+int enterEmail(stUser *users, int totalUsers);
+int enterPassword(stUser *users, int index);
 void printUser(stUser user);
 void printAllUsers(stUser *users, int index);
 void deleteUser(stUser *users, int index, int *totalUsers);

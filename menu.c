@@ -252,9 +252,9 @@ char adminMenu(stUser *users, int index, int *totalUsers)
 int registerLoginMenu(stUser *users, int *totalUsers)
 {
     char option[9];
-    int id = -1;
+    int index = -1;
 
-    while(id == -1)
+    while(index == -1)
     {
         printf("Ingrese la accion que desea realizar: (Registrar/Ingresar)\n");
         fflush(stdin);
@@ -264,12 +264,12 @@ int registerLoginMenu(stUser *users, int *totalUsers)
         {
             system("cls");
             userRegister(users, totalUsers);
-            id = userLogin(users, *totalUsers);
+            index = userLogin(users, *totalUsers);
         }
         else if (strcmpi(option,"ingresar") == 0)
         {
             system("cls");
-            id = userLogin(users, *totalUsers);
+            index = userLogin(users, *totalUsers);
         }
         else
         {
@@ -279,7 +279,7 @@ int registerLoginMenu(stUser *users, int *totalUsers)
         }
     }
 
-    return id;
+    return index;
 }
 
 void actionUserMenu(stUser *users, int *totalUsers, char *prompt, void (*action)(stUser *, int, int *))

@@ -1,6 +1,5 @@
 #include "files.h"
 
-
 int readFile (void *st, size_t stSize, char *fileName) // lee un archivo, ordena el arreglo y retorna la cantidad de leidos
 {
     FILE * fi = fopen(fileName, "rb");
