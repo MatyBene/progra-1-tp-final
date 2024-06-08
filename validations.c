@@ -7,6 +7,19 @@ int isNotEmpty(char field[]) // valida que un string no este vacio
     return strlen(field) > 0;
 }
 
+void newField(char field[], char prompt[]){
+
+    do{
+        printf("%s", prompt);
+        fflush(stdin);
+        gets(field);
+        system("cls");
+        if(!isNotEmpty(field)){
+            printf("El campo no puede estar vacio.\n\n");
+        }
+    } while(!isNotEmpty(field));
+}
+
 
 
 /* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */

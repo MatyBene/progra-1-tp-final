@@ -19,19 +19,6 @@ void newTitle(stBook books[], int index){
     } while(!isNotEmpty(aux) && existingBook(aux, books, index));
 }
 
-void newField(char field[], char prompt[]){
-
-    do{
-        printf("%s", prompt);
-        fflush(stdin);
-        gets(field);
-        system("cls");
-        if(!isNotEmpty(field)){
-            printf("El campo no puede estar vacio.\n\n");
-        }
-    } while(!isNotEmpty(field));
-}
-
 void newPublisher(stBook books[], int index){
     newField(books[index].publisher, "Ingrese la editorial: ");
 }

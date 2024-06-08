@@ -1,30 +1,14 @@
 #include "coment-data.h"
 
 
-void newCommentField(char field[], char prompt[])// esta de prueba hasta el mergeo, despues uso la generica.
-{
-    do
-    {
-        printf("%s", prompt);
-        fflush(stdin);
-        gets(field);
-        system("cls");
-        if(!isNotEmpty(field))
-        {
-            printf("El campo no puede estar vacio.\n\n");
-        }
-    }
-    while(!isNotEmpty(field));
-}
-
 void newCommentTitle(stComment comments[], int index)
 {
-    newCommentField(comments[index].commentTitle, "Ingrese el título del comentario: ");
+    newField(comments[index].commentTitle, "Ingrese el título del comentario: ");
 }
 
 void newDescription(stComment comments[], int index)
 {
-    newCommentField(comments[index].description, "Ingrese la descripción del comentario: ");
+    newField(comments[index].description, "Ingrese la descripción del comentario: ");
 }
 
 void newRating(stComment comments[], int index)

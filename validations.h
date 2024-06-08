@@ -4,10 +4,13 @@
 #include "Users/user.h"
 #include "books/book.h"
 
+int isNotEmpty(char field[]);
+void newField(char field[], char prompt[]);
+
+
 /* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
 
 
-int isNotEmpty(char field[]);
 int existingBook(char title[], stBook books[], int index);
 
 
