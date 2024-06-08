@@ -57,6 +57,19 @@ int getNumber() // permite escribir unicamente numeros
     return atoi(num);
 }
 
+void newField(char field[], char prompt[]){
+
+    do{
+        printf("%s", prompt);
+        fflush(stdin);
+        gets(field);
+        system("cls");
+        if(!isNotEmpty(field)){
+            printf("El campo no puede estar vacio.\n\n");
+        }
+    } while(!isNotEmpty(field));
+}
+
 
 
 /* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
@@ -126,7 +139,7 @@ int existingEmail(char *mail, stUser *users, int index) // valida que un email e
     return 0;
 }
 
-int validPassword(char *pass) // comprueba que la contraseña sea valida
+int validPassword(char *pass) // comprueba que la contraseï¿½a sea valida
 {
     int size = strlen(pass);
     int upper = 0, lower = 0, num = 0, special = 0;
@@ -134,7 +147,7 @@ int validPassword(char *pass) // comprueba que la contraseña sea valida
     if (size < 8 || size > 20)
     {
         system("cls");
-        printf("La contraseña debe tener entre 8 y 20 caracteres.\n\n");
+        printf("La contraseï¿½a debe tener entre 8 y 20 caracteres.\n\n");
         return 0;
     }
 
@@ -169,14 +182,14 @@ int validPassword(char *pass) // comprueba que la contraseña sea valida
     else
     {
         system("cls");
-        printf("La contraseña debe incluir al menos una: Mayuscula, Minuscula, Numero, Caracter especial.\n\n");
+        printf("La contraseï¿½a debe incluir al menos una: Mayuscula, Minuscula, Numero, Caracter especial.\n\n");
 
         return 0;
     }
 
 }
 
-int matchPassword(char *pass1, char *pass2) // evalua que las contraseñas coincidan
+int matchPassword(char *pass1, char *pass2) // evalua que las contraseï¿½as coincidan
 {
     if (strcmp(pass1, pass2) != 0)
     {
@@ -227,7 +240,7 @@ int validDate(int year, int month, int day)
 {
     if (year < 1900 || year > 2023)
     {
-        printf("El año seleccionado no es valido. ");
+        printf("El aï¿½o seleccionado no es valido. ");
     }
     else if (month < 1 || month > 12)
     {

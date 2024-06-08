@@ -6,18 +6,20 @@
 #include "books/book.h"
 #include "Users/user.h"
 
-/* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
-
-
 int isNotEmpty(char field[]);
 int yesNo ();
+void newField(char field[], char prompt[]);
 int getNumber(); // permite escribir unicamente numeros
-
 
 /* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
 
 
 int existingBook(char title[], stBook books[], int index);
+
+
+/* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
+
+
 
 
 /* >>>>>>>>>>>>>>>>>>>USERS<<<<<<<<<<<<<<<<<<<<< */

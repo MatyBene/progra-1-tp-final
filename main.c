@@ -13,6 +13,8 @@ int main()
     int totalUsers = readFile(users, sizeof(stUser), USERS);
     stBook books[1000];
     int totalBooks = readFile(books, sizeof(stBook), F_BOOKS);
+    stComment comments[1000];
+    int totalComments = readFile(comments, sizeof(stComment), F_COMMENTS);
 
 
     char quit;

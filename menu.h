@@ -8,6 +8,8 @@
 #include "Users/user.h"
 #include "Users/user-data.h"
 #include "validations.h"
+#include "Comments/coment-data.h"
+#include "Comments/coment.h"
 
 char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks);
 char adminMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks);
