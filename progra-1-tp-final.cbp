@@ -31,6 +31,22 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Books/book-data.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Books/book-data.h" />
+		<Unit filename="Books/book.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Books/book.h" />
+		<Unit filename="Comments/coment-data.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Comments/coment-data.h" />
+		<Unit filename="Comments/coment.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Comments/coment.h" />
 		<Unit filename="Files/files.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -43,14 +59,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Users/user.h" />
-		<Unit filename="books/book-data.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="books/book-data.h" />
-		<Unit filename="books/book.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="books/book.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
