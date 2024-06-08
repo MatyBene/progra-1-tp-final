@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Files/files.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Files/files.h" />
 		<Unit filename="Users/user-data.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -47,10 +51,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="books/book.h" />
-		<Unit filename="files.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="files.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

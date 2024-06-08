@@ -82,7 +82,7 @@ char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *tot
                 break;
             }
         }
-    }while (option != '0' && option != 27 && option != '4');
+    }while (option != '0' && option != 27 && option != '8');
 
     return option;
 

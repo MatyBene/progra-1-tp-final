@@ -65,38 +65,34 @@ int handleUserInput(int currentPage, stBook books[], int totalBooks) {
     fflush(stdin);
     char key = getch();
 
-        if(key == -32){
-                fflush(stdin);
-            key = getch();
+    if(key == -32){
+        fflush(stdin);
+        key = getch();
 
-            switch (key) {
-                case 77:
-                    if ((currentPage + 1) * 5 < totalBooks) {
-                        currentPage++;
-                    }
-                    break;
-                case 75:
-                    if (currentPage > 0) {
-                        currentPage--;
-                    }
-                    break;
-                default:
-                    printf("Opcion no valida.");
-                    break;
-            }
-        }else if(key >= 49 && key <= 53){
-                system("cls");
-                printBookExtended(books, (currentPage * 5) + (int) key - 49);
-                system("pause");
-        }else if(key == 27){
-            return -1;
-        } else {
-            handleUserInput(currentPage, books, totalBooks);
+        switch (key) {
+            case 77:
+                if ((currentPage + 1) * 5 < totalBooks) {
+                    currentPage++;
+                }
+                break;
+            case 75:
+                if (currentPage > 0) {
+                    currentPage--;
+                }
+                break;
+            default:
+                printf("Opcion no valida.");
+                break;
         }
-
-//    else {
-//        switch()
-//    }
+    }else if(key >= 49 && key <= 53){
+            system("cls");
+            printBookExtended(books, (currentPage * 5) + (int) key - 49);
+            system("pause");
+    }else if(key == 27){
+        return -1;
+    } else {
+        handleUserInput(currentPage, books, totalBooks);
+    }
 
     return currentPage;
 }
