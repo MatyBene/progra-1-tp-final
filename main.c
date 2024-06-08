@@ -11,6 +11,9 @@ int main()
 
     stUser users[1000];
     int totalUsers = readFile(users, sizeof(stUser), USERS);
+    stBook books[1000];
+    int totalBooks = readFile(books, sizeof(stBook), F_BOOKS);
+
 
     char quit;
 
@@ -19,11 +22,11 @@ int main()
         int index = registerLoginMenu(users, &totalUsers);
         if (users[index].isAdmin == 1)
         {
-            quit = adminMenu(users, index, &totalUsers);
+            quit = adminMenu(users, index, &totalUsers, books, &totalBooks);
         }
         else
         {
-            quit = userMenu(users, index, &totalUsers);
+            quit = userMenu(users, index, &totalUsers, books, &totalBooks);
         }
     } while(quit != 27);
 

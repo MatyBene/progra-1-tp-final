@@ -1,6 +1,6 @@
 #include "menu.h"
 
-char userMenu(stUser *users, int index, int *totalUsers)
+char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks)
 {
 
     char option;
@@ -14,9 +14,13 @@ char userMenu(stUser *users, int index, int *totalUsers)
         printf("  1)  Perfil.\n");
         printf("  2)  Editar informacion personal.\n");
         printf("  3)  Eliminar cuenta.\n");
+        printf("  4)  Ver listado de libros.\n");
+        printf("  5)  Agregar un libro.\n");
+        printf("  6)  Ver listado de favoritos.\n");
+        printf("  7)  Agregar un libro a favoritos.\n");
         if (users[index].isAdmin == 1)
         {
-            printf("  4)  Menu admin\n");
+            printf("  8)  Menu admin\n");
         }
         printf("esc)  Salir.\n");
 
@@ -60,6 +64,11 @@ char userMenu(stUser *users, int index, int *totalUsers)
             }
             case '4':
             {
+                paginated(books, *totalBooks);
+                break;
+            }
+            case '8':
+            {
                 system("cls");
                 if(!users[index].isAdmin)
                 {
@@ -89,7 +98,7 @@ void userInfoMenu (stUser *users, int index)
         printf("INFORMACION PERSONAL\n\n");
 
         printf("  1)  Editar Email.\n");
-        printf("  2)  Editar Contraseña.\n");
+        printf("  2)  Editar Contraseï¿½a.\n");
         printf("  3)  Editar Nombre de Usuario.\n");
         printf("  4)  Editar Genero (?.\n");
         printf("  5)  Editar Fecha de Nacimiento.\n");
@@ -120,7 +129,7 @@ void userInfoMenu (stUser *users, int index)
             {
                 system("cls");
                 newPassword(users, index);
-                printf("La contraseña ha sido actualizada\n");
+                printf("La contraseï¿½a ha sido actualizada\n");
                 system("pause");
                 break;
             }
@@ -173,7 +182,7 @@ void userInfoMenu (stUser *users, int index)
     }while(option != 27);
 }
 
-char adminMenu(stUser *users, int index, int *totalUsers)
+char adminMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks)
 {
     char option;
 
@@ -187,7 +196,10 @@ char adminMenu(stUser *users, int index, int *totalUsers)
         printf("  3)  Eliminar usuario.\n");
         printf("  4)  Desactivar usuario.\n");
         printf("  5)  Activar usuario.\n");
-        printf("  6)  Ir al menu de usuario.\n");
+        printf("  6)  Mostrar libros admin.\n");
+        printf("  7)  Eliminar libro.\n");
+        printf("  8)  Ocultar libro.\n");
+        printf("  9)  Ir al menu de usuario.\n");
         printf("esc)  Salir.\n");
 
         fflush(stdin);
@@ -231,10 +243,10 @@ char adminMenu(stUser *users, int index, int *totalUsers)
                 actionUserMenu(users, totalUsers, "activar", activateUser);
                 break;
             }
-            case '6':
+            case '9':
             {
                 system("cls");
-                option = userMenu(users, index, totalUsers);
+                option = userMenu(users, index, totalUsers, books, totalBooks);
                 break;
             }
             case 27:
