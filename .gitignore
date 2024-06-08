@@ -1,10 +1,6 @@
 # Archivos específicos de Code::Blocks
 *.depend
 *.layout
-*.cbp
-*.layout
-*.depend
-*.layout
 *.cbcache
 *.bak
 *.swp

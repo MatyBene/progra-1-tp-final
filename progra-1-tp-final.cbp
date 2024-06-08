@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="progra-1-tp-final" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/progra-1-tp-final" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/progra-1-tp-final" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="Users/user-data.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Users/user-data.h" />
+		<Unit filename="Users/user.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Users/user.h" />
+		<Unit filename="books/book-data.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="books/book-data.h" />
+		<Unit filename="books/book.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="books/book.h" />
+		<Unit filename="files.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="files.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="menu.h" />
+		<Unit filename="validations.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="validations.h" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>
