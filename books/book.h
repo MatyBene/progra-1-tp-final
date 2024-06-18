@@ -10,7 +10,6 @@ typedef struct{
     char author[50];
     char category[50];
     float rating;
-    int comments;
     int deleted; /// 0 si está activo - 1 si está eliminado
 }stBook;
 

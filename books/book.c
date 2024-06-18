@@ -8,7 +8,6 @@ void bookRegister(stBook books[], int *index){
     newAuthor(books, *index);
     newCategory(books, *index);
     books[*index].rating = 0;
-    books[*index].comments = 0;
     books[*index].deleted = 0;
     (*index)++;
 }
@@ -21,7 +20,6 @@ void printBookAdmin(stBook books[], int index){
     printf("Autor: .......... %s\n", books[index].author);
     printf("Categoria: ...... %s\n", books[index].category);
     printf("Valoracion: ..... %.2f\n", books[index].rating);
-    printf("Comentarios: .... %d\n", books[index].comments);
     printf("Eliminado: ...... %s\n", books[index].deleted ? "Si" : "No");
 }
 
@@ -38,8 +36,7 @@ void printBookExtended(stBook books[], int index){
     printf("\tEditorial: ...... %s\n", books[index].publisher);
     printf("\tAutor: .......... %s\n", books[index].author);
     printf("\tCategoria: ...... %s\n", books[index].category);
-    printf("\tValoracion: ..... %.2f\n", books[index].rating);
-    printf("\tComentarios: .... %d\n\n", books[index].comments);
+    printf("\tValoracion: ..... %.2f\n\n", books[index].rating);
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 
