@@ -73,7 +73,7 @@ int handleUserInput(int currentPage, stBook books[], int totalBooks) {
                 }
                 break;
             case 75:
-                if (currentPage > 0) {
+                if (currentPage > 1) {
                     currentPage--;
                 }
                 break;
@@ -83,7 +83,7 @@ int handleUserInput(int currentPage, stBook books[], int totalBooks) {
         }
     }else if(key >= 49 && key <= 53){
             system("cls");
-            printBookExtended(books, (currentPage * 5) + (int) key - 49);
+            printBookExtended(books, (currentPage * 5) + (int) key - 49); //ir a menuBook
             system("pause");
     }else if(key == 27){
         return -1;
@@ -95,13 +95,13 @@ int handleUserInput(int currentPage, stBook books[], int totalBooks) {
 }
 
 void paginated(stBook books[], int totalBooks){
-    int currentPage = 0;
+    int currentPage = 1;
 
-    while(currentPage >= 0){
+    while(currentPage >= 1){
         system("cls");
         displayPage(books, totalBooks, currentPage, 5);
         printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
-        printf("~%d~\n", currentPage + 1);
+        printf("~%d~\n", currentPage);
         printf("Ingrese el numero del libro que desea ver en detalle: ");
         currentPage = handleUserInput(currentPage, books, totalBooks);
 
