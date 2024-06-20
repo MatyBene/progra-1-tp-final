@@ -74,20 +74,15 @@ int handleUserInput(int currentPage, stBook books[], int totalBooks) {
                 }
                 break;
             case 75:
-                if (currentPage > 0) {
+                if (currentPage > 1) {
                     currentPage--;
                 }
                 break;
         }
     }else if(key >= 49 && key <= 53){
-            if(isNotEmpty(books[(currentPage * 5) + (int) key - 49].title)){
-                system("cls");
-                printBookExtended(books, (currentPage * 5) + (int) key - 49);
-                system("pause");
-            } else {
-                handleUserInput(currentPage, books, totalBooks);
-            }
-
+            system("cls");
+            printBookExtended(books, (currentPage * 5) + (int) key - 49); //ir a menuBook
+            system("pause");
     }else if(key == 27){
         return -1;
     } else {
@@ -98,13 +93,13 @@ int handleUserInput(int currentPage, stBook books[], int totalBooks) {
 }
 
 void paginated(stBook books[], int totalBooks){
-    int currentPage = 0;
+    int currentPage = 1;
 
-    while(currentPage >= 0){
+    while(currentPage >= 1){
         system("cls");
         displayPage(books, totalBooks, currentPage, 5);
         printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
-        printf("~%d~\n", currentPage + 1);
+        printf("~%d~\n", currentPage);
         printf("Ingrese el numero del libro que desea ver en detalle: ");
         currentPage = handleUserInput(currentPage, books, totalBooks);
     }
@@ -119,9 +114,9 @@ void sortBooks(stBook books[], int totalBooks){
 
     do{
         printf("Seleccione como desea ver ordenados los libros: \n");
-        printf("1) Por valoración.\n");
-        printf("2) Por categoría.\n");
-        printf("3) Por orden alfabético.\n");
+        printf("1) Por valoraciï¿½n.\n");
+        printf("2) Por categorï¿½a.\n");
+        printf("3) Por orden alfabï¿½tico.\n");
         printf("esc) Volver al menu.\n");
 
         fflush(stdin);

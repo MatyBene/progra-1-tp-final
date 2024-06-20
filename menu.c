@@ -69,8 +69,9 @@ char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *tot
                 if(yesNo())
                 {
                     deleteUser(users, index, totalUsers);
-                    printf("Se elimino la cuenta.");
                     system("pause");
+                    system("cls");
+                    option = '0';
                 }
                 else
                 {

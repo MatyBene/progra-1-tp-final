@@ -57,7 +57,7 @@ int enterEmail(stUser *users, int totalUsers)
     {
         system("cls");
         printf("El usuario esta desactivado, solicite la activacion a un admin. \n");
-        return -1;
+        index = -1;
     }
     return index;
 }
