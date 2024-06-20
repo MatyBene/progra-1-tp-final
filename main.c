@@ -16,7 +16,6 @@ int main()
     stComment comments[1000];
     int totalComments = readFile(comments, sizeof(stComment), F_COMMENTS);
 
-
     char quit;
 
     do
@@ -34,6 +33,7 @@ int main()
 
 
     saveFile(users, sizeof(stUser), totalUsers, USERS, compareUserId);
+    saveFile(books, sizeof(stBook), totalBooks, F_BOOKS, compareBookId);
 
     return 0;
 }

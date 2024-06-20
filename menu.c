@@ -13,14 +13,13 @@ char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *tot
         printf("  0)  Cerrar sesion.\n");
         printf("  1)  Perfil.\n");
         printf("  2)  Editar informacion personal.\n");
-        printf("  3)  Eliminar cuenta.\n");
-        printf("  4)  Ver listado de libros.\n");
+        printf("  3)  Ver listado de libros.\n");
+        printf("  4)  Buscar libro.\n");
         printf("  5)  Agregar un libro.\n");
-        printf("  6)  Ver listado de favoritos.\n");
-        printf("  7)  Agregar un libro a favoritos.\n");
+        printf("  6)  Eliminar cuenta.\n");
         if (users[index].isAdmin == 1)
         {
-            printf("  8)  Menu admin\n");
+            printf("  7)  Menu admin\n");
         }
         printf("esc)  Salir.\n");
 
@@ -48,6 +47,24 @@ char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *tot
             }
             case '3':
             {
+                system("cls");
+                sortBooks(books, *totalBooks);
+                break;
+            }
+            case '4':
+            {
+                system("cls");
+                searchBooks(books, *totalBooks);
+                break;
+            }
+            case '5':
+            {
+                system("cls");
+                bookRegister(books, totalBooks);
+                break;
+            }
+            case '6':
+            {
                 printf("Deseas eliminar tu cuenta %s? (y/n)\n", users[index].username);
                 if(yesNo())
                 {
@@ -62,12 +79,7 @@ char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *tot
                 }
                 break;
             }
-            case '4':
-            {
-                paginated(books, *totalBooks);
-                break;
-            }
-            case '8':
+            case '7':
             {
                 system("cls");
                 if(!users[index].isAdmin)
@@ -82,7 +94,7 @@ char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *tot
                 break;
             }
         }
-    }while (option != '0' && option != 27 && option != '8');
+    }while (option != '0' && option != 27 && option != '7');
 
     return option;
 
@@ -191,15 +203,10 @@ char adminMenu(stUser *users, int index, int *totalUsers, stBook *books, int *to
         system("cls");
         printf("MENU ADMIN\n\n");
         printf("  0)  Cerrar sesion.\n");
-        printf("  1)  Ver usuarios registrados.\n");
-        printf("  2)  Hacer admin.\n");
-        printf("  3)  Eliminar usuario.\n");
-        printf("  4)  Desactivar usuario.\n");
-        printf("  5)  Activar usuario.\n");
-        printf("  6)  Mostrar libros admin.\n");
-        printf("  7)  Eliminar libro.\n");
-        printf("  8)  Ocultar libro.\n");
-        printf("  9)  Ir al menu de usuario.\n");
+        printf("  1)  Dashboard.\n");
+        printf("  2)  Buscar libro.\n");
+        printf("  3)  Buscar usuario.\n");
+        printf("  4)  Ir al menu de usuario.\n");
         printf("esc)  Salir.\n");
 
         fflush(stdin);
@@ -214,41 +221,58 @@ char adminMenu(stUser *users, int index, int *totalUsers, stBook *books, int *to
             }
             case '1':
             {
-                system("cls");
-                printAllUsers(users, *totalUsers);
-                system("pause");
+                /// DASHBOARD
                 break;
             }
             case '2':
             {
-                system("cls");
-                actionUserMenu(users, totalUsers, "dar admin", makeAdmin);
+                /// BUSCAR LIBRO
                 break;
             }
             case '3':
             {
-                system("cls");
-                actionUserMenu(users, totalUsers, "eliminar", deleteUser);
+                /// BUSCAR USUARIO
                 break;
             }
             case '4':
             {
                 system("cls");
-                actionUserMenu(users, totalUsers, "desactivar", disableUser);
-                break;
-            }
-            case '5':
-            {
-                system("cls");
-                actionUserMenu(users, totalUsers, "activar", activateUser);
-                break;
-            }
-            case '9':
-            {
-                system("cls");
                 option = userMenu(users, index, totalUsers, books, totalBooks);
                 break;
             }
+
+/// ESTAN COMENTADAS PARA FACILITAR RECORDAR QUE FUNCION HACIA QUE (POR LAS DUDAS JAJA)
+//            case '1':
+//            {
+//                system("cls");
+//                printAllUsers(users, *totalUsers);
+//                system("pause");
+//                break;
+//            }
+//            case '2':
+//            {
+//                system("cls");
+//                actionUserMenu(users, totalUsers, "dar admin", makeAdmin);
+//                break;
+//            }
+//            case '3':
+//            {
+//                system("cls");
+//                actionUserMenu(users, totalUsers, "eliminar", deleteUser);
+//                break;
+//            }
+//            case '4':
+//            {
+//                system("cls");
+//                actionUserMenu(users, totalUsers, "desactivar", disableUser);
+//                break;
+//            }
+//            case '5':
+//            {
+//                system("cls");
+//                actionUserMenu(users, totalUsers, "activar", activateUser);
+//                break;
+//            }
             case 27:
             {
                 system("cls");
