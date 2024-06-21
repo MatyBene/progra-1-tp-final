@@ -32,4 +32,6 @@ int matchTitleBook(stBook books[], int totalBooks, char searchTitle[], stBook fo
 void searchBooksByAuthor(int index, stBook books[], int totalBooks);
 int matchAuthorBook(stBook books[], int totalBooks, char searchAuthor[], stBook foundBooks[], int totalFoundBooks);
 
+int matchCategoryBook(stBook books[], int totalBooks, char searchCategory[], stBook foundBooks[], int totalFoundBooks);
+
 #endif // BOOK_H_INCLUDED

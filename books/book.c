@@ -238,3 +238,26 @@ void searchBooksByAuthor(int index, stBook books[], int totalBooks)
     }
 }
 
+int matchCategoryBook(stBook books[], int totalBooks, char searchCategory[], stBook foundBooks[], int totalFoundBooks)
+{
+    char lowerSearchCategory[100];
+    char lowerCategory[100];
+
+    strcpy(lowerSearchCategory, searchCategory);
+    toLowerCase(lowerSearchCategory);
+
+    for(int i = 0; i < totalBooks; i++)
+    {
+        strcpy(lowerCategory, books[i].category);
+        toLowerCase(lowerCategory);
+
+        if(strstr(lowerCategory, lowerSearchCategory) != NULL)
+        {
+            foundBooks[totalFoundBooks] = books[i];
+            (totalFoundBooks)++;
+        }
+    }
+
+    return totalFoundBooks;
+}
+
