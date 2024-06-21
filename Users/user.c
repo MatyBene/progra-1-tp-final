@@ -7,20 +7,20 @@
 
 void userRegister(stUser users[], int *index) // registro de usuarios
 {
-    users[*index].isAdmin = 0;
-    users[*index].deleted = 0;
-    users[*index].userId = getFirstFreeId(users, *index);
-    newEmail(users, *index);
-    newPassword(users, *index);
-    newUserName(users, *index);
-    newAdress(users, *index);
-    newGender(users, *index);
-    newBirthDate(users, *index);
-    newDni(users, *index);
-    printf("El usuario %s fue registrado con exito. Id de usuario: %d.\n", users[*index].username, users[*index].userId);
+    users[*totalUsers].isAdmin = 0;
+    users[*totalUsers].deleted = 0;
+    users[*totalUsers].userId = getFirstFreeId(users, *totalUsers);
+    newEmail(users, *totalUsers);
+    newPassword(users, *totalUsers);
+    newUserName(users, *totalUsers);
+    newAdress(users, *totalUsers);
+    newGender(users, *totalUsers);
+    newBirthDate(users, *totalUsers);
+    newDni(users, *totalUsers);
+    printf("El usuario %s fue registrado con exito. Id de usuario: %d.\n", users[*totalUsers].username, users[*totalUsers].userId);
 
-    appendFile(users, sizeof(stUser), *index, USERS);   // guarda el nuevo usuario en el archivo
-    (*index)++;
+    appendFile(users, sizeof(stUser), *totalUsers, USERS);   // guarda el nuevo usuario en el archivo
+    (*totalUsers)++;
 }
 
 int userLogin(stUser users[], int totalUsers) // permite al usuario iniciar sesion
@@ -69,7 +69,7 @@ int enterPassword(stUser users[], int index)
 
     do
     {
-        printf("Ingrese su contraseña: ");
+        printf("Ingrese su contraseï¿½a: ");
         getPass(password);
         i++;
         system("cls");
@@ -81,7 +81,7 @@ int enterPassword(stUser users[], int index)
                 printf("Demasiados intentos incorrectos.\n");
                 return -1;
             }
-            printf("Contraseña incorrecta, quedan %d intentos restantes. ", 3-i);
+            printf("Contraseï¿½a incorrecta, quedan %d intentos restantes. ", 3-i);
         }
     } while (!matchPassword(password, users[index].password));
 

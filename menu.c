@@ -1,10 +1,57 @@
 #include "menu.h"
 
-char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks, stComment *comments, int *totalComments)
+
+/* >>>>>>>>>>>>>>>>>>>GLOBAL<<<<<<<<<<<<<<<<<<<<< */
+
+stUser users[1000];
+stBook books[1000];
+stComment comments[1000];
+int totalUsers;
+int totalBooks;
+int totalComments;
+
+/* >>>>>>>>>>>>>>>>>>>GLOBAL<<<<<<<<<<<<<<<<<<<<< */
+
+void run()
 {
+    loadDataMenu();
 
+    char quit;
+
+    do
+    {
+        int index = registerLoginMenu();
+        if (users[index].isAdmin == 1)
+        {
+            quit = adminMenu(index);
+        }
+        else
+        {
+            quit = userMenu(index);
+        }
+    }
+    while(quit != 27);
+
+    saveDataMenu();
+}
+
+void loadDataMenu()
+{
+    totalUsers = readFile(users, sizeof(stUser), USERS);
+    totalBooks = readFile(books, sizeof(stBook), BOOKS);
+    totalComments = readFile(comments, sizeof(stComment), COMMENTS);
+}
+
+void saveDataMenu()
+{
+    saveFile(users, sizeof(stUser), totalUsers, USERS, compareUserId);
+    saveFile(books, sizeof(stBook), totalBooks, BOOKS, compareBookId);
+    saveFile(comments, sizeof(stComment), totalComments, COMMENTS, compareCommentId);
+}
+
+char userMenu(int index)
+{
     char option;
-
 
     do
     {
@@ -42,25 +89,25 @@ char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *tot
         }
         case '2':
         {
-            userInfoMenu(users, index);
+            userInfoMenu(index);
             break;
         }
         case '3':
         {
             system("cls");
-            sortBooks(books, *totalBooks);
+            sortBooks(books, totalBooks);
             break;
         }
         case '4':
         {
             system("cls");
-            searchBooks(books, *totalBooks);
+            searchBooks(books, totalBooks);
             break;
         }
         case '5':
         {
             system("cls");
-            bookRegister(books, totalBooks);
+            bookRegister(books, &totalBooks);
             break;
         }
         case '6':
@@ -68,7 +115,7 @@ char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *tot
             printf("Deseas eliminar tu cuenta %s? (y/n)\n", users[index].username);
             if(yesNo())
             {
-                deleteUser(users, index, totalUsers);
+                deleteUser(users, index, &totalUsers);
                 system("pause");
                 system("cls");
                 option = '0';
@@ -102,7 +149,7 @@ char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *tot
 
 }
 
-void userInfoMenu (stUser *users, int index)
+void userInfoMenu (int index)
 {
     char option;
 
@@ -197,7 +244,7 @@ void userInfoMenu (stUser *users, int index)
     while(option != 27);
 }
 
-char adminMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks, stComment *comments, int *totalComments)
+char adminMenu(int index)
 {
     char option;
 
@@ -224,8 +271,7 @@ char adminMenu(stUser *users, int index, int *totalUsers, stBook *books, int *to
         }
         case '1':
         {
-            system("cls");
-            dashboardMenu(users, totalUsers, books, totalBooks, comments, totalComments);
+            /// DASHBOARD
             break;
         }
         case '2':
@@ -241,7 +287,7 @@ char adminMenu(stUser *users, int index, int *totalUsers, stBook *books, int *to
         case '4':
         {
             system("cls");
-            option = userMenu(users, index, totalUsers, books, totalBooks, comments, totalComments);
+            option = userMenu(index);
             break;
         }
 
@@ -351,7 +397,7 @@ void dashboardMenu(stUser *users, int *totalUsers, stBook *books, int *totalBook
     while (option != 27);
 }
 
-int registerLoginMenu(stUser *users, int *totalUsers)
+int registerLoginMenu()
 {
     char option[9];
     int index = -1;
@@ -365,13 +411,13 @@ int registerLoginMenu(stUser *users, int *totalUsers)
         if (strcmpi(option,"registrar") == 0)
         {
             system("cls");
-            userRegister(users, totalUsers);
-            index = userLogin(users, *totalUsers);
+            userRegister(users, &totalUsers);
+            index = userLogin(users, totalUsers);
         }
         else if (strcmpi(option,"ingresar") == 0)
         {
             system("cls");
-            index = userLogin(users, *totalUsers);
+            index = userLogin(users, totalUsers);
         }
         else
         {

@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define USERS "Files/F_USERS.dat"
+
 typedef struct{
     char street[50];
     char number[10];
@@ -25,7 +27,7 @@ typedef struct{
     int favoriteBooks[50];  /// se van a guardar los id de los libros favs.
     char dni[10];
     stAddress address;
-    int deleted;  /// 0 si está activo - 1 si está eliminado
+    int deleted;  /// 0 si estï¿½ activo - 1 si estï¿½ eliminado
 } stUser;
 
 void userRegister(stUser users[], int *index);

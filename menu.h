@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <conio.h>
+#include "Files/files.h"
 #include "Books/book-data.h"
 #include "Books/book.h"
 #include "Users/user.h"
@@ -11,14 +12,18 @@
 #include "Comments/coment-data.h"
 #include "Comments/coment.h"
 
+
+void run();
+void loadDataMenu();
+void saveDataMenu();
+
 typedef void (*printFunction)(void*, int index);
 typedef void (*elementMenu)(stUser *user, int userIndex, void elements[], int index, int *totalElements);
 
-char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks, stComment *comments, int *totalComments);
-char adminMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks, stComment *comments, int *totalComments);
-void dashboardMenu(stUser *users, int *totalUsers, stBook *books, int *totalBooks, stComment *comments, int *totalComments);
-void userInfoMenu(stUser *users, int index);
-int registerLoginMenu(stUser *users, int *index);
+char userMenu(int index);
+char adminMenu(int index);
+void userInfoMenu(int index);
+int registerLoginMenu();
 void actionUserMenu(stUser *users, int *totalUsers, char *prompt, void (*action)(stUser *, int, int *));
 void paginated(void elements[], int *totalElements, printFunction printElement, elementMenu handleMenu, char elementName[]);
 void displayPage(const void elements[], int totalElements, int page, int pageSize, printFunction printElement);

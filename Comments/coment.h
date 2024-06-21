@@ -7,7 +7,7 @@
 #include <conio.h>
 #include <string.h>
 #include <time.h>
-#define F_COMMENTS "Files/F_COMMENTS.dat"
+#define COMMENTS "Files/F_COMMENTS.dat"
 
 typedef struct
 {

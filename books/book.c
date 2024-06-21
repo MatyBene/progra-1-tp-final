@@ -1,6 +1,7 @@
 #include "book.h"
 #include "book-data.h"
-
+#include <ctype.h>
+#include <unistd.h>
 
 void bookRegister(stBook books[], int *index){
     books[*index].bookId = *index + 1;

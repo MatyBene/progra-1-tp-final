@@ -3,16 +3,16 @@
 
 #include <ctype.h>
 
-#define F_BOOKS "Files/F_BOOKS.dat"
+#define BOOKS "Files/F_BOOKS.dat"
 
 typedef struct{
-    int bookId; /// único, autoincremental
+    int bookId; /// ï¿½nico, autoincremental
     char title[100];
     char publisher[50];
     char author[50];
     char category[50];
     float rating;
-    int deleted; /// 0 si está activo - 1 si está eliminado
+    int deleted; /// 0 si estï¿½ activo - 1 si estï¿½ eliminado
 }stBook;
 
 void bookRegister(stBook books[], int *index);
