@@ -88,30 +88,30 @@ int enterPassword(stUser users[], int index)
     return index;
 }
 
-void printUser(void *element)
+void printUser(const void elements[], int index)
 {
-    stUser *user = (stUser*) element;
+    stUser *users = (stUser*) elements;
 
-    if(user->isAdmin)
+    if(users[index].isAdmin)
     {
         printf("\t\tADMIN\n\n");
     }
-    else if (user->deleted)
+    else if (users[index].deleted)
     {
         printf("\t\tDESACTIVADO\n\n");
     }
 
-    printf("ID:....................... %d\n", user->userId);
-    printf("User Name:................ %s\n", user->username);
-    printf("Email:.................... %s\n", user->email);
-    printf("Genero:................... %c\n", user->gender);
-    printf("DNI:...................... %s\n", user->dni);
-    printf("Direccion:................ %s %s\n", user->address.street, user->address.number);
-    printf("Ciudad:................... %s\n", user->address.city);
-    printf("Provincia:................ %s\n", user->address.province);
-    printf("Pais:..................... %s\n", user->address.country);
-    printf("Codigo Postal:............ %s\n", user->address.zipCode);
-    printf("Fecha de nacimiento:...... %s\n", user->birthDate);
+    printf("ID:....................... %d\n", users[index].userId);
+    printf("User Name:................ %s\n", users[index].username);
+    printf("Email:.................... %s\n", users[index].email);
+    printf("Genero:................... %c\n", users[index].gender);
+    printf("DNI:...................... %s\n", users[index].dni);
+    printf("Direccion:................ %s %s\n", users[index].address.street, users[index].address.number);
+    printf("Ciudad:................... %s\n", users[index].address.city);
+    printf("Provincia:................ %s\n", users[index].address.province);
+    printf("Pais:..................... %s\n", users[index].address.country);
+    printf("Codigo Postal:............ %s\n", users[index].address.zipCode);
+    printf("Fecha de nacimiento:...... %s\n", users[index].birthDate);
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 

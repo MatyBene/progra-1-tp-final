@@ -16,9 +16,9 @@ typedef struct{
 }stBook;
 
 void bookRegister(stBook books[], int *index);
-void printBookAdmin(stBook books[], int index);
-void printBook(stBook books[], int index);
-void printBookExtended(stBook books[], int index);
+void printBookAdmin(const void elements[], int index);
+void printBook(const void elements[], int index);
+void printBookExtended(const void elements[], int index);
 
 void sortBooks(stBook books[], int totalBooks);
 int compareBookId(const void *a, const void *b);

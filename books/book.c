@@ -13,37 +13,37 @@ void bookRegister(stBook books[], int *index){
     (*index)++;
 }
 
-void printBookAdmin(const void *element){
-    stBook *book = (stBook*) element;
+void printBookAdmin(const void elements[], int index){
+    stBook books[] = (stBook*) elements;
 
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
-    printf("ID: ............. %d\n", book->bookId);
-    printf("Titulo: ......... %s\n", book->title);
-    printf("Editorial: ...... %s\n", book->publisher);
-    printf("Autor: .......... %s\n", book->author);
-    printf("Categoria: ...... %s\n", book->category);
-    printf("Valoracion: ..... %.2f\n", book->rating);
-    printf("Eliminado: ...... %s\n", book->deleted ? "Si" : "No");
+    printf("ID: ............. %d\n", books[index].bookId);
+    printf("Titulo: ......... %s\n", books[index].title);
+    printf("Editorial: ...... %s\n", books[index].publisher);
+    printf("Autor: .......... %s\n", books[index].author);
+    printf("Categoria: ...... %s\n", books[index].category);
+    printf("Valoracion: ..... %.2f\n", books[index].rating);
+    printf("Eliminado: ...... %s\n", books[index].deleted ? "Si" : "No");
 }
 
-void printBook(void *element){
-    stBook *book = (stBook*) element;
+void printBook(const void elements[], int index){
+    stBook books[] = (stBook*) elements;
 
     printf("<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
-    printf("\tTitulo: ......... %s\n", book->title);
-    printf("\tCategoria: ...... %s\n", book->category);
-    printf("\tValoracion: ..... %.2f\n\n", book->rating);
+    printf("\tTitulo: ......... %s\n", books[index].title);
+    printf("\tCategoria: ...... %s\n", books[index].category);
+    printf("\tValoracion: ..... %.2f\n\n", books[index].rating);
 }
 
-void printBookExtended(void *element){
-    stBook *book = (stBook*) element;
+void printBookExtended(const void elements[], int index){
+    stBook books[] = (stBook*) elements;
 
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
-    printf("\tTitulo: ......... %s\n", book->title);
-    printf("\tEditorial: ...... %s\n", book->publisher);
-    printf("\tAutor: .......... %s\n", book->author);
-    printf("\tCategoria: ...... %s\n", book->category);
-    printf("\tValoracion: ..... %.2f\n\n", book->rating);
+    printf("\tTitulo: ......... %s\n", books[index].title);
+    printf("\tEditorial: ...... %s\n", books[index].publisher);
+    printf("\tAutor: .......... %s\n", books[index].author);
+    printf("\tCategoria: ...... %s\n", books[index].category);
+    printf("\tValoracion: ..... %.2f\n\n", books[index].rating);
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 

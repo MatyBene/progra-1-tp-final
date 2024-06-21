@@ -12,27 +12,27 @@ void commentRegister(stComment comments[], int *index)
     (*index)++;
 }
 
-void printComment(const void *element)
+void printComment(const void elements[], int index)
 {
-    stComment *comment = (stComment*) element;
+    stComment comments[] = (stComment*) elements;
 
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
-    printf("Titulo: ....... %s\n", comment->commentTitle);
-    printf("Descripción: .. %s\n", comment->description);
-    printf("Valoración: ... %d\n", comment->rating);
-    printf("Fecha: ........ %s\n",comment->commentDate);
+    printf("Titulo: ....... %s\n", comments[index].commentTitle);
+    printf("Descripción: .. %s\n", comments[index].description);
+    printf("Valoración: ... %d\n", comments[index].rating);
+    printf("Fecha: ........ %s\n",comments[index].commentDate);
 }
 
-void printCommentAdmin(const void *element)
+void printCommentAdmin(const void elements[], int index)
 {
-    stComment *comment = (stComment*) element;
+    stComment comments[] = (stComment*) elements;
 
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
-    printf("ID: ........... %d\n", comment->commentId);
-    printf("Titulo: ....... %s\n", comment->commentTitle);
-    printf("Descripción: .. %s\n", comment->description);
-    printf("Valoración: ... %d\n", comment->rating);
-    printf("Fecha: ........ %s\n", comment->commentDate);
-    printf("Eliminado: .... %s\n", comment->deleted ? "Si" : "No");
+    printf("ID: ........... %d\n", comments[index].commentId);
+    printf("Titulo: ....... %s\n", comments[index].commentTitle);
+    printf("Descripción: .. %s\n", comments[index].description);
+    printf("Valoración: ... %d\n", comments[index].rating);
+    printf("Fecha: ........ %s\n", comments[index].commentDate);
+    printf("Eliminado: .... %s\n", comments[index].deleted ? "Si" : "No");
 }
 
