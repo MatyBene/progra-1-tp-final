@@ -28,15 +28,15 @@ typedef struct{
     int deleted;  /// 0 si está activo - 1 si está eliminado
 } stUser;
 
-void userRegister(stUser *users, int *index);
-int userLogin(stUser *users, int totalUsers);
-int enterEmail(stUser *users, int totalUsers);
-int enterPassword(stUser *users, int index);
-void printUser(stUser user);
-void printAllUsers(stUser *users, int index);
-void deleteUser(stUser *users, int index, int *totalUsers);
-void disableUser(stUser *users, int index, int *totalUsers);
-void activateUser(stUser *users, int index, int *totalUsers);
-void makeAdmin(stUser *users, int index, int *totalUsers);
+void userRegister(stUser users[], int *index);
+int userLogin(stUser users[], int totalUsers);
+int enterEmail(stUser users[], int totalUsers);
+int enterPassword(stUser users[], int index);
+void printUser(stUser users[], int index);
+//void printAllUsers(stUser users[], int index);
+void deleteUser(stUser users[], int index, int *totalUsers);
+void disableUser(stUser users[], int index, int *totalUsers);
+void activateUser(stUser users[], int index, int *totalUsers);
+void makeAdmin(stUser users[], int index, int *totalUsers);
 
 #endif // USER_H_INCLUDED

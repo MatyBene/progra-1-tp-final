@@ -1,6 +1,6 @@
 #include "book.h"
 #include "book-data.h"
-#include <ctype.h>
+
 
 void bookRegister(stBook books[], int *index){
     books[*index].bookId = *index + 1;
@@ -13,101 +13,39 @@ void bookRegister(stBook books[], int *index){
     (*index)++;
 }
 
-void printBookAdmin(stBook books[], int index){
+void printBookAdmin(const void *element){
+    stBook *book = (stBook*) element;
+
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
-    printf("ID: ............. %d\n", books[index].bookId);
-    printf("Titulo: ......... %s\n", books[index].title);
-    printf("Editorial: ...... %s\n", books[index].publisher);
-    printf("Autor: .......... %s\n", books[index].author);
-    printf("Categoria: ...... %s\n", books[index].category);
-    printf("Valoracion: ..... %.2f\n", books[index].rating);
-    printf("Eliminado: ...... %s\n", books[index].deleted ? "Si" : "No");
+    printf("ID: ............. %d\n", book->bookId);
+    printf("Titulo: ......... %s\n", book->title);
+    printf("Editorial: ...... %s\n", book->publisher);
+    printf("Autor: .......... %s\n", book->author);
+    printf("Categoria: ...... %s\n", book->category);
+    printf("Valoracion: ..... %.2f\n", book->rating);
+    printf("Eliminado: ...... %s\n", book->deleted ? "Si" : "No");
 }
 
-void printBook(stBook books[], int index){
+void printBook(void *element){
+    stBook *book = (stBook*) element;
+
     printf("<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
-    printf("\tTitulo: ......... %s\n", books[index].title);
-    printf("\tCategoria: ...... %s\n", books[index].category);
-    printf("\tValoracion: ..... %.2f\n\n", books[index].rating);
+    printf("\tTitulo: ......... %s\n", book->title);
+    printf("\tCategoria: ...... %s\n", book->category);
+    printf("\tValoracion: ..... %.2f\n\n", book->rating);
 }
 
-void printBookExtended(stBook books[], int index){
+void printBookExtended(void *element){
+    stBook *book = (stBook*) element;
+
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
-    printf("\tTitulo: ......... %s\n", books[index].title);
-    printf("\tEditorial: ...... %s\n", books[index].publisher);
-    printf("\tAutor: .......... %s\n", books[index].author);
-    printf("\tCategoria: ...... %s\n", books[index].category);
-    printf("\tValoracion: ..... %.2f\n\n", books[index].rating);
+    printf("\tTitulo: ......... %s\n", book->title);
+    printf("\tEditorial: ...... %s\n", book->publisher);
+    printf("\tAutor: .......... %s\n", book->author);
+    printf("\tCategoria: ...... %s\n", book->category);
+    printf("\tValoracion: ..... %.2f\n\n", book->rating);
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
-
-/* >>>>>>>>>>>>>>>>>>>UTILITIES<<<<<<<<<<<<<<<<<<<<< */
-
-void displayPage(stBook books[], int totalBooks, int page, int pageSize) {
-    int j = 0;
-    int start = page * pageSize;
-    int end = start + pageSize;
-
-    if (end > totalBooks) {
-        end = totalBooks;
-    }
-
-    for (int i = start; i < end; i++) {
-        printf(" %d.", j + 1);
-        printBook(books, i);
-        j++;
-    }
-}
-
-int handleUserInput(int currentPage, stBook books[], int totalBooks) {
-    fflush(stdin);
-    char key = getch();
-
-    if(key == -32){
-        fflush(stdin);
-        key = getch();
-
-        switch (key) {
-            case 77:
-                if ((currentPage + 1) * 5 < totalBooks) {
-                    currentPage++;
-                }
-                break;
-            case 75:
-                if (currentPage > 1) {
-                    currentPage--;
-                }
-                break;
-        }
-    }else if(key >= 49 && key <= 53){
-            system("cls");
-            printBookExtended(books, (currentPage * 5) + (int) key - 49); //ir a menuBook
-            system("pause");
-    }else if(key == 27){
-        return -1;
-    } else {
-        handleUserInput(currentPage, books, totalBooks);
-    }
-
-    return currentPage;
-}
-
-void paginated(stBook books[], int totalBooks){
-    int currentPage = 1;
-
-    while(currentPage >= 1){
-        system("cls");
-        displayPage(books, totalBooks, currentPage, 5);
-        printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
-        printf("~%d~\n", currentPage);
-        printf("Ingrese el numero del libro que desea ver en detalle: ");
-        currentPage = handleUserInput(currentPage, books, totalBooks);
-    }
-}
-
-
-
-/* >>>>>>>>>>>>>>>>>>>UTILITIES<<<<<<<<<<<<<<<<<<<<< */
 
 void sortBooks(stBook books[], int totalBooks){
     char opcion ;
@@ -140,7 +78,7 @@ void sortBooks(stBook books[], int totalBooks){
             default:
                 system("cls");
                 printf("La opcion ingresada no es valida.");
-                sleep(1);
+//                sleep(1);
                 system("cls");
                 break;
         }
@@ -212,7 +150,7 @@ void searchBooks(stBook books[], int totalBooks){
             default:
                 system("cls");
                 printf("La opcion ingresada no es valida.");
-                sleep(1);
+//                sleep(1);
                 system("cls");
                 break;
         }
@@ -258,7 +196,7 @@ void searchBooksByTitle(stBook books[], int totalBooks){
 
     if(totalFoundBooks == 0){
         printf("No se encontro ningun libro con ese titulo.");
-        sleep(1);
+//        sleep(1);
     } else {
         paginated(foundBooks, totalFoundBooks);
     }
@@ -297,7 +235,7 @@ void searchBooksByAuthor(stBook books[], int totalBooks){
 
     if(totalFoundBooks == 0){
         printf("No se encontro ningun libro con ese autor.");
-        sleep(1);
+//        sleep(1);
     } else {
         paginated(foundBooks, totalFoundBooks);
     }

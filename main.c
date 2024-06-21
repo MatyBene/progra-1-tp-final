@@ -23,11 +23,11 @@ int main()
         int index = registerLoginMenu(users, &totalUsers);
         if (users[index].isAdmin == 1)
         {
-            quit = adminMenu(users, index, &totalUsers, books, &totalBooks);
+            quit = adminMenu(users, index, &totalUsers, books, &totalBooks, comments, &totalComments);
         }
         else
         {
-            quit = userMenu(users, index, &totalUsers, books, &totalBooks);
+            quit = userMenu(users, index, &totalUsers, books, &totalBooks, comments, &totalComments);
         }
     } while(quit != 27);
 
