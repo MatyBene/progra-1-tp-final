@@ -120,9 +120,7 @@ void searchBooks(int index, stBook books[], int totalBooks)
             searchBooksByAuthor(index, books, totalBooks);
             break;
         case 51:
-            printf("BUSCAR POR CATEGORIA\n");
-            system("pause");
-            /// searchBookByCategory(books, totalBooks);
+            searchBooksByCategory(index, books, totalBooks);
             break;
         case 27:
             system("cls");
@@ -261,3 +259,25 @@ int matchCategoryBook(stBook books[], int totalBooks, char searchCategory[], stB
     return totalFoundBooks;
 }
 
+void searchBooksByCategory(int index, stBook books[], int totalBooks)
+{
+    char searchCategory[100];
+    stBook foundBooks[1000];
+    int totalFoundBooks = 0;
+
+    system("cls");
+    printf("Ingrese la categoria: \n");
+    gets(searchCategory);
+
+    totalFoundBooks = matchCategoryBook(books, totalBooks, searchCategory, foundBooks, totalFoundBooks);
+
+    if(totalFoundBooks == 0)
+    {
+        printf("No se encontro ningun libro con ese autor.");
+//        sleep(1);
+    }
+    else
+    {
+        paginated(index, foundBooks, &totalFoundBooks, 5, printBook, booksOptionMenu);
+    }
+}
