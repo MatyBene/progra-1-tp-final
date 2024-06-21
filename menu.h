@@ -31,8 +31,8 @@ void userInfoMenu(int index);
 void actionUserMenu(char *prompt, void (*action)(stUser *, int, int *));
 
 void paginated(int index, void *elements, int *totalElements, int pageSize, printFunction printElement, elementMenu handleMenu);
-void displayPage(int page, int pageSize, printFunction printElement);
-int handleUserInput(int userIndex, int currentPage, elementMenu handleMenu);
+void displayPage(const void *elements, int totalElements, int page, int pageSize, printFunction printElement);
+int handleUserInput(int index, void *elements, int *totalElements, int currentPage, elementMenu handleMenu);
 
 void sortBooksMenu();
 void booksOptionMenu(int userIndex, int bookIndex);

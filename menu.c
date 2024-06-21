@@ -451,7 +451,7 @@ void actionUserMenu(char *prompt, actionFunction action)
 
         if (yesNo() && !users[index].isAdmin)
         {
-            action(users, index, totalUsers);
+            action(users, index, &totalUsers);
         }
         else
         {
@@ -497,7 +497,7 @@ void displayPage(const void *elements, int totalElements, int page, int pageSize
     }
 }
 
-int handleUserInput(int index, void elements, int *totalElements, int currentPage, elementMenu handleMenu)
+int handleUserInput(int index, void *elements, int *totalElements, int currentPage, elementMenu handleMenu)
 {
     fflush(stdin);
     char key = getch();
@@ -510,7 +510,7 @@ int handleUserInput(int index, void elements, int *totalElements, int currentPag
         switch (key)
         {
             case 77:
-                if ((currentPage + 1) * 5 < totalElements)
+                if ((currentPage + 1) * 5 < *totalElements)
                 {
                     currentPage++;
                 }
@@ -547,10 +547,10 @@ void booksOptionMenu(int userIndex, int bookIndex)
     {
         system("cls");
 
-        printBookExtended(books, index);
+        printBookExtended(books, userIndex);
 
         printf("\n\n");
-        printf("  1) %s favoritos\n", isFavorite(users[userIndex], books[elementIndex].bookId) ? "Quitar de" : "Agregar a");
+        printf("  1) %s favoritos\n", isFavorite(users[userIndex], books[bookIndex].bookId) ? "Quitar de" : "Agregar a");
         printf("esc)  Salir.\n");
 
         fflush(stdin);
@@ -561,7 +561,7 @@ void booksOptionMenu(int userIndex, int bookIndex)
             case '1':
                 system("cls");
 
-                if(isFavorite(user[userIndex], books[elementIndex].bookId))
+                if(isFavorite(users[userIndex], books[bookIndex].bookId))
                 {
                     removeFavorite(users, userIndex, books[bookIndex].bookId);
                 }
@@ -569,7 +569,7 @@ void booksOptionMenu(int userIndex, int bookIndex)
                 {
                     addFavorite(users, userIndex, books[bookIndex].bookId);
                 }
-                printf("Se %s favoritos", isFavorite(users[userIndex], books[elementIndex].bookId) ? "agrego el libro a" : "quito el libro de");
+                printf("Se %s favoritos", isFavorite(users[userIndex], books[bookIndex].bookId) ? "agrego el libro a" : "quito el libro de");
 
                 break;
 
@@ -584,17 +584,17 @@ void booksOptionMenu(int userIndex, int bookIndex)
 
 }
 
-void booksAdminOptionMenu(void elements[], int index, int *totalBooks)
-{
-    printBookAdmin(elements, (currentPage * 5) + (int) key - 49);
-}
-
-void usersOptionMenu(void elements[], int index)
+void booksAdminOptionMenu(void *elements, int index, int *totalBooks)
 {
 
 }
 
-void commentsOptionMenu(void elements[], int index)
+void usersOptionMenu(void *elements, int index)
+{
+
+}
+
+void commentsOptionMenu(void *elements, int index)
 {
 
 }
