@@ -412,22 +412,21 @@ void actionUserMenu(stUser *users, int *totalUsers, char *prompt, void (*action)
     system("pause");
 }
 
-void paginated(const void elementsArray[], size_t elementSize, int *totalElements, printFunction printElement, elementMenu handleMenu, char elementName[])
+void paginated(stUser *user, int userIndex, void elements[], int *totalElements, printFunction printElement, elementMenu handleMenu)
 {
     int currentPage = 1;
 
     while(currentPage >= 1)
     {
         system("cls");
-        displayPage(elementsArray, elementSize, totalElements, currentPage, 5, printElement);
+        displayPage(elements, totalElements, currentPage, 5, printElement);
         printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
         printf("~ %d ~\n", currentPage);
-        printf("Ingrese el numero del %s que desea ver en detalle: ");
-        currentPage = handleUserInput(elementsArray, totalElements, currentPage, handleMenu);
+        currentPage = handleUserInput(elements, totalElements, currentPage, handleMenu);
     }
 }
 
-void displayPage(const void elementsArray[], size_t elementSize, int *totalElements, int page, int pageSize, printFunction printElement)
+void displayPage(const void elements[], int *totalElements, int page, int pageSize, printFunction printElement)
 {
     int start = page * pageSize;
     int end = start + pageSize;
@@ -440,11 +439,11 @@ void displayPage(const void elementsArray[], size_t elementSize, int *totalEleme
     for (int i = start; i < end; i++)
     {
         printf(" %d.", i - start + 1);
-        printElement(element, i);
+        printElement(elements, i);
     }
 }
 
-int handleUserInput(const void elementsArray[], int *totalElements, int currentPage, elementMenu handleMenu)
+int handleUserInput(stUser *user, int userIndex, const void elements[], int *totalElements, int currentPage, elementMenu handleMenu)
 {
     fflush(stdin);
     char key = getch();
@@ -472,7 +471,7 @@ int handleUserInput(const void elementsArray[], int *totalElements, int currentP
     }
     else if(key >= 49 && key <= 53)
     {
-        handleMenu(elementsArray, (currentPage * 5) + (int) key - 49, totalElements);
+        handleMenu(user, userIndex, elements, (currentPage * 5) + (int) key - 49, totalElements);
     }
     else if(key == 27)
     {
@@ -480,23 +479,47 @@ int handleUserInput(const void elementsArray[], int *totalElements, int currentP
     }
     else
     {
-        handleUserInput(elementsArray, totalElements, currentPage, handleMenu);
+        handleUserInput(user, userIndex, elements, totalElements, currentPage, handleMenu);
     }
 
     return currentPage;
 }
 
-void booksOptionMenu(const void elementsArray[], int index)
+void booksOptionMenu(stUser *user, int userIndex, void elements[], int index, int *totalBooks)
 {
-    printBookExtended(elementsArray, (currentPage * 5) + (int) key - 49);
+    stBook books[] = (stBook*) elements;
+    char option;
+
+    do
+    {
+        system("cls");
+
+        printBookExtended(books, index);
+
+        printf("\n\n");
+//        printf("%s favoritos\n", books[index]. ? "Si" : "No");
+        printf("esc)  Salir.\n");
+
+        fflush(stdin);
+        option = getch();
+
+
+    } while(option != 27);
+
+
 }
 
-void usersOptionMenu(const void elementsArray[], int index)
+void booksAdminOptionMenu(void elements[], int index, int *totalBooks)
+{
+    printBookAdmin(elements, (currentPage * 5) + (int) key - 49);
+}
+
+void usersOptionMenu(void elements[], int index)
 {
 
 }
 
-void commentsOptionMenu(const void elementsArray[], int index)
+void commentsOptionMenu(void elements[], int index)
 {
 
 }

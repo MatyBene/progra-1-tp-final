@@ -12,7 +12,7 @@
 #include "Comments/coment.h"
 
 typedef void (*printFunction)(void*, int index);
-typedef void (*elementMenu)(void*, int index, int *totalElements);
+typedef void (*elementMenu)(stUser *user, int userIndex, void elements[], int index, int *totalElements);
 
 char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks, stComment *comments, int *totalComments);
 char adminMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks, stComment *comments, int *totalComments);
@@ -20,8 +20,8 @@ void dashboardMenu(stUser *users, int *totalUsers, stBook *books, int *totalBook
 void userInfoMenu(stUser *users, int index);
 int registerLoginMenu(stUser *users, int *index);
 void actionUserMenu(stUser *users, int *totalUsers, char *prompt, void (*action)(stUser *, int, int *));
-void paginated(const void elementsArray[], size_t elementSize, int *totalElements, printFunction printElement, elementMenu handleMenu, char elementName[]);
-void displayPage(const void elementsArray[], size_t elementSize, int totalElements, int page, int pageSize, printFunction printElement);
-int handleUserInput(const void elementsArray[], int *totalElements, int currentPage);
+void paginated(void elements[], int *totalElements, printFunction printElement, elementMenu handleMenu, char elementName[]);
+void displayPage(const void elements[], int totalElements, int page, int pageSize, printFunction printElement);
+int handleUserInput(const void elements[], int *totalElements, int currentPage);
 
 #endif // MENU_H_INCLUDED
