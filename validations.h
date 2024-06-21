@@ -16,7 +16,7 @@ int getNumber(); // permite escribir unicamente numeros
 
 
 int existingBook(char title[], stBook books[], int index);
-
+int isFavorite(stUser user, int bookId);
 
 /* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
 

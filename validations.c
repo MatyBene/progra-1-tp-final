@@ -91,6 +91,22 @@ int existingBook(char title[], stBook books[], int index) // valida que un libro
     return flag;
 }
 
+int isFavorite(stUser user, int bookId)
+{
+    int i = 0;
+
+    while (user.favoriteBooks[i])
+    {
+        if(user.favoriteBooks[i] == bookId)
+        {
+            return 1;
+        }
+        i++;
+    }
+
+    return 0;
+}
+
 /* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
 
 

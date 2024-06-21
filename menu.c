@@ -12,7 +12,7 @@ int totalComments;
 
 /* >>>>>>>>>>>>>>>>>>>GLOBAL<<<<<<<<<<<<<<<<<<<<< */
 
-void run()
+void run() /// INICIA LA APLICACION
 {
     loadDataMenu();
 
@@ -336,7 +336,7 @@ char adminMenu(int index)
     return option;
 }
 
-void dashboardMenu(stUser *users, int *totalUsers, stBook *books, int *totalBooks, stComment *comments, int *totalComments)
+void dashboardMenu()
 {
     char option;
 
@@ -344,9 +344,9 @@ void dashboardMenu(stUser *users, int *totalUsers, stBook *books, int *totalBook
     {
         system("cls");
         printf("DASHBOARD \n\n");
-        printf("  1)  Ver Usuarios (%d)\n", *totalUsers);
-        printf("  2)  Ver Libros (%d)\n", *totalBooks);
-        printf("  3)  Ver Comentarios (%d)\n", *totalComments);
+        printf("  1)  Ver Usuarios (%d)\n", totalUsers);
+        printf("  2)  Ver Libros (%d)\n", totalBooks);
+        printf("  3)  Ver Comentarios (%d)\n", totalComments);
         printf("  4)  Ver ultimo Usuario registrado.\n");
         printf("  5)  Ver ultimo Libro registrado.\n");
         printf("esc)  Salir.\n");
@@ -430,13 +430,13 @@ int registerLoginMenu()
     return index;
 }
 
-void actionUserMenu(stUser *users, int *totalUsers, char *prompt, void (*action)(stUser *, int, int *))
+void actionUserMenu(char *prompt, actionFunction action)
 {
     int id, index;
 
     printf("Seleccione el ID del usuario a %s: \n", prompt);
     scanf("%d", &id);
-    index = matchId(users, id, *totalUsers);
+    index = matchId(users, id, totalUsers);
     if(index != -1)
     {
         printf("Desea %s al usuario %s? (y/n)\n", prompt, users[index].username);
@@ -458,21 +458,21 @@ void actionUserMenu(stUser *users, int *totalUsers, char *prompt, void (*action)
     system("pause");
 }
 
-void paginated(stUser *user, int userIndex, void elements[], int *totalElements, printFunction printElement, elementMenu handleMenu)
+void paginated(int userIndex, int pageSize, printFunction printElement, elementMenu handleMenu)
 {
     int currentPage = 1;
 
     while(currentPage >= 1)
     {
         system("cls");
-        displayPage(elements, totalElements, currentPage, 5, printElement);
+        displayPage(elements, *totalElements, currentPage, pageSize, printElement);
         printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
         printf("~ %d ~\n", currentPage);
-        currentPage = handleUserInput(elements, totalElements, currentPage, handleMenu);
+        currentPage = handleUserInput(userIndex, elements, totalElements, currentPage, handleMenu);
     }
 }
 
-void displayPage(const void elements[], int *totalElements, int page, int pageSize, printFunction printElement)
+void displayPage(int page, int pageSize, printFunction printElement)
 {
     int start = page * pageSize;
     int end = start + pageSize;
@@ -489,7 +489,7 @@ void displayPage(const void elements[], int *totalElements, int page, int pageSi
     }
 }
 
-int handleUserInput(stUser *user, int userIndex, const void elements[], int *totalElements, int currentPage, elementMenu handleMenu)
+int handleUserInput(int userIndex, int currentPage, elementMenu handleMenu)
 {
     fflush(stdin);
     char key = getch();
@@ -501,23 +501,23 @@ int handleUserInput(stUser *user, int userIndex, const void elements[], int *tot
 
         switch (key)
         {
-        case 77:
-            if ((currentPage + 1) * 5 < totalElements)
-            {
-                currentPage++;
-            }
-            break;
-        case 75:
-            if (currentPage > 1)
-            {
-                currentPage--;
-            }
-            break;
+            case 77:
+                if ((currentPage + 1) * 5 < totalElements)
+                {
+                    currentPage++;
+                }
+                break;
+            case 75:
+                if (currentPage > 1)
+                {
+                    currentPage--;
+                }
+                break;
         }
     }
     else if(key >= 49 && key <= 53)
     {
-        handleMenu(user, userIndex, elements, (currentPage * 5) + (int) key - 49, totalElements);
+        handleMenu(userIndex, (currentPage * 5) + (int) key - 49);
     }
     else if(key == 27)
     {
@@ -525,15 +525,14 @@ int handleUserInput(stUser *user, int userIndex, const void elements[], int *tot
     }
     else
     {
-        handleUserInput(user, userIndex, elements, totalElements, currentPage, handleMenu);
+        handleUserInput(userIndex, currentPage, handleMenu);
     }
 
     return currentPage;
 }
 
-void booksOptionMenu(stUser *user, int userIndex, void elements[], int index, int *totalBooks)
+void booksOptionMenu(int userIndex, int bookIndex)
 {
-    stBook books[] = (stBook*) elements;
     char option;
 
     do
@@ -543,14 +542,26 @@ void booksOptionMenu(stUser *user, int userIndex, void elements[], int index, in
         printBookExtended(books, index);
 
         printf("\n\n");
-//        printf("%s favoritos\n", books[index]. ? "Si" : "No");
+        printf("  1) %s favoritos\n", isFavorite(users[userIndex], books[elementIndex].bookId) ? "Quitar de" : "Agregar a");
         printf("esc)  Salir.\n");
 
         fflush(stdin);
         option = getch();
 
+        switch(option)
+        {
+            case '1':
+                system("cls");
+                users[userIndex].favoriteBooks[]///TODO hay que buscar el index del libro por el id (:
+                printf("Se %s favoritos", isFavorite(users[userIndex], books[elementIndex].bookId) ? "agrego el libro a" : "quito el libro de");
+                break;
+            case 27:
+                system("cls");
+                break;
+        }
 
-    } while(option != 27);
+    }
+    while(option != 27);
 
 
 }
