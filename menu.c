@@ -1,10 +1,57 @@
 #include "menu.h"
 
-char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks)
+
+/* >>>>>>>>>>>>>>>>>>>GLOBAL<<<<<<<<<<<<<<<<<<<<< */
+
+stUser users[1000];
+stBook books[1000];
+stComment comments[1000];
+int totalUsers;
+int totalBooks;
+int totalComments;
+
+/* >>>>>>>>>>>>>>>>>>>GLOBAL<<<<<<<<<<<<<<<<<<<<< */
+
+void run()
 {
+    loadDataMenu();
 
+    char quit;
+
+    do
+    {
+        int index = registerLoginMenu();
+        if (users[index].isAdmin == 1)
+        {
+            quit = adminMenu(index);
+        }
+        else
+        {
+            quit = userMenu(index);
+        }
+    }
+    while(quit != 27);
+
+    saveDataMenu();
+}
+
+void loadDataMenu()
+{
+    totalUsers = readFile(users, sizeof(stUser), USERS);
+    totalBooks = readFile(books, sizeof(stBook), BOOKS);
+    totalComments = readFile(comments, sizeof(stComment), COMMENTS);
+}
+
+void saveDataMenu()
+{
+    saveFile(users, sizeof(stUser), totalUsers, USERS, compareUserId);
+    saveFile(books, sizeof(stBook), totalBooks, BOOKS, compareBookId);
+    saveFile(comments, sizeof(stComment), totalComments, COMMENTS, compareCommentId);
+}
+
+char userMenu(int index)
+{
     char option;
-
 
     do
     {
@@ -28,80 +75,81 @@ char userMenu(stUser *users, int index, int *totalUsers, stBook *books, int *tot
 
         switch(option)
         {
-            case '0':
-            {
-                system("cls");
-                break;
-            }
-            case '1':
-            {
-                system("cls");
-                printUser(users[index]);
-                system("pause");
-                break;
-            }
-            case '2':
-            {
-                userInfoMenu(users, index);
-                break;
-            }
-            case '3':
-            {
-                system("cls");
-                sortBooks(books, *totalBooks);
-                break;
-            }
-            case '4':
-            {
-                system("cls");
-                searchBooks(books, *totalBooks);
-                break;
-            }
-            case '5':
-            {
-                system("cls");
-                bookRegister(books, totalBooks);
-                break;
-            }
-            case '6':
-            {
-                printf("Deseas eliminar tu cuenta %s? (y/n)\n", users[index].username);
-                if(yesNo())
-                {
-                    deleteUser(users, index, totalUsers);
-                    system("pause");
-                    system("cls");
-                    option = '0';
-                }
-                else
-                {
-                    printf("No se elimino la cuenta.");
-                    system("pause");
-                }
-                break;
-            }
-            case '7':
-            {
-                system("cls");
-                if(!users[index].isAdmin)
-                {
-                    option = 1;
-                }
-                break;
-            }
-            case 27:
-            {
-                system("cls");
-                break;
-            }
+        case '0':
+        {
+            system("cls");
+            break;
         }
-    }while (option != '0' && option != 27 && option != '7');
+        case '1':
+        {
+            system("cls");
+            printUser(users[index]);
+            system("pause");
+            break;
+        }
+        case '2':
+        {
+            userInfoMenu(index);
+            break;
+        }
+        case '3':
+        {
+            system("cls");
+            sortBooks(books, totalBooks);
+            break;
+        }
+        case '4':
+        {
+            system("cls");
+            searchBooks(books, totalBooks);
+            break;
+        }
+        case '5':
+        {
+            system("cls");
+            bookRegister(books, &totalBooks);
+            break;
+        }
+        case '6':
+        {
+            printf("Deseas eliminar tu cuenta %s? (y/n)\n", users[index].username);
+            if(yesNo())
+            {
+                deleteUser(users, index, &totalUsers);
+                system("pause");
+                system("cls");
+                option = '0';
+            }
+            else
+            {
+                printf("No se elimino la cuenta.");
+                system("pause");
+            }
+            break;
+        }
+        case '7':
+        {
+            system("cls");
+            if(!users[index].isAdmin)
+            {
+                option = 1;
+            }
+            break;
+        }
+        case 27:
+        {
+            system("cls");
+            break;
+        }
+        }
+    }
+    while (option != '0' && option != 27 && option != '7');
 
     return option;
 
 }
 
-void userInfoMenu (stUser *users, int index)
+void userInfoMenu (int index)
 {
     char option;
 
@@ -125,77 +173,78 @@ void userInfoMenu (stUser *users, int index)
 
         switch(option)
         {
-            case 27:
-            {
-                system("cls");
-                break;
-            }
-            case '1':
-            {
-                system("cls");
-                newEmail(users, index);
-                printf("El mail ha sido actualizado a %s\n", users[index].email);
-                system("pause");
-                break;
-            }
-            case '2':
-            {
-                system("cls");
-                newPassword(users, index);
-                printf("La contrase�a ha sido actualizada\n");
-                system("pause");
-                break;
-            }
-            case '3':
-            {
-                system("cls");
-                newUserName(users, index);
-                printf("El nombre de usuario ha sido actualizado a %s\n", users[index].username);
-                system("pause");
-                break;
-            }
-            case '4':
-            {
-                system("cls");
-                newGender(users, index);
-                printf("El genero ha sido actualizado a %c\n", users[index].gender);
-                system("pause");
-                break;
-            }
-            case '5':
-            {
-                system("cls");
-                newBirthDate(users, index);
-                printf("La fecha de nacimiento ha sido actualizada a %s\n", users[index].birthDate);
-                system("pause");
-                break;
-            }
-            case '6':
-            {
-
-                break;
-            }
-            case '7':
-            {
-                system("cls");
-                newDni(users, index);
-                printf("El DNI ha sido actualizado a %s\n", users[index].dni);
-                system("pause");
-                break;
-            }
-            case '8':
-            {
-                system("cls");
-                newAdress(users, index);
-                printf("La direccion ha sido actualizada\n");
-                system("pause");
-                break;
-            }
+        case 27:
+        {
+            system("cls");
+            break;
         }
-    }while(option != 27);
+        case '1':
+        {
+            system("cls");
+            newEmail(users, index);
+            printf("El mail ha sido actualizado a %s\n", users[index].email);
+            system("pause");
+            break;
+        }
+        case '2':
+        {
+            system("cls");
+            newPassword(users, index);
+            printf("La contrase�a ha sido actualizada\n");
+            system("pause");
+            break;
+        }
+        case '3':
+        {
+            system("cls");
+            newUserName(users, index);
+            printf("El nombre de usuario ha sido actualizado a %s\n", users[index].username);
+            system("pause");
+            break;
+        }
+        case '4':
+        {
+            system("cls");
+            newGender(users, index);
+            printf("El genero ha sido actualizado a %c\n", users[index].gender);
+            system("pause");
+            break;
+        }
+        case '5':
+        {
+            system("cls");
+            newBirthDate(users, index);
+            printf("La fecha de nacimiento ha sido actualizada a %s\n", users[index].birthDate);
+            system("pause");
+            break;
+        }
+        case '6':
+        {
+
+            break;
+        }
+        case '7':
+        {
+            system("cls");
+            newDni(users, index);
+            printf("El DNI ha sido actualizado a %s\n", users[index].dni);
+            system("pause");
+            break;
+        }
+        case '8':
+        {
+            system("cls");
+            newAdress(users, index);
+            printf("La direccion ha sido actualizada\n");
+            system("pause");
+            break;
+        }
+        }
+    }
+    while(option != 27);
 }
 
-char adminMenu(stUser *users, int index, int *totalUsers, stBook *books, int *totalBooks)
+char adminMenu(int index)
 {
     char option;
 
@@ -215,32 +264,32 @@ char adminMenu(stUser *users, int index, int *totalUsers, stBook *books, int *to
 
         switch(option)
         {
-            case '0':
-            {
-                system("cls");
-                break;
-            }
-            case '1':
-            {
-                /// DASHBOARD
-                break;
-            }
-            case '2':
-            {
-                /// BUSCAR LIBRO
-                break;
-            }
-            case '3':
-            {
-                /// BUSCAR USUARIO
-                break;
-            }
-            case '4':
-            {
-                system("cls");
-                option = userMenu(users, index, totalUsers, books, totalBooks);
-                break;
-            }
+        case '0':
+        {
+            system("cls");
+            break;
+        }
+        case '1':
+        {
+            /// DASHBOARD
+            break;
+        }
+        case '2':
+        {
+            /// BUSCAR LIBRO
+            break;
+        }
+        case '3':
+        {
+            /// BUSCAR USUARIO
+            break;
+        }
+        case '4':
+        {
+            system("cls");
+            option = userMenu(index);
+            break;
+        }
 
 /// ESTAN COMENTADAS PARA FACILITAR RECORDAR QUE FUNCION HACIA QUE (POR LAS DUDAS JAJA)
 //            case '1':
@@ -274,19 +323,20 @@ char adminMenu(stUser *users, int index, int *totalUsers, stBook *books, int *to
 //                actionUserMenu(users, totalUsers, "activar", activateUser);
 //                break;
 //            }
-            case 27:
-            {
-                system("cls");
-                break;
-            }
+        case 27:
+        {
+            system("cls");
+            break;
+        }
         }
 
-    }while (option != '0' && option != 27);
+    }
+    while (option != '0' && option != 27);
 
     return option;
 }
 
-int registerLoginMenu(stUser *users, int *totalUsers)
+int registerLoginMenu()
 {
     char option[9];
     int index = -1;
@@ -300,13 +350,13 @@ int registerLoginMenu(stUser *users, int *totalUsers)
         if (strcmpi(option,"registrar") == 0)
         {
             system("cls");
-            userRegister(users, totalUsers);
-            index = userLogin(users, *totalUsers);
+            userRegister(users, &totalUsers);
+            index = userLogin(users, totalUsers);
         }
         else if (strcmpi(option,"ingresar") == 0)
         {
             system("cls");
-            index = userLogin(users, *totalUsers);
+            index = userLogin(users, totalUsers);
         }
         else
         {

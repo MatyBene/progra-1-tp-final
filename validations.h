@@ -5,6 +5,7 @@
 #include <conio.h>
 #include "Books/book.h"
 #include "Users/user.h"
+#include "Comments/coment.h"
 
 int isNotEmpty(char field[]);
 int yesNo ();
@@ -38,6 +39,13 @@ int compareUserId(const void *a, const void *b);
 
 
 /* >>>>>>>>>>>>>>>>>>>USERS<<<<<<<<<<<<<<<<<<<<< */
+
+
+/* >>>>>>>>>>>>>>>>>>>COMMENTS<<<<<<<<<<<<<<<<<<<<< */
+
+int compareCommentId(const void *a, const void *b);
+
+/* >>>>>>>>>>>>>>>>>>>COMMENTS<<<<<<<<<<<<<<<<<<<<< */
 
 
 #endif // VALIDATIONS_H_INCLUDED

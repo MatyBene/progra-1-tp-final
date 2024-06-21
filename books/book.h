@@ -1,7 +1,7 @@
 #ifndef BOOK_H_INCLUDED
 #define BOOK_H_INCLUDED
 
-#define F_BOOKS "Files/F_BOOKS.dat"
+#define BOOKS "Files/F_BOOKS.dat"
 
 typedef struct{
     int bookId; /// único, autoincremental

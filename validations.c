@@ -306,3 +306,16 @@ int compareUserId(const void *a, const void *b)
 }
 
 /* >>>>>>>>>>>>>>>>>>>USERS<<<<<<<<<<<<<<<<<<<<< */
+
+
+/* >>>>>>>>>>>>>>>>>>>COMMENTS<<<<<<<<<<<<<<<<<<<<< */
+
+int compareCommentId(const void *a, const void *b)
+{
+    stComment *commentA = (stComment *) a;
+    stComment *commentB = (stComment *) b;
+    return (commentA->commentId - commentB->commentId);
+}
+
+/* >>>>>>>>>>>>>>>>>>>COMMENTS<<<<<<<<<<<<<<<<<<<<< */
+

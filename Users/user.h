@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define USERS "Files/F_USERS.dat"
+
 typedef struct{
     char street[50];
     char number[10];
@@ -28,7 +30,7 @@ typedef struct{
     int deleted;  /// 0 si está activo - 1 si está eliminado
 } stUser;
 
-void userRegister(stUser *users, int *index);
+void userRegister(stUser *users, int *totalUsers);
 int userLogin(stUser *users, int totalUsers);
 int enterEmail(stUser *users, int totalUsers);
 int enterPassword(stUser *users, int index);
