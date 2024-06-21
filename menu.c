@@ -17,22 +17,22 @@ void run() /// INICIA LA APLICACION
 {
     readDataMenu();
 
-//    char quit;
-//
-//    do
-//    {
-//        int index = registerLoginMenu();
-//        if (users[index].isAdmin == 1)
-//        {
-//            quit = adminMenu(index);
-//        }
-//        else
-//        {
-//            quit = userMenu(index);
-//        }
-//    }
-//    while(quit != 27);
-userMenu(0);
+    char quit;
+
+    do
+    {
+        int index = registerLoginMenu();
+        if (users[index].isAdmin == 1)
+        {
+            quit = adminMenu(index);
+        }
+        else
+        {
+            quit = userMenu(index);
+        }
+    }
+    while(quit != 27);
+
     saveDataMenu();
 }
 
