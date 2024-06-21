@@ -120,9 +120,7 @@ void searchBooks(int index, stBook books[], int totalBooks)
             searchBooksByAuthor(index, books, totalBooks);
             break;
         case 51:
-            printf("BUSCAR POR CATEGORIA\n");
-            system("pause");
-            /// searchBookByCategory(books, totalBooks);
+            searchBooksByCategory(index, books, totalBooks);
             break;
         case 27:
             system("cls");
@@ -169,28 +167,6 @@ int matchTitleBook(stBook books[], int totalBooks, char searchTitle[], stBook fo
     return totalFoundBooks;
 }
 
-void searchBooksByTitle(int index, stBook books[], int totalBooks)
-{
-    char searchTitle[100];
-    stBook foundBooks[1000];
-    int totalFoundBooks = 0;
-
-    system("cls");
-    printf("Ingrese el titulo del libro: \n");
-    gets(searchTitle);
-
-    totalFoundBooks = matchTitleBook(books, totalBooks, searchTitle, foundBooks, totalFoundBooks);
-
-    if(totalFoundBooks == 0)
-    {
-        printf("No se encontro ningun libro con ese titulo.");
-        sleep(1);
-    }
-    else
-    {
-        paginated(index, foundBooks, &totalFoundBooks, 5, printBook, booksOptionMenu);
-    }
-}
 
 int matchAuthorBook(stBook books[], int totalBooks, char searchAuthor[], stBook foundBooks[], int totalFoundBooks)
 {
@@ -215,22 +191,46 @@ int matchAuthorBook(stBook books[], int totalBooks, char searchAuthor[], stBook 
     return totalFoundBooks;
 }
 
-void searchBooksByAuthor(int index, stBook books[], int totalBooks)
+
+int matchCategoryBook(stBook books[], int totalBooks, char searchCategory[], stBook foundBooks[], int totalFoundBooks)
 {
-    char searchAuthor[100];
+    char lowerSearchCategory[100];
+    char lowerCategory[100];
+
+    strcpy(lowerSearchCategory, searchCategory);
+    toLowerCase(lowerSearchCategory);
+
+    for(int i = 0; i < totalBooks; i++)
+    {
+        strcpy(lowerCategory, books[i].category);
+        toLowerCase(lowerCategory);
+
+        if(strstr(lowerCategory, lowerSearchCategory) != NULL)
+        {
+            foundBooks[totalFoundBooks] = books[i];
+            (totalFoundBooks)++;
+        }
+    }
+
+    return totalFoundBooks;
+}
+
+
+void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt, MatchFunction matchFunc){
+    char searchTerm[100];
     stBook foundBooks[1000];
     int totalFoundBooks = 0;
 
     system("cls");
-    printf("Ingrese el autor: \n");
-    gets(searchAuthor);
+    printf("%s\n", prompt);
+    gets(searchTerm);
 
-    totalFoundBooks = matchAuthorBook(books, totalBooks, searchAuthor, foundBooks, totalFoundBooks);
+    totalFoundBooks = matchFunc(books, totalBooks, searchTerm, foundBooks, totalFoundBooks);
 
-    if(totalFoundBooks == 0)
+    if (totalFoundBooks == 0)
     {
-        printf("No se encontro ningun libro con ese autor.");
-//        sleep(1);
+        printf("No se encontro ningun libro con ese criterio.");
+        // sleep(1);
     }
     else
     {
@@ -238,3 +238,17 @@ void searchBooksByAuthor(int index, stBook books[], int totalBooks)
     }
 }
 
+void searchBooksByTitle(int index, stBook books[], int totalBooks)
+{
+    searchBooksBy(index, books, totalBooks, "Ingrese el titulo del libro:", matchTitleBook);
+}
+
+void searchBooksByAuthor(int index, stBook books[], int totalBooks)
+{
+    searchBooksBy(index, books, totalBooks, "Ingrese el autor:", matchAuthorBook);
+}
+
+void searchBooksByCategory(int index, stBook books[], int totalBooks)
+{
+    searchBooksBy(index, books, totalBooks, "Ingrese la categoria:", matchCategoryBook);
+}

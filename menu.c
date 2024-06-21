@@ -450,7 +450,7 @@ void paginated(int index, void *elements, int *totalElements, int pageSize, prin
 
 void displayPage(const void *elements, int totalElements, int page, int pageSize, printFunction printElement)
 {
-    int start = page * pageSize;
+    int start = (page - 1) * pageSize;
     int end = start + pageSize;
 
     if (end > totalElements)
@@ -478,7 +478,7 @@ int handleUserInput(int index, void *elements, int *totalElements, int currentPa
         switch (key)
         {
             case 77:
-                if ((currentPage + 1) * 5 < *totalElements)
+                if (currentPage * 5 < *totalElements)
                 {
                     currentPage++;
                 }
@@ -493,7 +493,7 @@ int handleUserInput(int index, void *elements, int *totalElements, int currentPa
     }
     else if(key >= 49 && key <= 53)
     {
-        handleMenu(index, ((currentPage * 5) + (int) key - 49));
+        handleMenu(index, (((currentPage - 1) * 5) + (int) key - 49));
     }
     else if(key == 27)
     {

@@ -15,6 +15,8 @@ typedef struct{
     int deleted; /// 0 si est� activo - 1 si est� eliminado
 }stBook;
 
+typedef int (*MatchFunction)(stBook[], int, char[], stBook[], int);
+
 void bookRegister(stBook books[], int *index);
 void printBookAdmin(const void *elements, int index);
 void printBook(const void *elements, int index);
@@ -27,9 +29,12 @@ int compareCategory(const void *a, const void *b);
 void toLowerCase(char *str);
 
 void searchBooks(int index, stBook books[], int totalBooks);
+void searchBooksby(int index, stBook books[], int totalBooks, const char *prompt, MatchFunction matchFunc);
 void searchBooksByTitle(int index, stBook books[], int totalBooks);
 int matchTitleBook(stBook books[], int totalBooks, char searchTitle[], stBook foundBooks[], int totalFoundBooks);
 void searchBooksByAuthor(int index, stBook books[], int totalBooks);
 int matchAuthorBook(stBook books[], int totalBooks, char searchAuthor[], stBook foundBooks[], int totalFoundBooks);
+void searchBooksByCategory(int index, stBook books[], int totalBooks);
+int matchCategoryBook(stBook books[], int totalBooks, char searchCategory[], stBook foundBooks[], int totalFoundBooks);
 
 #endif // BOOK_H_INCLUDED
