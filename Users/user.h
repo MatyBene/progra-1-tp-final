@@ -25,6 +25,7 @@ typedef struct{
     char gender;
     char birthDate[20];   /// yyy/mm/dd
     int favoriteBooks[50];  /// se van a guardar los id de los libros favs.
+    int numFavorites; /// cantidad de libros favoritos
     char dni[10];
     stAddress address;
     int deleted;  /// 0 si est� activo - 1 si est� eliminado
@@ -34,11 +35,13 @@ void userRegister(stUser users[], int *index);
 int userLogin(stUser users[], int totalUsers);
 int enterEmail(stUser users[], int totalUsers);
 int enterPassword(stUser users[], int index);
-void printUser(const void elements[], int index);
+void printUser(const void *elements, int index);
 //void printAllUsers(stUser users[], int index);
 void deleteUser(stUser users[], int index, int *totalUsers);
 void disableUser(stUser users[], int index, int *totalUsers);
 void activateUser(stUser users[], int index, int *totalUsers);
 void makeAdmin(stUser users[], int index, int *totalUsers);
+void addFavorite(stUser users[], int userIndex, int bookId);
+void removeFavorite(stUser users[], int userIndex, int bookId);
 
 #endif // USER_H_INCLUDED

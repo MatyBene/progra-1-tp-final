@@ -14,7 +14,7 @@ int totalComments;
 
 void run() /// INICIA LA APLICACION
 {
-    loadDataMenu();
+    readDataMenu();
 
     char quit;
 
@@ -35,7 +35,7 @@ void run() /// INICIA LA APLICACION
     saveDataMenu();
 }
 
-void loadDataMenu()
+void readDataMenu()
 {
     totalUsers = readFile(users, sizeof(stUser), USERS);
     totalBooks = readFile(books, sizeof(stBook), BOOKS);
@@ -61,12 +61,13 @@ char userMenu(int index)
         printf("  1)  Perfil.\n");
         printf("  2)  Editar informacion personal.\n");
         printf("  3)  Ver listado de libros.\n");
-        printf("  4)  Buscar libro.\n");
-        printf("  5)  Agregar un libro.\n");
-        printf("  6)  Eliminar cuenta.\n");
+        printf("  4)  Ver libros favoritos.\n");
+        printf("  5)  Buscar libro.\n");
+        printf("  6)  Agregar un libro.\n");
+        printf("  7)  Eliminar cuenta.\n");
         if (users[index].isAdmin == 1)
         {
-            printf("  7)  Menu admin\n");
+            printf("  8)  Menu admin\n");
         }
         printf("esc)  Salir.\n");
 
@@ -75,75 +76,82 @@ char userMenu(int index)
 
         switch(option)
         {
-        case '0':
-        {
-            system("cls");
-            break;
-        }
-        case '1':
-        {
-            system("cls");
-            printUser(users[index]);
-            system("pause");
-            break;
-        }
-        case '2':
-        {
-            userInfoMenu(index);
-            break;
-        }
-        case '3':
-        {
-            system("cls");
-            sortBooks(books, totalBooks);
-            break;
-        }
-        case '4':
-        {
-            system("cls");
-            searchBooks(books, totalBooks);
-            break;
-        }
-        case '5':
-        {
-            system("cls");
-            bookRegister(books, &totalBooks);
-            break;
-        }
-        case '6':
-        {
-            printf("Deseas eliminar tu cuenta %s? (y/n)\n", users[index].username);
-            if(yesNo())
+            case '0':
             {
-                deleteUser(users, index, &totalUsers);
-                system("pause");
                 system("cls");
-                option = '0';
+                break;
             }
-            else
+            case '1':
             {
-                printf("No se elimino la cuenta.");
+                system("cls");
+                printUser(users, index);
                 system("pause");
+                break;
             }
-            break;
-        }
-        case '7':
-        {
-            system("cls");
-            if(!users[index].isAdmin)
+            case '2':
             {
-                option = 1;
+                userInfoMenu(index);
+                break;
             }
-            break;
-        }
-        case 27:
-        {
-            system("cls");
-            break;
-        }
+            case '3':
+            {
+                system("cls");
+                sortBooksMenu();
+                paginated(index, books, &totalBooks, 5, printBook, booksOptionMenu);
+                break;
+            }
+            case '4':
+            {
+                system("cls");
+
+                break;
+            }
+            case '5':
+            {
+                system("cls");
+                searchBooks(index, books, totalBooks);
+                break;
+            }
+            case '6':
+            {
+                system("cls");
+                bookRegister(books, &totalBooks);
+                break;
+            }
+            case '7':
+            {
+                printf("Deseas eliminar tu cuenta %s? (y/n)\n", users[index].username);
+                if(yesNo())
+                {
+                    deleteUser(users, index, &totalUsers);
+                    system("pause");
+                    system("cls");
+                    option = '0';
+                }
+                else
+                {
+                    printf("No se elimino la cuenta.");
+                    system("pause");
+                }
+                break;
+            }
+            case '8':
+            {
+                system("cls");
+                if(!users[index].isAdmin)
+                {
+                    option = 1;
+                }
+                break;
+            }
+            case 27:
+            {
+                system("cls");
+                break;
+            }
         }
     }
-    while (option != '0' && option != 27 && option != '7');
+    while (option != '0' && option != 27 && option != '8');
 
     return option;
 
@@ -458,7 +466,7 @@ void actionUserMenu(char *prompt, actionFunction action)
     system("pause");
 }
 
-void paginated(int userIndex, int pageSize, printFunction printElement, elementMenu handleMenu)
+void paginated(int index, void *elements, int *totalElements, int pageSize, printFunction printElement, elementMenu handleMenu)
 {
     int currentPage = 1;
 
@@ -468,11 +476,11 @@ void paginated(int userIndex, int pageSize, printFunction printElement, elementM
         displayPage(elements, *totalElements, currentPage, pageSize, printElement);
         printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
         printf("~ %d ~\n", currentPage);
-        currentPage = handleUserInput(userIndex, elements, totalElements, currentPage, handleMenu);
+        currentPage = handleUserInput(index, elements, totalElements, currentPage, handleMenu);
     }
 }
 
-void displayPage(int page, int pageSize, printFunction printElement)
+void displayPage(const void *elements, int totalElements, int page, int pageSize, printFunction printElement)
 {
     int start = page * pageSize;
     int end = start + pageSize;
@@ -489,7 +497,7 @@ void displayPage(int page, int pageSize, printFunction printElement)
     }
 }
 
-int handleUserInput(int userIndex, int currentPage, elementMenu handleMenu)
+int handleUserInput(int index, void elements, int *totalElements, int currentPage, elementMenu handleMenu)
 {
     fflush(stdin);
     char key = getch();
@@ -517,7 +525,7 @@ int handleUserInput(int userIndex, int currentPage, elementMenu handleMenu)
     }
     else if(key >= 49 && key <= 53)
     {
-        handleMenu(userIndex, (currentPage * 5) + (int) key - 49);
+        handleMenu(index, (currentPage * 5) + (int) key - 49);
     }
     else if(key == 27)
     {
@@ -525,7 +533,7 @@ int handleUserInput(int userIndex, int currentPage, elementMenu handleMenu)
     }
     else
     {
-        handleUserInput(userIndex, currentPage, handleMenu);
+        handleUserInput(index, elements, totalElements, currentPage, handleMenu);
     }
 
     return currentPage;
@@ -552,9 +560,19 @@ void booksOptionMenu(int userIndex, int bookIndex)
         {
             case '1':
                 system("cls");
-                users[userIndex].favoriteBooks[]///TODO hay que buscar el index del libro por el id (:
+
+                if(isFavorite(user[userIndex], books[elementIndex].bookId))
+                {
+                    removeFavorite(users, userIndex, books[bookIndex].bookId);
+                }
+                else
+                {
+                    addFavorite(users, userIndex, books[bookIndex].bookId);
+                }
                 printf("Se %s favoritos", isFavorite(users[userIndex], books[elementIndex].bookId) ? "agrego el libro a" : "quito el libro de");
+
                 break;
+
             case 27:
                 system("cls");
                 break;
@@ -579,6 +597,45 @@ void usersOptionMenu(void elements[], int index)
 void commentsOptionMenu(void elements[], int index)
 {
 
+}
+
+void sortBooksMenu(){
+    char opcion ;
+
+    do{
+        printf("Seleccione como desea ver ordenados los libros: \n");
+        printf("1) Por valoraci�n.\n");
+        printf("2) Por categor�a.\n");
+        printf("3) Por orden alfab�tico.\n");
+        printf("esc) Volver al menu.\n");
+
+        fflush(stdin);
+        opcion = getch();
+        switch(opcion){
+            case '1':
+                qsort(books, totalBooks, sizeof(stBook), compareRating);
+                break;
+
+            case '2':
+                qsort(books, totalBooks, sizeof(stBook), compareCategory);
+                break;
+
+            case '3':
+                qsort(books, totalBooks, sizeof(stBook), compareTitle);
+                break;
+
+            case 27:
+                system("cls");
+                break;
+
+            default:
+                system("cls");
+                printf("La opcion ingresada no es valida.");
+//                sleep(1);
+                system("cls");
+                break;
+        }
+    } while(opcion != '1' && opcion != '2' && opcion != '3' && opcion != 27);
 }
 
 

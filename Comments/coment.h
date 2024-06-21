@@ -22,8 +22,8 @@ typedef struct
 } stComment;
 
 void commentRegister(stComment comments[], int *index);
-void printComment(const void elements[], int index);
-void printCommentAdmin(const void elements[], int index);
+void printComment(const void *elements, int index);
+void printCommentAdmin(const void *elements, int index);
 
 
 #endif // COMENT_H_INCLUDED

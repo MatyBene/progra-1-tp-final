@@ -5,7 +5,7 @@
 #define USERS "Files/F_USERS.dat"
 
 
-void userRegister(stUser users[], int *index) // registro de usuarios
+void userRegister(stUser users[], int *totalUsers) // registro de usuarios
 {
     users[*totalUsers].isAdmin = 0;
     users[*totalUsers].deleted = 0;
@@ -88,7 +88,7 @@ int enterPassword(stUser users[], int index)
     return index;
 }
 
-void printUser(const void elements[], int index)
+void printUser(const void *elements, int index)
 {
     stUser *users = (stUser*) elements;
 
@@ -168,5 +168,30 @@ void makeAdmin(stUser users[], int index, int *totalUsers)
     else
     {
         printf("El usuario no es valido.\n");
+    }
+}
+
+void addFavorite(stUser users[], int userIndex, int bookId)
+{
+    users[userIndex].favoriteBooks[users[userIndex].numFavorites] = bookId;
+
+    users[userIndex].numFavorites++;
+}
+
+void removeFavorite(stUser users[], int userIndex, int bookId)
+{
+    users[userIndex].numFavorites--;
+
+    int j = 0, i = 0;
+
+    while (i < users[userIndex].numFavorites)
+    {
+        if(users[userIndex].favoriteBooks[j] != bookId)
+        {
+           users[userIndex].favoriteBooks[i] = users[userIndex].favoriteBooks[j];
+           i++;
+        }
+
+        j++;
     }
 }

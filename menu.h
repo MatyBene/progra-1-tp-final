@@ -14,11 +14,11 @@
 
 
 void run();
-void loadDataMenu();
+void readDataMenu();
 void saveDataMenu();
 
-typedef void (*printFunction)(void*, int index);
-typedef void (*elementMenu)(stUser *user, int userIndex, void elements[], int index, int *totalElements);
+typedef void (*printFunction)(const void*, int index);
+typedef void (*elementMenu)(int userIndex, int elementIndex);
 typedef void (*actionFunction)(stUser users[], int index, int *totalUsers);
 
 int registerLoginMenu();
@@ -30,8 +30,11 @@ void dashboardMenu();
 void userInfoMenu(int index);
 void actionUserMenu(char *prompt, void (*action)(stUser *, int, int *));
 
-void paginated(int userIndex, int pageSize, printFunction printElement, elementMenu handleMenu);
+void paginated(int index, void *elements, int *totalElements, int pageSize, printFunction printElement, elementMenu handleMenu);
 void displayPage(int page, int pageSize, printFunction printElement);
 int handleUserInput(int userIndex, int currentPage, elementMenu handleMenu);
+
+void sortBooksMenu();
+void booksOptionMenu(int userIndex, int bookIndex);
 
 #endif // MENU_H_INCLUDED

@@ -12,9 +12,9 @@ void commentRegister(stComment comments[], int *index)
     (*index)++;
 }
 
-void printComment(const void elements[], int index)
+void printComment(const void *elements, int index)
 {
-    stComment comments[] = (stComment*) elements;
+    stComment *comments = (stComment*) elements;
 
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
     printf("Titulo: ....... %s\n", comments[index].commentTitle);
@@ -23,9 +23,9 @@ void printComment(const void elements[], int index)
     printf("Fecha: ........ %s\n",comments[index].commentDate);
 }
 
-void printCommentAdmin(const void elements[], int index)
+void printCommentAdmin(const void *elements, int index)
 {
-    stComment comments[] = (stComment*) elements;
+    stComment *comments = (stComment*) elements;
 
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
     printf("ID: ........... %d\n", comments[index].commentId);
