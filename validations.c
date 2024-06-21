@@ -95,7 +95,7 @@ int isFavorite(stUser user, int bookId)
 {
     int i = 0;
 
-    while (user.favoriteBooks[i])
+    while (i < user.numFavorites)
     {
         if(user.favoriteBooks[i] == bookId)
         {

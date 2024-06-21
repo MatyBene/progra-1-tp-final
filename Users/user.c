@@ -115,14 +115,6 @@ void printUser(const void *elements, int index)
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 
-//void printAllUsers(stUser users[], int totalUsers)
-//{
-//    for (int i = 0; i < totalUsers; i++)
-//    {
-//        printUser(users, i);
-//    }
-//}
-
 void deleteUser(stUser users[], int index, int *totalUsers)
 {
     deleteFile(users, sizeof(stUser), index, *totalUsers, USERS);

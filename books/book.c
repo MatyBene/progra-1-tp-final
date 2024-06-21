@@ -130,7 +130,7 @@ void searchBooks(int index, stBook books[], int totalBooks)
         default:
             system("cls");
             printf("La opcion ingresada no es valida.");
-//                sleep(1);
+            sleep(1);
             system("cls");
             break;
         }
@@ -184,7 +184,7 @@ void searchBooksByTitle(int index, stBook books[], int totalBooks)
     if(totalFoundBooks == 0)
     {
         printf("No se encontro ningun libro con ese titulo.");
-//        sleep(1);
+        sleep(1);
     }
     else
     {
