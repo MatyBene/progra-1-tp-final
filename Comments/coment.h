@@ -21,9 +21,10 @@ typedef struct
     int deleted; /// 0 si está activo - 1 si está eliminado
 } stComment;
 
-void commentRegister(stComment comments[], int *index);
+void commentRegister(stComment comments[], int *index, int idUser, int idBook);
 void printComment(const void *elements, int index);
 void printCommentAdmin(const void *elements, int index);
+void printCommentsBook(stComment *comments, int totalComments, int idBook);
 
 
 #endif // COMENT_H_INCLUDED

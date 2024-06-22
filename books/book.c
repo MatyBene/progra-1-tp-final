@@ -267,7 +267,73 @@ void favBooks(int favorites[], int numFavorites, stBook books[], int totalBooks,
     }
 }
 
+void editBook(stBook books[], int indexBook){
+    char option;
 
+    do{
+        system("cls");
+        printf("Dato que quiere editar: \n\n");
 
+        printf("  1)  Editar titulo.\n");
+        printf("  2)  Editar editorial.\n");
+        printf("  3)  Editar autor.\n");
+        printf("  4)  Editar categoria.\n");
+        printf("esc)  Volver.\n");
+
+        fflush(stdin);
+        option = getch();
+
+        switch(option){
+        case 27:
+            system("cls");
+            break;
+        case '1':
+            system("cls");
+            printf("El titulo actual es: %s\n", books[indexBook].title);
+            newTitle(books, indexBook);
+            printf("El titulo ha sido actualizado a %s\n", books[indexBook].title);
+            system("pause");
+            break;
+        case '2':
+            system("cls");
+            printf("La editorial actual es: %s\n", books[indexBook].publisher);
+            newPublisher(books, indexBook);
+            printf("La editorial ha sido actualizado a %s\n", books[indexBook].publisher);
+            system("pause");
+            break;
+        case '3':
+            system("cls");
+            printf("El autor actual es: %s\n", books[indexBook].author);
+            newAuthor(books, indexBook);
+            printf("El autor ha sido actualizado a %s\n", books[indexBook].author);
+            system("pause");
+            break;
+        case '4':
+            system("cls");
+            printf("La categoria actual es: %s\n", books[indexBook].category);
+            newCategory(books, indexBook);
+            printf("El titulo ha sido actualizado a %s\n", books[indexBook].category);
+            system("pause");
+            break;
+        }
+    } while(option != 27);
+}
+
+void activateBook(int indexBook, stBook books[], int *totalBooks){
+    if(books[indexBook].deleted){
+        books[indexBook].deleted = 0;
+    }
+}
+
+void disableBook(int indexBook, stBook books[], int *totalBooks){
+    if(!books[indexBook].deleted){
+        books[indexBook].deleted = 1;
+    }
+}
+
+void deleteBook(int indexBook, stBook books[], int *totalBooks){
+    deleteFile(books, sizeof(stBook), indexBook, *totalBooks, BOOKS);
+    *totalBooks = readFile(books, sizeof(stBook), BOOKS);
+}
 
 

@@ -594,13 +594,19 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
     {
         char option;
 
-        do
-        {
+        do{
             system("cls");
             printBookExtended(handleBooks, bookIndex);
 
             printf("\n\n");
-            printf("  1)  %s favoritos\n", isFavorite(users[index], handleBooks[bookIndex].bookId) ? "Quitar de" : "Agregar a");
+            printf("  1)  %s favoritos.\n", isFavorite(users[index], handleBooks[bookIndex].bookId) ? "Quitar de" : "Agregar a");
+            printf("  2)  Agregar comentario.\n");
+            printf("  3)  Ver comentarios.\n");
+            if (users[index].isAdmin == 1){
+                printf("  4)  Modificar libro.\n");
+                printf("  5)  %s libro.\n", books[bookIndex].deleted == 0 ? "Deshabilitar" : "Activar");
+                printf("  6)  Eliminar libro.\n");
+            }
             printf("esc)  Salir.\n");
 
             fflush(stdin);
@@ -611,17 +617,43 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
             case '1':
                 system("cls");
 
-                if(isFavorite(users[index], handleBooks[bookIndex].bookId))
-                {
-                    removeFavorite(users, index, handleBooks[bookIndex].bookId);
-                }
-                else
-                {
-                    addFavorite(users, index, handleBooks[bookIndex].bookId);
-                }
-                printf("Se %s favoritos", isFavorite(users[index], handleBooks[bookIndex].bookId) ? "agrego el libro a" : "quito el libro de");
+                    if(isFavorite(users[index], handleBooks[bookIndex].bookId)){
+                        removeFavorite(users, index, handleBooks[bookIndex].bookId);
+                    } else {
+                        addFavorite(users, index, handleBooks[bookIndex].bookId);
+                    }
+                    printf("Se %s favoritos", isFavorite(users[index], handleBooks[bookIndex].bookId) ? "agrego el libro a" : "quito el libro de");
 
-                break;
+                    break;
+                case '2':
+                    system("cls");
+                    commentRegister(comments, &totalComments,users[index].userId, handleBooks[bookIndex].bookId);
+                    system("pause");
+                    break;
+                case '3':
+                    system("cls");
+                    printCommentsBook(comments,totalComments,handleBooks[bookIndex].bookId);
+                    system("pause");
+                    break;
+                case '4':
+                    editBook(handleBooks, bookIndex);
+                    break;
+                case '5':
+                    system("cls");
+                    if(handleBooks[bookIndex].deleted){
+                        activateBook(bookIndex, handleBooks, totalElements);
+                    } else {
+                        disableBook(bookIndex, handleBooks, totalElements);
+                    }
+                    printf("Se %s el libro: %s", handleBooks[bookIndex].deleted == 0 ? "activo" : "deshabilito", handleBooks[bookIndex].title);
+                    system("pause");
+                    break;
+                case '6':
+                    system("cls");
+                    deleteBook(bookIndex, handleBooks, totalElements);
+                    printf("%s el libro: %s", handleBooks[bookIndex].title != NULL ? "No se elimino correctamente" : "Se elimino correctamente", handleBooks[bookIndex].title);
+                    system("pause");
+                    break;
 
             case 27:
                 system("cls");
@@ -629,8 +661,7 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
             }
 
 
-        }
-        while(option != 27);
+        } while(option != 27);
     }
 
 
