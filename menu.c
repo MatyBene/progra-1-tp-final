@@ -39,22 +39,22 @@ void run() /// INICIA LA APLICACION
 {
     readDataMenu();
 
-    char quit;
-
-    do
-    {
-        int index = registerLoginMenu();
-        if (users[index].isAdmin == 1)
-        {
-            quit = adminMenu(index);
-        }
-        else
-        {
-            quit = userMenu(index);
-        }
-    }
-    while(quit != 27);
-    adminMenu(100);
+//    char quit;
+//
+//    do
+//    {
+//        int index = registerLoginMenu();
+//        if (users[index].isAdmin == 1)
+//        {
+//            quit = adminMenu(index);
+//        }
+//        else
+//        {
+//            quit = userMenu(index);
+//        }
+//    }
+//    while(quit != 27);
+    adminMenu(99);
     saveDataMenu();
 }
 
@@ -632,10 +632,11 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
                     break;
                 case '3':
                     system("cls");
-                    printCommentsBook(comments,totalComments,handleBooks[bookIndex].bookId);
+                    printCommentsBook(comments,totalComments,handleBooks[bookIndex].bookId - 1);
                     system("pause");
                     break;
                 case '4':
+                    system("pause");
                     editBook(handleBooks, bookIndex);
                     break;
                 case '5':
@@ -720,8 +721,8 @@ void userHandleMenu(int index, void *elements, int *totalElements, int userIndex
                     break;
                 case '3':
 
-                    int deleteIndex = matchId(users, handleUsers[userIndex].userId, totalUsers);
-                    deleteUser(users, deleteIndex, &totalUsers);
+                    //int deleteIndex = matchId(users, handleUsers[userIndex].userId, totalUsers);
+                    //deleteUser(users, deleteIndex, &totalUsers);
                     printf("Se elimino al usuario.");
                     sleep(1);
                     option = 27;
