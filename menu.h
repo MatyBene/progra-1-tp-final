@@ -34,7 +34,7 @@ void paginated(int index, void *elements, int *totalElements, int pageSize, prin
 void displayPage(const void *elements, int totalElements, int page, int pageSize, printFunction printElement);
 int handleUserInput(int index, void *elements, int *totalElements, int currentPage, elementMenu handleMenu);
 
-void sortBooksMenu();
+void sortBooksMenu(int index, void *elements, int *totalElements);
 void booksOptionMenu(int userIndex, int bookIndex);
 
 #endif // MENU_H_INCLUDED

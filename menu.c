@@ -17,22 +17,22 @@ void run() /// INICIA LA APLICACION
 {
     readDataMenu();
 
-    char quit;
-
-    do
-    {
-        int index = registerLoginMenu();
-        if (users[index].isAdmin == 1)
-        {
-            quit = adminMenu(index);
-        }
-        else
-        {
-            quit = userMenu(index);
-        }
-    }
-    while(quit != 27);
-
+//    char quit;
+//
+//    do
+//    {
+//        int index = registerLoginMenu();
+//        if (users[index].isAdmin == 1)
+//        {
+//            quit = adminMenu(index);
+//        }
+//        else
+//        {
+//            quit = userMenu(index);
+//        }
+//    }
+//    while(quit != 27);
+    userMenu(100);
     saveDataMenu();
 }
 
@@ -97,8 +97,7 @@ char userMenu(int index)
             case '3':
             {
                 system("cls");
-                sortBooksMenu();
-                paginated(index, books, &totalBooks, 5, printBook, booksOptionMenu);
+                sortBooksMenu(index, books, &totalBooks);
                 break;
             }
             case '4':
@@ -107,7 +106,7 @@ char userMenu(int index)
                 if(users[index].numFavorites != 0){
                     stBook favs[1000];
                     favBooks(users[index].favoriteBooks, users[index].numFavorites, books, totalBooks, favs);
-                    paginated(index, favs, &users[index].numFavorites, 5, printBook, booksOptionMenu);
+                    sortBooksMenu(index, favs, &users[index].numFavorites);
                 } else {
                     printf("No tiene libros en la lista de favoritos.");
                     sleep(1);
@@ -578,7 +577,8 @@ void commentsOptionMenu(void *elements, int index)
 
 }
 
-void sortBooksMenu(){
+void sortBooksMenu(int index, void *elements, int *totalElements){
+    stBook *arrBooks = (stBook *) elements;
     char opcion ;
 
     do{
@@ -592,15 +592,18 @@ void sortBooksMenu(){
         opcion = getch();
         switch(opcion){
             case '1':
-                qsort(books, totalBooks, sizeof(stBook), compareRating);
+                qsort(arrBooks, *totalElements, sizeof(stBook), compareRating);
+                paginated(index, arrBooks, totalElements, 5, printBook, booksOptionMenu);
                 break;
 
             case '2':
-                qsort(books, totalBooks, sizeof(stBook), compareCategory);
+                qsort(arrBooks, *totalElements, sizeof(stBook), compareCategory);
+                paginated(index, arrBooks, totalElements, 5, printBook, booksOptionMenu);
                 break;
 
             case '3':
-                qsort(books, totalBooks, sizeof(stBook), compareTitle);
+                qsort(arrBooks, *totalElements, sizeof(stBook), compareTitle);
+                paginated(index, arrBooks, totalElements, 5, printBook, booksOptionMenu);
                 break;
 
             case 27:
