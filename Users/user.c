@@ -149,20 +149,6 @@ void activateUser(stUser users[], int index, int *totalUsers)
     }
 }
 
-
-void makeAdmin(stUser users[], int index, int *totalUsers)
-{
-    if(!users[index].isAdmin)
-    {
-        users[index].isAdmin = 1;
-        printf("Se dio admin al usuario.\n");
-    }
-    else
-    {
-        printf("El usuario no es valido.\n");
-    }
-}
-
 void addFavorite(stUser users[], int userIndex, int bookId)
 {
     users[userIndex].favoriteBooks[users[userIndex].numFavorites] = bookId;

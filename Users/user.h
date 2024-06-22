@@ -42,7 +42,6 @@ void printUser(const void *elements, int index);
 void deleteUser(stUser users[], int index, int *totalUsers);
 void disableUser(stUser users[], int index, int *totalUsers);
 void activateUser(stUser users[], int index, int *totalUsers);
-void makeAdmin(stUser users[], int index, int *totalUsers);
 
 void addFavorite(stUser users[], int userIndex, int bookId);
 void removeFavorite(stUser users[], int userIndex, int bookId);

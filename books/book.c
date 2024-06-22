@@ -215,7 +215,6 @@ int matchCategoryBook(stBook books[], int totalBooks, char searchCategory[], stB
     return totalFoundBooks;
 }
 
-
 void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt, MatchFunction matchFunc){
     char searchTerm[100];
     stBook foundBooks[1000];
@@ -230,11 +229,11 @@ void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt
     if (totalFoundBooks == 0)
     {
         printf("No se encontro ningun libro con ese criterio.");
-        // sleep(1);
+        sleep(1);
     }
     else
     {
-        paginated(index, foundBooks, &totalFoundBooks, 5, printBook, booksHandleMenu);
+        paginated(index, foundBooks, &totalFoundBooks, 5, printBook, bookHandleMenu);
     }
 }
 
