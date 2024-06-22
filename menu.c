@@ -551,25 +551,32 @@ void booksHandleMenu(int index, int bookIndex, void *elements, int *totalElement
                     break;
                 case '2':
                     system("cls");
-                    commentRegister(comments, &totalComments,users[index].userId, books[bookIndex].bookId);
+                    commentRegister(comments, &totalComments,users[index].userId, handleBooks[bookIndex].bookId);
                     system("pause");
                     break;
                 case '3':
                     system("cls");
-                    printCommentsBook(comments,totalComments,books[bookIndex].bookId);
+                    printCommentsBook(comments,totalComments,handleBooks[bookIndex].bookId);
                     system("pause");
                     break;
                 case '4':
-                    editBook(books, bookIndex);
+                    editBook(handleBooks, bookIndex);
                     break;
                 case '5':
-                    if(books[bookIndex].deleted){
-                        activateBook(bookIndex, books, &totalBooks);
+                    system("cls");
+                    if(handleBooks[bookIndex].deleted){
+                        activateBook(bookIndex, handleBooks, totalElements);
                     } else {
-                        disableBook(bookIndex, books, &totalBooks);
+                        disableBook(bookIndex, handleBooks, totalElements);
                     }
+                    printf("Se %s el libro: %s", handleBooks[bookIndex].deleted == 0 ? "activo" : "deshabilito", handleBooks[bookIndex].title);
+                    system("pause");
                     break;
                 case '6':
+                    system("cls");
+                    deleteBook(bookIndex, handleBooks, totalElements);
+                    printf("%s el libro: %s", handleBooks[bookIndex].title != NULL ? "No se elimino correctamente" : "Se elimino correctamente", handleBooks[bookIndex].title);
+                    system("pause");
                     break;
 
                 case 27:

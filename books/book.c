@@ -317,27 +317,24 @@ void editBook(stBook books[], int indexBook){
             system("pause");
             break;
         }
-    }while(option != 27);
+    } while(option != 27);
 }
 
 void activateBook(int indexBook, stBook books[], int *totalBooks){
     if(books[indexBook].deleted){
         books[indexBook].deleted = 0;
-        printf("Se activo el libro.\n");
-    } else {
-        printf("El libro no esta desactivado.\n");
     }
 }
 
 void disableBook(int indexBook, stBook books[], int *totalBooks){
     if(!books[indexBook].deleted){
         books[indexBook].deleted = 1;
-        printf("Se desactivo el libro.\n");
-    } else {
-        printf("El libro ya esta desactivado.\n");
     }
 }
 
-
+void deleteBook(int indexBook, stBook books[], int *totalBooks){
+    deleteFile(books, sizeof(stBook), indexBook, *totalBooks, BOOKS);
+    *totalBooks = readFile(books, sizeof(stBook), BOOKS);
+}
 
 

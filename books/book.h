@@ -42,5 +42,6 @@ void favBooks(int favorites[], int numFavorites, stBook books[], int totalBooks,
 void editBook(stBook books[], int idBook);
 void activateBook(int indexBook, stBook books[], int *totalBooks);
 void disableBook(int indexBook, stBook books[], int *totalBooks);
+void deleteBook(int indexBook, stBook books[], int *totalBooks);
 
 #endif // BOOK_H_INCLUDED
