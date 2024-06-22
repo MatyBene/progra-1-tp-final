@@ -69,7 +69,7 @@ int enterPassword(stUser users[], int index)
 
     do
     {
-        printf("Ingrese su contrase�a: ");
+        printf("Ingrese su contraseña: ");
         getPass(password);
         i++;
         system("cls");
@@ -81,7 +81,7 @@ int enterPassword(stUser users[], int index)
                 printf("Demasiados intentos incorrectos.\n");
                 return -1;
             }
-            printf("Contrase�a incorrecta, quedan %d intentos restantes. ", 3-i);
+            printf("Contraseña incorrecta, quedan %d intentos restantes. ", 3-i);
         }
     } while (!matchPassword(password, users[index].password));
 

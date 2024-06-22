@@ -18,7 +18,7 @@ void readDataMenu();
 void saveDataMenu();
 
 typedef void (*printFunction)(const void*, int index);
-typedef void (*elementMenu)(int userIndex, int elementIndex);
+typedef void (*elementMenu)(int userIndex, void *elements, int *totalElements, int elementIndex);
 typedef void (*actionFunction)(stUser users[], int index, int *totalUsers);
 
 int registerLoginMenu();
@@ -35,6 +35,6 @@ void displayPage(const void *elements, int totalElements, int page, int pageSize
 int handleUserInput(int index, void *elements, int *totalElements, int currentPage, elementMenu handleMenu);
 
 void sortBooksMenu();
-void booksOptionMenu(int userIndex, int bookIndex);
+void booksHandleMenu(int index, void *elements, int *totalElements, int bookIndex);
 
 #endif // MENU_H_INCLUDED

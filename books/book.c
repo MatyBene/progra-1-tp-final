@@ -234,7 +234,7 @@ void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt
     }
     else
     {
-        paginated(index, foundBooks, &totalFoundBooks, 5, printBook, booksOptionMenu);
+        paginated(index, foundBooks, &totalFoundBooks, 5, printBook, booksHandleMenu);
     }
 }
 

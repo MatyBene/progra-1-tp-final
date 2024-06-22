@@ -98,7 +98,7 @@ char userMenu(int index)
             {
                 system("cls");
                 sortBooksMenu();
-                paginated(index, books, &totalBooks, 5, printBook, booksOptionMenu);
+                paginated(index, books, &totalBooks, 5, printBook, booksHandleMenu);
                 break;
             }
             case '4':
@@ -493,7 +493,7 @@ int handleUserInput(int index, void *elements, int *totalElements, int currentPa
     }
     else if(key >= 49 && key <= 53)
     {
-        handleMenu(index, (((currentPage - 1) * 5) + (int) key - 49));
+        handleMenu(index, elements, totalElements, (((currentPage - 1) * 5) + (int) key - 49));
     }
     else if(key == 27)
     {
@@ -507,19 +507,21 @@ int handleUserInput(int index, void *elements, int *totalElements, int currentPa
     return currentPage;
 }
 
-void booksOptionMenu(int userIndex, int bookIndex)
+void booksHandleMenu(int index, void *elements, int *totalElements, int bookIndex)
 {
-    if(isNotEmpty(books[bookIndex].title))
+    stBook *handleBooks = (stBook *) elements;
+
+    if(isNotEmpty(handleBooks[bookIndex].title))
     {
         char option;
 
         do
         {
             system("cls");
-            printBookExtended(books, bookIndex);
+            printBookExtended(handleBooks, bookIndex);
 
             printf("\n\n");
-            printf("  1) %s favoritos\n", isFavorite(users[userIndex], books[bookIndex].bookId) ? "Quitar de" : "Agregar a");
+            printf("  1)  %s favoritos\n", isFavorite(users[index], handleBooks[bookIndex].bookId) ? "Quitar de" : "Agregar a");
             printf("esc)  Salir.\n");
 
             fflush(stdin);
@@ -530,15 +532,15 @@ void booksOptionMenu(int userIndex, int bookIndex)
                 case '1':
                     system("cls");
 
-                    if(isFavorite(users[userIndex], books[bookIndex].bookId))
+                    if(isFavorite(users[index], handleBooks[bookIndex].bookId))
                     {
-                        removeFavorite(users, userIndex, books[bookIndex].bookId);
+                        removeFavorite(users, index, handleBooks[bookIndex].bookId);
                     }
                     else
                     {
-                        addFavorite(users, userIndex, books[bookIndex].bookId);
+                        addFavorite(users, index, handleBooks[bookIndex].bookId);
                     }
-                    printf("Se %s favoritos", isFavorite(users[userIndex], books[bookIndex].bookId) ? "agrego el libro a" : "quito el libro de");
+                    printf("Se %s favoritos", isFavorite(users[index], handleBooks[bookIndex].bookId) ? "agrego el libro a" : "quito el libro de");
 
                     break;
 
@@ -555,17 +557,17 @@ void booksOptionMenu(int userIndex, int bookIndex)
 
 }
 
-void booksAdminOptionMenu(void *elements, int index, int *totalBooks)
+void booksAdminHandleMenu(int index, void *elements, int *totalElements, int bookIndex)
 {
 
 }
 
-void usersOptionMenu(void *elements, int index)
+void usersHandleMenu(int index, void *elements, int *totalElements, int userIndex)
 {
 
 }
 
-void commentsOptionMenu(void *elements, int index)
+void commentsHandleMenu(int index, void *elements, int *totalElements, int commentIndex)
 {
 
 }
