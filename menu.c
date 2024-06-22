@@ -529,7 +529,7 @@ void booksHandleMenu(int index, int bookIndex, void *elements, int *totalElement
             printf("  3)  Ver comentarios.\n");
             if (users[index].isAdmin == 1){
                 printf("  4)  Modificar libro.\n");
-                printf("  5)  Desabilitar libro.\n");
+                printf("  5)  %s libro.\n", books[bookIndex].deleted == 0 ? "Deshabilitar" : "Activar");
                 printf("  6)  Eliminar libro.\n");
             }
             printf("esc)  Salir.\n");
@@ -557,6 +557,11 @@ void booksHandleMenu(int index, int bookIndex, void *elements, int *totalElement
                     editBook(books, bookIndex);
                     break;
                 case '5':
+                    if(books[bookIndex].deleted){
+                        activateBook(bookIndex, books, &totalBooks);
+                    } else {
+                        disableBook(bookIndex, books, &totalBooks);
+                    }
                     break;
                 case '6':
                     break;
