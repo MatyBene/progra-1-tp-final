@@ -1,5 +1,5 @@
-#include <locale.h>
 #include "menu.h"
+#include <locale.h>
 
 int main()
 {

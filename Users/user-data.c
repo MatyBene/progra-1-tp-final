@@ -50,12 +50,12 @@ int getFirstFreeId (stUser *users, int totalUsers)
 {
     int i = 0;
 
-    do
+    while (i < totalUsers && i == users[i].userId-1)
     {
         i++;
-    }while (i < totalUsers && i == users[i].userId);
+    }
 
-    return i;
+    return i+1;
 }
 
 void newPassword(stUser *users, int index) // asigna una contraseña a un usuario nuevo

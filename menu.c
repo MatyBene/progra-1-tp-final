@@ -131,7 +131,7 @@ char userMenu(int index)
             case '1':
             {
                 system("cls");
-                printUser(users, index);
+                printUserExtended(users, index);
                 system("pause");
                 break;
             }

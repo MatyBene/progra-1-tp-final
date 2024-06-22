@@ -139,7 +139,6 @@ void deleteUser(stUser users[], int index, int *totalUsers)
 {
     deleteFile(users, sizeof(stUser), index, *totalUsers, USERS);
     *totalUsers = readFile(users, sizeof(stUser), USERS);
-    printf("Se elimino al usuario.\n");
 }
 
 void disableUser(stUser users[], int index, int *totalUsers)
