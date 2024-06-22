@@ -69,7 +69,7 @@ int enterPassword(stUser users[], int index)
 
     do
     {
-        printf("Ingrese su contrase�a: ");
+        printf("Ingrese su contraseña: ");
         getPass(password);
         i++;
         system("cls");
@@ -81,7 +81,7 @@ int enterPassword(stUser users[], int index)
                 printf("Demasiados intentos incorrectos.\n");
                 return -1;
             }
-            printf("Contrase�a incorrecta, quedan %d intentos restantes. ", 3-i);
+            printf("Contraseña incorrecta, quedan %d intentos restantes. ", 3-i);
         }
     } while (!matchPassword(password, users[index].password));
 
@@ -92,6 +92,26 @@ void printUser(const void *elements, int index)
 {
     stUser *users = (stUser*) elements;
 
+    if(users[index].isAdmin)
+    {
+        printf("\t\tADMIN\n\n");
+    }
+    else if (users[index].deleted)
+    {
+        printf("\t\tDESACTIVADO\n\n");
+    }
+
+    printf("ID:....................... %d\n", users[index].userId);
+    printf("User Name:................ %s\n", users[index].username);
+    printf("Email:.................... %s\n\n", users[index].email);
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><\n");
+}
+
+void printUserExtended(const void *elements, int index)
+{
+    stUser *users = (stUser*) elements;
+
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><\n");
     if(users[index].isAdmin)
     {
         printf("\t\tADMIN\n\n");
@@ -114,14 +134,6 @@ void printUser(const void *elements, int index)
     printf("Fecha de nacimiento:...... %s\n", users[index].birthDate);
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
-
-//void printAllUsers(stUser users[], int totalUsers)
-//{
-//    for (int i = 0; i < totalUsers; i++)
-//    {
-//        printUser(users, i);
-//    }
-//}
 
 void deleteUser(stUser users[], int index, int *totalUsers)
 {
@@ -154,20 +166,6 @@ void activateUser(stUser users[], int index, int *totalUsers)
     else
     {
         printf("El usuario no esta desactivado.\n");
-    }
-}
-
-
-void makeAdmin(stUser users[], int index, int *totalUsers)
-{
-    if(!users[index].isAdmin)
-    {
-        users[index].isAdmin = 1;
-        printf("Se dio admin al usuario.\n");
-    }
-    else
-    {
-        printf("El usuario no es valido.\n");
     }
 }
 

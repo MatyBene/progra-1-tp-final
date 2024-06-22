@@ -1,8 +1,5 @@
 #include <locale.h>
 #include "menu.h"
-#include "Files/files.h"
-#include "Users/user.h"
-
 
 int main()
 {

@@ -34,10 +34,10 @@ void printBook(const void *elements, int index)
 {
     stBook *books = (stBook*) elements;
 
-    printf("<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
     printf("\tTitulo: ......... %s\n", books[index].title);
     printf("\tCategoria: ...... %s\n", books[index].category);
     printf("\tValoracion: ..... %.2f\n\n", books[index].rating);
+    printf("<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
 }
 
 void printBookExtended(const void *elements, int index)
@@ -128,7 +128,7 @@ void searchBooks(int index, stBook books[], int totalBooks)
         default:
             system("cls");
             printf("La opcion ingresada no es valida.");
-//                sleep(1);
+            sleep(1);
             system("cls");
             break;
         }
@@ -215,7 +215,6 @@ int matchCategoryBook(stBook books[], int totalBooks, char searchCategory[], stB
     return totalFoundBooks;
 }
 
-
 void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt, MatchFunction matchFunc){
     char searchTerm[100];
     stBook foundBooks[1000];
@@ -230,11 +229,11 @@ void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt
     if (totalFoundBooks == 0)
     {
         printf("No se encontro ningun libro con ese criterio.");
-        // sleep(1);
+        sleep(1);
     }
     else
     {
-        paginated(index, foundBooks, &totalFoundBooks, 5, printBook, booksOptionMenu);
+        paginated(index, foundBooks, &totalFoundBooks, 5, printBook, bookHandleMenu);
     }
 }
 

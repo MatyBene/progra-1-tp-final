@@ -13,28 +13,8 @@ int totalComments;
 
 /* >>>>>>>>>>>>>>>>>>>GLOBAL<<<<<<<<<<<<<<<<<<<<< */
 
-void run() /// INICIA LA APLICACION
-{
-    readDataMenu();
 
-//    char quit;
-//
-//    do
-//    {
-//        int index = registerLoginMenu();
-//        if (users[index].isAdmin == 1)
-//        {
-//            quit = adminMenu(index);
-//        }
-//        else
-//        {
-//            quit = userMenu(index);
-//        }
-//    }
-//    while(quit != 27);
-    userMenu(100);
-    saveDataMenu();
-}
+/* >>>>>>>>>>>>>>>>>>>DATA<<<<<<<<<<<<<<<<<<<<< */
 
 void readDataMenu()
 {
@@ -49,6 +29,72 @@ void saveDataMenu()
     saveFile(books, sizeof(stBook), totalBooks, BOOKS, compareBookId);
     saveFile(comments, sizeof(stComment), totalComments, COMMENTS, compareCommentId);
 }
+
+/* >>>>>>>>>>>>>>>>>>>DATA<<<<<<<<<<<<<<<<<<<<< */
+
+
+/* >>>>>>>>>>>>>>>>>>>LOGIN/REGISTER<<<<<<<<<<<<<<<<<<<<< */
+
+void run() /// INICIA LA APLICACION
+{
+    readDataMenu();
+
+    char quit;
+
+    do
+    {
+        int index = registerLoginMenu();
+        if (users[index].isAdmin == 1)
+        {
+            quit = adminMenu(index);
+        }
+        else
+        {
+            quit = userMenu(index);
+        }
+    }
+    while(quit != 27);
+    adminMenu(100);
+    saveDataMenu();
+}
+
+int registerLoginMenu()
+{
+    char option[9];
+    int index = -1;
+
+    while(index == -1)
+    {
+        printf("Ingrese la accion que desea realizar: (Registrar/Ingresar)\n");
+        fflush(stdin);
+        gets(option);
+
+        if (strcmpi(option,"registrar") == 0)
+        {
+            system("cls");
+            userRegister(users, &totalUsers);
+            index = userLogin(users, totalUsers);
+        }
+        else if (strcmpi(option,"ingresar") == 0)
+        {
+            system("cls");
+            index = userLogin(users, totalUsers);
+        }
+        else
+        {
+            system("cls");
+            printf("La opcion seleccionada no se reconoce.\n");
+            index = -1;
+        }
+    }
+
+    return index;
+}
+
+/* >>>>>>>>>>>>>>>>>>>LOGIN/REGISTER<<<<<<<<<<<<<<<<<<<<< */
+
+
+/* >>>>>>>>>>>>>>>>>>>USERS<<<<<<<<<<<<<<<<<<<<< */
 
 char userMenu(int index)
 {
@@ -98,6 +144,7 @@ char userMenu(int index)
             {
                 system("cls");
                 sortBooksMenu(index, books, &totalBooks);
+                paginated(index, books, &totalBooks, 5, printBook, bookHandleMenu);
                 break;
             }
             case '4':
@@ -174,7 +221,7 @@ void userInfoMenu (int index)
         printf("INFORMACION PERSONAL\n\n");
 
         printf("  1)  Editar Email.\n");
-        printf("  2)  Editar Contrase�a.\n");
+        printf("  2)  Editar Contraseña.\n");
         printf("  3)  Editar Nombre de Usuario.\n");
         printf("  4)  Editar Genero (?.\n");
         printf("  5)  Editar Fecha de Nacimiento.\n");
@@ -205,7 +252,7 @@ void userInfoMenu (int index)
         {
             system("cls");
             newPassword(users, index);
-            printf("La contrase�a ha sido actualizada\n");
+            printf("La contraseña ha sido actualizada\n");
             system("pause");
             break;
         }
@@ -259,6 +306,11 @@ void userInfoMenu (int index)
     while(option != 27);
 }
 
+/* >>>>>>>>>>>>>>>>>>>USERS<<<<<<<<<<<<<<<<<<<<< */
+
+
+/* >>>>>>>>>>>>>>>>>>>ADMIN<<<<<<<<<<<<<<<<<<<<< */
+
 char adminMenu(int index)
 {
     char option;
@@ -286,12 +338,14 @@ char adminMenu(int index)
         }
         case '1':
         {
-            /// DASHBOARD
+            system("cls");
+            dashboardMenu(index);
             break;
         }
         case '2':
         {
-            /// BUSCAR LIBRO
+            system("cls");
+            searchBooks(index, books, totalBooks);
             break;
         }
         case '3':
@@ -318,7 +372,7 @@ char adminMenu(int index)
     return option;
 }
 
-void dashboardMenu()
+void dashboardMenu(int index)
 {
     char option;
 
@@ -340,31 +394,32 @@ void dashboardMenu()
         {
         case '1':
         {
-            /// VER USUARIOS
+            paginated(index, users, &totalUsers, 5, printUser, userHandleMenu);
             system("cls");
-
             break;
         }
         case '2':
         {
-            /// VER LIBROS
+            paginated(index, books, &totalBooks, 5, printBook, bookHandleMenu);
             break;
         }
         case '3':
         {
-            /// VER COMENTARIOS
+            paginated(index, comments, &totalComments, 5, printComment, commentHandleMenu);
             break;
         }
         case '4':
         {
-            /// VER ULTIMO USUARIO
-
+            system("cls");
+            printUserExtended(users, totalUsers - 1);
+            system("pause");
             break;
         }
         case '5':
         {
-            /// VER ULTIMO LIBRO
-
+            system("cls");
+            printBookExtended(books, totalBooks - 1);
+            system("pause");
             break;
         }
         case 27:
@@ -377,39 +432,6 @@ void dashboardMenu()
 
     }
     while (option != 27);
-}
-
-int registerLoginMenu()
-{
-    char option[9];
-    int index = -1;
-
-    while(index == -1)
-    {
-        printf("Ingrese la accion que desea realizar: (Registrar/Ingresar)\n");
-        fflush(stdin);
-        gets(option);
-
-        if (strcmpi(option,"registrar") == 0)
-        {
-            system("cls");
-            userRegister(users, &totalUsers);
-            index = userLogin(users, totalUsers);
-        }
-        else if (strcmpi(option,"ingresar") == 0)
-        {
-            system("cls");
-            index = userLogin(users, totalUsers);
-        }
-        else
-        {
-            system("cls");
-            printf("La opcion seleccionada no se reconoce.\n");
-            index = -1;
-        }
-    }
-
-    return index;
 }
 
 void actionUserMenu(char *prompt, actionFunction action)
@@ -440,6 +462,11 @@ void actionUserMenu(char *prompt, actionFunction action)
     system("pause");
 }
 
+/* >>>>>>>>>>>>>>>>>>>ADMIN<<<<<<<<<<<<<<<<<<<<< */
+
+
+/* >>>>>>>>>>>>>>>>>>>UTILITIES<<<<<<<<<<<<<<<<<<<<< */
+
 void paginated(int index, void *elements, int *totalElements, int pageSize, printFunction printElement, elementMenu handleMenu)
 {
     int currentPage = 1;
@@ -447,10 +474,10 @@ void paginated(int index, void *elements, int *totalElements, int pageSize, prin
     while(currentPage >= 1)
     {
         system("cls");
-        displayPage(elements, *totalElements, currentPage, pageSize, printElement);
         printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
+        displayPage(elements, *totalElements, currentPage, pageSize, printElement);
         printf("~ %d ~\n", currentPage);
-        currentPage = handleUserInput(index, elements, totalElements, currentPage, handleMenu);
+        currentPage = handleInput(index, elements, totalElements, currentPage, handleMenu);
     }
 }
 
@@ -466,12 +493,12 @@ void displayPage(const void *elements, int totalElements, int page, int pageSize
 
     for (int i = start; i < end; i++)
     {
-        printf(" %d.", i - start + 1);
+        printf("%d.\n\n", i - start + 1);
         printElement(elements, i);
     }
 }
 
-int handleUserInput(int index, void *elements, int *totalElements, int currentPage, elementMenu handleMenu)
+int handleInput(int index, void *elements, int *totalElements, int currentPage, elementMenu handleMenu)
 {
     fflush(stdin);
     char key = getch();
@@ -483,23 +510,23 @@ int handleUserInput(int index, void *elements, int *totalElements, int currentPa
 
         switch (key)
         {
-            case 77:
-                if (currentPage * 5 < *totalElements)
-                {
-                    currentPage++;
-                }
-                break;
-            case 75:
-                if (currentPage > 1)
-                {
-                    currentPage--;
-                }
-                break;
+        case 77:
+            if (currentPage * 5 < *totalElements)
+            {
+                currentPage++;
+            }
+            break;
+        case 75:
+            if (currentPage > 1)
+            {
+                currentPage--;
+            }
+            break;
         }
     }
     else if(key >= 49 && key <= 53)
     {
-        handleMenu(index, (((currentPage - 1) * 5) + (int) key - 49));
+        handleMenu(index, elements, totalElements, (((currentPage - 1) * 5) + (int) key - 49));
     }
     else if(key == 27)
     {
@@ -507,26 +534,73 @@ int handleUserInput(int index, void *elements, int *totalElements, int currentPa
     }
     else
     {
-        handleUserInput(index, elements, totalElements, currentPage, handleMenu);
+        handleInput(index, elements, totalElements, currentPage, handleMenu);
     }
 
     return currentPage;
 }
 
-void booksOptionMenu(int userIndex, int bookIndex)
+void sortBooksMenu(int index, void *elements, int *totalElements)
 {
-    if(isNotEmpty(books[bookIndex].title))
+    stBook *arrBooks = (stBook *) elements;
+    char opcion ;
+
+    do
+    {
+        printf("Seleccione como desea ver ordenados los libros: \n\n");
+        printf("  1) Por valoración.\n");
+        printf("  2) Por categoría.\n");
+        printf("  3) Por orden alfabético.\n");
+        printf("esc) Volver al menu.\n");
+
+        fflush(stdin);
+        opcion = getch();
+        switch(opcion){
+            case '1':
+                qsort(arrBooks, *totalElements, sizeof(stBook), compareRating);
+                paginated(index, arrBooks, totalElements, 5, printBook, bookHandleMenu);
+                break;
+
+            case '2':
+                qsort(arrBooks, *totalElements, sizeof(stBook), compareCategory);
+                paginated(index, arrBooks, totalElements, 5, printBook, bookHandleMenu);
+                break;
+
+            case '3':
+                qsort(arrBooks, *totalElements, sizeof(stBook), compareTitle);
+                paginated(index, arrBooks, totalElements, 5, printBook, bookHandleMenu);
+                break;
+
+        case 27:
+            system("cls");
+            break;
+
+        default:
+            system("cls");
+            printf("La opcion ingresada no es valida.");
+            sleep(1);
+            system("cls");
+            break;
+        }
+    }
+    while(opcion != '1' && opcion != '2' && opcion != '3' && opcion != 27);
+}
+
+void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex)
+{
+    stBook *handleBooks = (stBook *) elements;
+
+    if(isNotEmpty(handleBooks[bookIndex].title))
     {
         char option;
 
         do
         {
             system("cls");
-                printBookExtended(books, bookIndex);
-
+            printBookExtended(handleBooks, bookIndex);
 
             printf("\n\n");
-            printf("  1) %s favoritos\n", isFavorite(users[userIndex], books[bookIndex].bookId) ? "Quitar de" : "Agregar a");
+            printf("  1)  %s favoritos\n", isFavorite(users[index], handleBooks[bookIndex].bookId) ? "Quitar de" : "Agregar a");
             printf("esc)  Salir.\n");
 
             fflush(stdin);
@@ -534,24 +608,24 @@ void booksOptionMenu(int userIndex, int bookIndex)
 
             switch(option)
             {
-                case '1':
-                    system("cls");
+            case '1':
+                system("cls");
 
-                    if(isFavorite(users[userIndex], books[bookIndex].bookId))
-                    {
-                        removeFavorite(users, userIndex, books[bookIndex].bookId);
-                    }
-                    else
-                    {
-                        addFavorite(users, userIndex, books[bookIndex].bookId);
-                    }
-                    printf("Se %s favoritos", isFavorite(users[userIndex], books[bookIndex].bookId) ? "agrego el libro a" : "quito el libro de");
+                if(isFavorite(users[index], handleBooks[bookIndex].bookId))
+                {
+                    removeFavorite(users, index, handleBooks[bookIndex].bookId);
+                }
+                else
+                {
+                    addFavorite(users, index, handleBooks[bookIndex].bookId);
+                }
+                printf("Se %s favoritos", isFavorite(users[index], handleBooks[bookIndex].bookId) ? "agrego el libro a" : "quito el libro de");
 
-                    break;
+                break;
 
-                case 27:
-                    system("cls");
-                    break;
+            case 27:
+                system("cls");
+                break;
             }
 
 
@@ -562,62 +636,81 @@ void booksOptionMenu(int userIndex, int bookIndex)
 
 }
 
-void booksAdminOptionMenu(void *elements, int index, int *totalBooks)
+void userHandleMenu(int index, void *elements, int *totalElements, int userIndex)
 {
+    stUser *handleUsers = (stUser *) elements;
 
-}
+    if(isNotEmpty(handleUsers[userIndex].email))
+    {
+        char option;
 
-void usersOptionMenu(void *elements, int index)
-{
+        do
+        {
+            system("cls");
+            printUserExtended(handleUsers, userIndex);
 
-}
+            printf("\n\n");
+            printf("  1)  %s admin.\n", handleUsers[userIndex].isAdmin ? "Quitar" : "Dar");
+            printf("  2)  %s usuario.\n", handleUsers[userIndex].deleted ? "Activar" : "Desactivar");
+            printf("  3)  Eliminar usuario (permanente).\n");
+            printf("esc)  Salir.\n");
 
-void commentsOptionMenu(void *elements, int index)
-{
+            fflush(stdin);
+            option = getch();
 
-}
+            switch(option)
+            {
+                case '1':
 
-void sortBooksMenu(int index, void *elements, int *totalElements){
-    stBook *arrBooks = (stBook *) elements;
-    char opcion ;
+                    if(handleUsers[userIndex].isAdmin)
+                    {
+                        handleUsers[userIndex].isAdmin = 0;
+                    }
+                    else
+                    {
+                        handleUsers[userIndex].isAdmin = 1;
+                    }
+                    printf("Se %s admin al usuario %s", handleUsers[userIndex].isAdmin ? "dió" : "quitó", handleUsers[userIndex].username);
+                    sleep(1);
+                    break;
+                case '2':
 
-    do{
-        printf("Seleccione como desea ver ordenados los libros: \n");
-        printf("  1) Por valoracion.\n");
-        printf("  2) Por categoria.\n");
-        printf("  3) Por orden alfabetico.\n");
-        printf("esc) Volver al menu.\n");
+                    if(handleUsers[userIndex].deleted)
+                    {
+                        handleUsers[userIndex].deleted = 0;
+                    }
+                    else
+                    {
+                        handleUsers[userIndex].deleted = 1;
+                    }
+                    printf("Se %s al usuario %s", handleUsers[userIndex].deleted ? "desactivó" : "activó", handleUsers[userIndex].username);
+                    sleep(1);
+                    break;
+                case '3':
 
-        fflush(stdin);
-        opcion = getch();
-        switch(opcion){
-            case '1':
-                qsort(arrBooks, *totalElements, sizeof(stBook), compareRating);
-                paginated(index, arrBooks, totalElements, 5, printBook, booksOptionMenu);
-                break;
+                    int deleteIndex = matchId(users, handleUsers[userIndex].userId, totalUsers);
+                    deleteUser(users, deleteIndex, &totalUsers);
+                    printf("Se elimino al usuario.");
+                    sleep(1);
+                    option = 27;
+                    break;
+                case 27:
 
-            case '2':
-                qsort(arrBooks, *totalElements, sizeof(stBook), compareCategory);
-                paginated(index, arrBooks, totalElements, 5, printBook, booksOptionMenu);
-                break;
+                    system("cls");
+                    break;
+            }
 
-            case '3':
-                qsort(arrBooks, *totalElements, sizeof(stBook), compareTitle);
-                paginated(index, arrBooks, totalElements, 5, printBook, booksOptionMenu);
-                break;
 
-            case 27:
-                system("cls");
-                break;
-
-            default:
-                system("cls");
-                printf("La opcion ingresada no es valida.");
-                sleep(1);
-                system("cls");
-                break;
         }
-    } while(opcion != '1' && opcion != '2' && opcion != '3' && opcion != 27);
+        while(option != 27);
+    }
+
 }
 
+void commentHandleMenu(int index, void *elements, int *totalElements, int commentIndex)
+{
+
+}
+
+/* >>>>>>>>>>>>>>>>>>>UTILITIES<<<<<<<<<<<<<<<<<<<<< */
 
