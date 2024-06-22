@@ -38,6 +38,7 @@ int enterEmail(stUser users[], int totalUsers);
 int enterPassword(stUser users[], int index);
 
 void printUser(const void *elements, int index);
+void printUserExtended(const void *elements, int index);
 
 void deleteUser(stUser users[], int index, int *totalUsers);
 void disableUser(stUser users[], int index, int *totalUsers);

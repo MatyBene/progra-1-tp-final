@@ -393,24 +393,26 @@ void dashboardMenu(int index)
         }
         case '2':
         {
-            /// VER LIBROS
+            paginated(index, books, &totalBooks, 5, printBook, bookHandleMenu);
             break;
         }
         case '3':
         {
-            /// VER COMENTARIOS
+            paginated(index, comments, &totalComments, 5, printComment, commentHandleMenu);
             break;
         }
         case '4':
         {
-            /// VER ULTIMO USUARIO
-
+            system("cls");
+            printUserExtended(users, totalUsers - 1);
+            system("pause");
             break;
         }
         case '5':
         {
-            /// VER ULTIMO LIBRO
-
+            system("cls");
+            printBookExtended(books, totalBooks - 1);
+            system("pause");
             break;
         }
         case 27:
@@ -465,8 +467,8 @@ void paginated(int index, void *elements, int *totalElements, int pageSize, prin
     while(currentPage >= 1)
     {
         system("cls");
-        displayPage(elements, *totalElements, currentPage, pageSize, printElement);
         printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
+        displayPage(elements, *totalElements, currentPage, pageSize, printElement);
         printf("~ %d ~\n", currentPage);
         currentPage = handleInput(index, elements, totalElements, currentPage, handleMenu);
     }
@@ -484,7 +486,7 @@ void displayPage(const void *elements, int totalElements, int page, int pageSize
 
     for (int i = start; i < end; i++)
     {
-        printf("%d.\n", i - start + 1);
+        printf("%d.\n\n", i - start + 1);
         printElement(elements, i);
     }
 }
@@ -636,7 +638,7 @@ void userHandleMenu(int index, void *elements, int *totalElements, int userIndex
         do
         {
             system("cls");
-            printUser(handleUsers, userIndex);
+            printUserExtended(handleUsers, userIndex);
 
             printf("\n\n");
             printf("  1)  %s admin.\n", handleUsers[userIndex].isAdmin ? "Quitar" : "Dar");
@@ -696,7 +698,7 @@ void userHandleMenu(int index, void *elements, int *totalElements, int userIndex
 
 }
 
-void commentsHandleMenu(int index, void *elements, int *totalElements, int commentIndex)
+void commentHandleMenu(int index, void *elements, int *totalElements, int commentIndex)
 {
 
 }

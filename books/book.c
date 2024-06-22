@@ -34,10 +34,10 @@ void printBook(const void *elements, int index)
 {
     stBook *books = (stBook*) elements;
 
-    printf("<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
     printf("\tTitulo: ......... %s\n", books[index].title);
     printf("\tCategoria: ...... %s\n", books[index].category);
     printf("\tValoracion: ..... %.2f\n\n", books[index].rating);
+    printf("<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
 }
 
 void printBookExtended(const void *elements, int index)

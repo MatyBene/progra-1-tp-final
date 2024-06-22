@@ -103,6 +103,26 @@ void printUser(const void *elements, int index)
 
     printf("ID:....................... %d\n", users[index].userId);
     printf("User Name:................ %s\n", users[index].username);
+    printf("Email:.................... %s\n\n", users[index].email);
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><\n");
+}
+
+void printUserExtended(const void *elements, int index)
+{
+    stUser *users = (stUser*) elements;
+
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><\n");
+    if(users[index].isAdmin)
+    {
+        printf("\t\tADMIN\n\n");
+    }
+    else if (users[index].deleted)
+    {
+        printf("\t\tDESACTIVADO\n\n");
+    }
+
+    printf("ID:....................... %d\n", users[index].userId);
+    printf("User Name:................ %s\n", users[index].username);
     printf("Email:.................... %s\n", users[index].email);
     printf("Genero:................... %c\n", users[index].gender);
     printf("DNI:...................... %s\n", users[index].dni);
