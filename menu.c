@@ -653,7 +653,8 @@ void userHandleMenu(int index, void *elements, int *totalElements, int userIndex
             printf("  1)  %s admin.\n", handleUsers[userIndex].isAdmin ? "Quitar" : "Dar");
             printf("  2)  %s usuario.\n", handleUsers[userIndex].deleted ? "Activar" : "Desactivar");
             printf("  3)  Eliminar usuario (permanente).\n");
-            printf("esc)  Salir.\n");
+            printf("esc)  Salir.\n\n");
+            printf("<-  ->\n");
 
             fflush(stdin);
             option = getch();
@@ -662,7 +663,7 @@ void userHandleMenu(int index, void *elements, int *totalElements, int userIndex
             {
                 case '1':
 
-                    if(handleUsers[userIndex].isAdmin)
+                    if(handleUsers[userIndex].isAdmin && index != userIndex)
                     {
                         handleUsers[userIndex].isAdmin = 0;
                     }
@@ -694,6 +695,27 @@ void userHandleMenu(int index, void *elements, int *totalElements, int userIndex
                     sleep(1);
                     option = 27;
                     break;
+                case -32:
+
+                    fflush(stdin);
+                    option = getch();
+
+                    switch (option)
+                    {
+                    case 77:
+                        if (userIndex < totalUsers-1)
+                        {
+                            userIndex++;
+                        }
+                        break;
+                    case 75:
+                        if (userIndex > 0)
+                        {
+                            userIndex--;
+                        }
+                        break;
+                    }
+
                 case 27:
 
                     system("cls");
