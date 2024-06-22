@@ -37,4 +37,5 @@ int matchAuthorBook(stBook books[], int totalBooks, char searchAuthor[], stBook 
 void searchBooksByCategory(int index, stBook books[], int totalBooks);
 int matchCategoryBook(stBook books[], int totalBooks, char searchCategory[], stBook foundBooks[], int totalFoundBooks);
 
+void favBooks(int favorites[], int numFavorites, stBook books[], int totalBooks, stBook favs[]);
 #endif // BOOK_H_INCLUDED

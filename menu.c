@@ -104,7 +104,14 @@ char userMenu(int index)
             case '4':
             {
                 system("cls");
-
+                if(users[index].numFavorites != 0){
+                    stBook favs[1000];
+                    favBooks(users[index].favoriteBooks, users[index].numFavorites, books, totalBooks, favs);
+                    paginated(index, favs, &users[index].numFavorites, 5, printBook, booksOptionMenu);
+                } else {
+                    printf("No tiene libros en la lista de favoritos.");
+                    sleep(1);
+                }
                 break;
             }
             case '5':
@@ -576,9 +583,9 @@ void sortBooksMenu(){
 
     do{
         printf("Seleccione como desea ver ordenados los libros: \n");
-        printf("1) Por valoraci�n.\n");
-        printf("2) Por categor�a.\n");
-        printf("3) Por orden alfab�tico.\n");
+        printf("  1) Por valoracion.\n");
+        printf("  2) Por categoria.\n");
+        printf("  3) Por orden alfabetico.\n");
         printf("esc) Volver al menu.\n");
 
         fflush(stdin);

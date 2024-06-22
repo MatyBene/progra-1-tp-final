@@ -252,3 +252,23 @@ void searchBooksByCategory(int index, stBook books[], int totalBooks)
 {
     searchBooksBy(index, books, totalBooks, "Ingrese la categoria:", matchCategoryBook);
 }
+
+void favBooks(int favorites[], int numFavorites, stBook books[], int totalBooks, stBook favs[]){
+    for(int i = 0; i < numFavorites; i++){
+        int flag = 0;
+        int j = 0;
+
+        while(j < totalBooks && flag == 0){
+            if(books[j].bookId == favorites[i]){
+                favs[i] = books[j];
+                flag = 1;
+            }
+            j++;
+        }
+    }
+}
+
+
+
+
+
