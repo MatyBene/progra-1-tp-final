@@ -499,7 +499,7 @@ int handleUserInput(int index, void *elements, int *totalElements, int currentPa
     }
     else if(key >= 49 && key <= 53)
     {
-        handleMenu(index, (((currentPage - 1) * 5) + (int) key - 49));
+        handleMenu(index, (((currentPage - 1) * 5) + (int) key - 49), books, &totalBooks); /// los dos ultimos parametros mande eso, total no se usan. Si no no podia usar la funcion
     }
     else if(key == 27)
     {
@@ -513,40 +513,52 @@ int handleUserInput(int index, void *elements, int *totalElements, int currentPa
     return currentPage;
 }
 
-void booksOptionMenu(int userIndex, int bookIndex)
-{
-    if(isNotEmpty(books[bookIndex].title))
-    {
+void booksHandleMenu(int index, int bookIndex, void *elements, int *totalElements){
+    stBook *handleBooks = (stBook *) elements;
+
+    if(isNotEmpty(handleBooks[bookIndex].title)){
         char option;
 
-        do
-        {
+        do{
             system("cls");
-                printBookExtended(books, bookIndex);
-
+            printBookExtended(handleBooks, bookIndex);
 
             printf("\n\n");
-            printf("  1) %s favoritos\n", isFavorite(users[userIndex], books[bookIndex].bookId) ? "Quitar de" : "Agregar a");
+            printf("  1)  %s favoritos.\n", isFavorite(users[index], handleBooks[bookIndex].bookId) ? "Quitar de" : "Agregar a");
+            printf("  2)  Agregar comentario.\n");
+            printf("  3)  Ver comentarios.\n");
+            if (users[index].isAdmin == 1){
+                printf("  4)  Modificar libro.\n");
+                printf("  5)  Desabilitar libro.\n");
+                printf("  6)  Eliminar libro.\n");
+            }
             printf("esc)  Salir.\n");
 
             fflush(stdin);
             option = getch();
 
-            switch(option)
-            {
+            switch(option){
                 case '1':
                     system("cls");
 
-                    if(isFavorite(users[userIndex], books[bookIndex].bookId))
-                    {
-                        removeFavorite(users, userIndex, books[bookIndex].bookId);
+                    if(isFavorite(users[index], handleBooks[bookIndex].bookId)){
+                        removeFavorite(users, index, handleBooks[bookIndex].bookId);
+                    } else {
+                        addFavorite(users, index, handleBooks[bookIndex].bookId);
                     }
-                    else
-                    {
-                        addFavorite(users, userIndex, books[bookIndex].bookId);
-                    }
-                    printf("Se %s favoritos", isFavorite(users[userIndex], books[bookIndex].bookId) ? "agrego el libro a" : "quito el libro de");
+                    printf("Se %s favoritos", isFavorite(users[index], handleBooks[bookIndex].bookId) ? "agrego el libro a" : "quito el libro de");
 
+                    break;
+                case '2':
+                    break;
+                case '3':
+                    break;
+                case '4':
+                    editBook(books, bookIndex);
+                    break;
+                case '5':
+                    break;
+                case '6':
                     break;
 
                 case 27:
@@ -555,16 +567,8 @@ void booksOptionMenu(int userIndex, int bookIndex)
             }
 
 
-        }
-        while(option != 27);
+        } while(option != 27);
     }
-
-
-}
-
-void booksAdminOptionMenu(void *elements, int index, int *totalBooks)
-{
-
 }
 
 void usersOptionMenu(void *elements, int index)
@@ -593,17 +597,17 @@ void sortBooksMenu(int index, void *elements, int *totalElements){
         switch(opcion){
             case '1':
                 qsort(arrBooks, *totalElements, sizeof(stBook), compareRating);
-                paginated(index, arrBooks, totalElements, 5, printBook, booksOptionMenu);
+                paginated(index, arrBooks, totalElements, 5, printBook, booksHandleMenu);
                 break;
 
             case '2':
                 qsort(arrBooks, *totalElements, sizeof(stBook), compareCategory);
-                paginated(index, arrBooks, totalElements, 5, printBook, booksOptionMenu);
+                paginated(index, arrBooks, totalElements, 5, printBook, booksHandleMenu);
                 break;
 
             case '3':
                 qsort(arrBooks, *totalElements, sizeof(stBook), compareTitle);
-                paginated(index, arrBooks, totalElements, 5, printBook, booksOptionMenu);
+                paginated(index, arrBooks, totalElements, 5, printBook, booksHandleMenu);
                 break;
 
             case 27:
