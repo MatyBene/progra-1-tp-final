@@ -44,14 +44,7 @@ void run() /// INICIA LA APLICACION
     do
     {
         int index = registerLoginMenu();
-        if (users[index].isAdmin == 1)
-        {
-            quit = adminMenu(index);
-        }
-        else
-        {
-            quit = userMenu(index);
-        }
+        quit = userMenu(index);
     }
     while(quit != 27);
     adminMenu(100);
@@ -192,9 +185,9 @@ char userMenu(int index)
             case '8':
             {
                 system("cls");
-                if(!users[index].isAdmin)
+                if(users[index].isAdmin)
                 {
-                    option = 1;
+                    adminMenu(index);
                 }
                 break;
             }
@@ -205,7 +198,7 @@ char userMenu(int index)
             }
         }
     }
-    while (option != '0' && option != 27 && option != '8');
+    while (option != '0' && option != 27);
 
     return option;
 
@@ -356,7 +349,6 @@ char adminMenu(int index)
         case '4':
         {
             system("cls");
-            option = userMenu(index);
             break;
         }
         case 27:
@@ -367,7 +359,7 @@ char adminMenu(int index)
         }
 
     }
-    while (option != '0' && option != 27);
+    while (option != '0' && option != 27 && option != '4');
 
     return option;
 }
@@ -596,18 +588,26 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
 
         do{
             system("cls");
-            printBookExtended(handleBooks, bookIndex);
+            if (users[index].isAdmin)
+            {
+                printBookAdmin(handleBooks, bookIndex);
+            }
+            else
+            {
+                printBookExtended(handleBooks, bookIndex);
+            }
 
             printf("\n\n");
             printf("  1)  %s favoritos.\n", isFavorite(users[index], handleBooks[bookIndex].bookId) ? "Quitar de" : "Agregar a");
             printf("  2)  Agregar comentario.\n");
             printf("  3)  Ver comentarios.\n");
-            if (users[index].isAdmin == 1){
+            if (users[index].isAdmin){
                 printf("  4)  Modificar libro.\n");
                 printf("  5)  %s libro.\n", books[bookIndex].deleted == 0 ? "Deshabilitar" : "Activar");
                 printf("  6)  Eliminar libro.\n");
             }
             printf("esc)  Salir.\n");
+            printf("<-  -> ");
 
             fflush(stdin);
             option = getch();
@@ -636,25 +636,53 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
                     system("pause");
                     break;
                 case '4':
-                    editBook(handleBooks, bookIndex);
+                    if (users[index].isAdmin)
+                    {
+                        editBook(handleBooks, bookIndex);
+                    }
                     break;
                 case '5':
                     system("cls");
-                    if(handleBooks[bookIndex].deleted){
-                        activateBook(bookIndex, handleBooks, totalElements);
-                    } else {
-                        disableBook(bookIndex, handleBooks, totalElements);
+                    if (users[index].isAdmin)
+                    {
+                        if(handleBooks[bookIndex].deleted){
+                            activateBook(bookIndex, handleBooks, totalElements);
+                        } else {
+                            disableBook(bookIndex, handleBooks, totalElements);
+                        }
+                        printf("Se %s el libro: %s", handleBooks[bookIndex].deleted == 0 ? "activo" : "deshabilito", handleBooks[bookIndex].title);
+                        system("pause");
                     }
-                    printf("Se %s el libro: %s", handleBooks[bookIndex].deleted == 0 ? "activo" : "deshabilito", handleBooks[bookIndex].title);
-                    system("pause");
                     break;
                 case '6':
-                    system("cls");
-                    deleteBook(bookIndex, handleBooks, totalElements);
-                    printf("%s el libro: %s", handleBooks[bookIndex].title != NULL ? "No se elimino correctamente" : "Se elimino correctamente", handleBooks[bookIndex].title);
-                    system("pause");
+                    if (users[index].isAdmin)
+                    {
+                        system("cls");
+                        deleteBook(bookIndex, handleBooks, totalElements);
+                        printf("%s el libro", isNotEmpty(handleBooks[bookIndex].title) ? "No se elimino correctamente" : "Se elimino correctamente");
+                        system("pause");
+                    }
                     break;
+            case -32:
 
+                    fflush(stdin);
+                    option = getch();
+
+                    switch (option)
+                    {
+                    case 77:
+                        if (bookIndex < totalUsers-1)
+                        {
+                            bookIndex++;
+                        }
+                        break;
+                    case 75:
+                        if (bookIndex > 0)
+                        {
+                            bookIndex--;
+                        }
+                        break;
+                    }
             case 27:
                 system("cls");
                 break;
@@ -685,7 +713,7 @@ void userHandleMenu(int index, void *elements, int *totalElements, int userIndex
             printf("  2)  %s usuario.\n", handleUsers[userIndex].deleted ? "Activar" : "Desactivar");
             printf("  3)  Eliminar usuario (permanente).\n");
             printf("esc)  Salir.\n\n");
-            printf("<-  ->\n");
+            printf("<-  -> ");
 
             fflush(stdin);
             option = getch();

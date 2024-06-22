@@ -28,6 +28,7 @@ void printBookAdmin(const void *elements, int index)
     printf("Categoria: ...... %s\n", books[index].category);
     printf("Valoracion: ..... %.2f\n", books[index].rating);
     printf("Eliminado: ...... %s\n", books[index].deleted ? "Si" : "No");
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
 }
 
 void printBook(const void *elements, int index)
