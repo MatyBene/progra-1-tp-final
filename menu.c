@@ -550,8 +550,14 @@ void booksHandleMenu(int index, int bookIndex, void *elements, int *totalElement
 
                     break;
                 case '2':
+                    system("cls");
+                    commentRegister(comments, &totalComments,users[index].userId, books[bookIndex].bookId);
+                    system("pause");
                     break;
                 case '3':
+                    system("cls");
+                    printCommentsBook(comments,totalComments,books[bookIndex].bookId);
+                    system("pause");
                     break;
                 case '4':
                     editBook(books, bookIndex);
