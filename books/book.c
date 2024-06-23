@@ -223,7 +223,7 @@ void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt
 
     system("cls");
     printf("%s\n", prompt);
-    gets(searchTerm);
+    getString(searchTerm, 100);
 
     totalFoundBooks = matchFunc(books, totalBooks, searchTerm, foundBooks, totalFoundBooks);
 
