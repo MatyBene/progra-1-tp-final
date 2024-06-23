@@ -13,6 +13,7 @@
 #include "Comments/coment.h"
 
 
+
 typedef void (*printFunction)(const void*, int index);
 typedef void (*elementMenu)(int userIndex, void *elements, int *totalElements, int elementIndex);
 typedef void (*actionFunction)(stUser users[], int index, int *totalUsers);

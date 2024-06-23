@@ -17,7 +17,7 @@ void newRating(stComment comments[], int index)
     do
     {
         printf("Ingrese su valoración del 1 al 5: ");
-        scanf("%d",&star);
+        star = getNumber();
         if(star>=1 && star<=5)
         {
             comments[index].rating = star;
@@ -25,6 +25,7 @@ void newRating(stComment comments[], int index)
         else
         {
             printf("Valor invalido.\n");
+            system("pause");
         }
         system("cls");
     }

@@ -6,11 +6,13 @@
 #include "Books/book.h"
 #include "Users/user.h"
 #include "Comments/coment.h"
+#include <unistd.h>
 
 int isNotEmpty(char field[]);
 int yesNo ();
 void newField(char field[], char prompt[]);
 int getNumber(); // permite escribir unicamente numeros
+void getString(char* str, int maxBufferSize);
 
 /* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
 

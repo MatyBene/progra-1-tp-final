@@ -5,7 +5,7 @@ void newTitle(stBook books[], int index){
     do{
         printf("Ingrese el título del libro: ");
         fflush(stdin);
-        gets(aux);
+        getString(aux, 30);
         system("cls");
         if(!isNotEmpty(aux)){
             printf("El campo no puede estar vacio.\n\n");

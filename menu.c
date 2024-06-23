@@ -1,5 +1,4 @@
 #include "menu.h"
-#include <unistd.h>
 
 
 /* >>>>>>>>>>>>>>>>>>>GLOBAL<<<<<<<<<<<<<<<<<<<<< */
@@ -47,7 +46,7 @@ void run() /// INICIA LA APLICACION
         quit = userMenu(index);
     }
     while(quit != 27);
-    adminMenu(100);
+
     saveDataMenu();
 }
 
@@ -60,7 +59,7 @@ int registerLoginMenu()
     {
         printf("Ingrese la accion que desea realizar: (Registrar/Ingresar)\n");
         fflush(stdin);
-        gets(option);
+        getString(option, 9);
 
         if (strcmpi(option,"registrar") == 0)
         {
