@@ -589,6 +589,8 @@ void sortBooksMenu(int index, void *elements, int *totalElements)
 void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex)
 {
     stBook *handleBooks = (stBook *) elements;
+    int idBook = handleBooks[bookIndex].bookId;
+    int pos = searchIndexBookById(idBook, books, totalBooks);
 
     if(isNotEmpty(handleBooks[bookIndex].title))
     {
@@ -604,7 +606,7 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
             printf("  3)  Ver comentarios.\n");
             if (users[index].isAdmin == 1){
                 printf("  4)  Modificar libro.\n");
-                printf("  5)  %s libro.\n", books[bookIndex].deleted == 0 ? "Deshabilitar" : "Activar");
+                printf("  5)  %s libro.\n", books[pos].deleted == 0 ? "Deshabilitar" : "Activar");
                 printf("  6)  Eliminar libro.\n");
             }
             printf("esc)  Salir.\n");
@@ -636,24 +638,25 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
                     system("pause");
                     break;
                 case '4':
-                    system("pause");
-                    editBook(handleBooks, bookIndex);
+                    system("cls");
+                    editBook(idBook, books, totalBooks);
                     break;
                 case '5':
                     system("cls");
-                    if(handleBooks[bookIndex].deleted){
-                        activateBook(bookIndex, handleBooks, totalElements);
+                    if(books[pos].deleted){
+                        activateBook(idBook, books, &totalBooks);
                     } else {
-                        disableBook(bookIndex, handleBooks, totalElements);
+                        disableBook(idBook, books, &totalBooks);
                     }
-                    printf("Se %s el libro: %s", handleBooks[bookIndex].deleted == 0 ? "activo" : "deshabilito", handleBooks[bookIndex].title);
-                    system("pause");
+                    printf("Se %s el libro: %s\n", books[pos].deleted == 0 ? "activo" : "deshabilito", handleBooks[bookIndex].title);
+                    sleep(1);
                     break;
                 case '6':
                     system("cls");
-                    deleteBook(bookIndex, handleBooks, totalElements);
-                    printf("%s el libro: %s", handleBooks[bookIndex].title != NULL ? "No se elimino correctamente" : "Se elimino correctamente", handleBooks[bookIndex].title);
-                    system("pause");
+                    deleteBook(idBook, books, &totalBooks);
+                    printf("El libro %s se elimino correctamente.\n", handleBooks[bookIndex].title);
+                    sleep(1);
+                    adminMenu(index);
                     break;
 
             case 27:
@@ -721,8 +724,8 @@ void userHandleMenu(int index, void *elements, int *totalElements, int userIndex
                     break;
                 case '3':
 
-                    //int deleteIndex = matchId(users, handleUsers[userIndex].userId, totalUsers);
-                    //deleteUser(users, deleteIndex, &totalUsers);
+//                    int deleteIndex = matchId(users, handleUsers[userIndex].userId, totalUsers);
+//                    deleteUser(users, deleteIndex, &totalUsers);
                     printf("Se elimino al usuario.");
                     sleep(1);
                     option = 27;

@@ -252,6 +252,20 @@ void searchBooksByCategory(int index, stBook books[], int totalBooks)
     searchBooksBy(index, books, totalBooks, "Ingrese la categoria:", matchCategoryBook);
 }
 
+int searchIndexBookById(int idBook, stBook books[], int totalBooks){
+    int indexBook = -1;
+    int i = 0;
+
+    while(indexBook == -1 && i < totalBooks){
+        if(idBook == books[i].bookId){
+            indexBook = i;
+        }
+        i++;
+    }
+
+    return indexBook;
+}
+
 void favBooks(int favorites[], int numFavorites, stBook books[], int totalBooks, stBook favs[]){
     for(int i = 0; i < numFavorites; i++){
         int flag = 0;
@@ -267,9 +281,9 @@ void favBooks(int favorites[], int numFavorites, stBook books[], int totalBooks,
     }
 }
 
-void editBook(stBook books[], int indexBook){
+void editBook(int idBook, stBook books[], int totalBooks){
     char option;
-
+    int indexBook = searchIndexBookById(idBook, books, totalBooks);
     do{
         system("cls");
         printf("Dato que quiere editar: \n\n");
@@ -319,19 +333,22 @@ void editBook(stBook books[], int indexBook){
     } while(option != 27);
 }
 
-void activateBook(int indexBook, stBook books[], int *totalBooks){
+void activateBook(int idBook, stBook books[], int *totalBooks){
+    int indexBook = searchIndexBookById(idBook, books, *totalBooks);
     if(books[indexBook].deleted){
         books[indexBook].deleted = 0;
     }
 }
 
-void disableBook(int indexBook, stBook books[], int *totalBooks){
+void disableBook(int idBook, stBook books[], int *totalBooks){
+    int indexBook = searchIndexBookById(idBook, books, *totalBooks);
     if(!books[indexBook].deleted){
         books[indexBook].deleted = 1;
     }
 }
 
-void deleteBook(int indexBook, stBook books[], int *totalBooks){
+void deleteBook(int idBook, stBook books[], int *totalBooks){
+    int indexBook = searchIndexBookById(idBook, books, *totalBooks);
     deleteFile(books, sizeof(stBook), indexBook, *totalBooks, BOOKS);
     *totalBooks = readFile(books, sizeof(stBook), BOOKS);
 }
