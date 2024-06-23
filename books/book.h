@@ -36,12 +36,13 @@ void searchBooksByAuthor(int index, stBook books[], int totalBooks);
 int matchAuthorBook(stBook books[], int totalBooks, char searchAuthor[], stBook foundBooks[], int totalFoundBooks);
 void searchBooksByCategory(int index, stBook books[], int totalBooks);
 int matchCategoryBook(stBook books[], int totalBooks, char searchCategory[], stBook foundBooks[], int totalFoundBooks);
+int searchIndexBookById(int idBook, stBook books[], int totalBooks);
 
 void favBooks(int favorites[], int numFavorites, stBook books[], int totalBooks, stBook favs[]);
 
-void editBook(stBook books[], int idBook);
-void activateBook(int indexBook, stBook books[], int *totalBooks);
-void disableBook(int indexBook, stBook books[], int *totalBooks);
-void deleteBook(int indexBook, stBook books[], int *totalBooks);
+void editBook(int idBook, stBook books[], int totalBooks);
+void activateBook(int idBook, stBook books[], int *totalBooks);
+void disableBook(int idBook, stBook books[], int *totalBooks);
+void deleteBook(int idBook, stBook books[], int *totalBooks);
 
 #endif // BOOK_H_INCLUDED

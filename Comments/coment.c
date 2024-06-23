@@ -18,6 +18,9 @@ void printComment(const void *elements, int index)
 {
     stComment *comments = (stComment*) elements;
 
+//    printf("\n\nPRINTCOMMENT: \n");
+//    printf("INDICE COMENTARIO: %d\n\n", index);
+
     printf("Titulo: ....... %s\n", comments[index].commentTitle);
     printf("Descripción: .. %s\n", comments[index].description);
     printf("Valoración: ... %d\n", comments[index].rating);
@@ -31,6 +34,8 @@ void printCommentAdmin(const void *elements, int index)
 
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n");
     printf("ID: ........... %d\n", comments[index].commentId);
+    printf("ID usuario: ........... %d\n", comments[index].userId);
+    printf("ID libro: ........... %d\n", comments[index].bookId);
     printf("Titulo: ....... %s\n", comments[index].commentTitle);
     printf("Descripción: .. %s\n", comments[index].description);
     printf("Valoración: ... %d\n", comments[index].rating);
@@ -41,6 +46,7 @@ void printCommentAdmin(const void *elements, int index)
 
 void printCommentsBook(stComment *comments, int totalComments, int idBook)
 {
+
     for(int i = 0; i<totalComments; i++)
     {
         if (comments[i].bookId == idBook)
