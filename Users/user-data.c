@@ -6,7 +6,7 @@ void newEmail (stUser *users, int index) //comprueba el mail y lo carga
 {
     printf("Ingrese un mail valido: ");
     fflush(stdin);
-    gets(users[index].email);
+    getString(users[index].email, 100);
     system("cls");
 
     if (existingEmail(users[index].email, users, index))  // mientras el mail ya este registrado se repite el bucle recursivo
@@ -89,7 +89,7 @@ void newUserName (stUser *users, int index) // carga un nuevo nombre de usuario
 {
     printf("Ingrese su nuevo nombre de usuario: ");
     fflush(stdin);
-    gets(users[index].username);
+    getString(users[index].username, 20);
     system("cls");
 
     if (!validUserName(users[index].username, users, index))
@@ -113,7 +113,7 @@ void newStreet(stUser *users, int index) // carga una nueva calle
     printf("Domicilio: \n");
     printf("\nCalle: ");
     fflush(stdin);
-    gets(users[index].address.street);
+    getString(users[index].address.street, 50);
     printf("\nAltura: ");
     itoa(getNumber(), users[index].address.number, 10);
 }
@@ -122,28 +122,28 @@ void newZipCode(stUser *users, int index) // carga un nuevo codigo postal
 {
     printf("\nCodigo Postal: ");
     fflush(stdin);
-    gets(users[index].address.zipCode);
+    getString(users[index].address.zipCode, 50);
 }
 
 void newCity(stUser *users, int index)  // carga una nueva ciudad
 {
     printf("\nCiudad: ");
     fflush(stdin);
-    gets(users[index].address.city);
+    getString(users[index].address.city, 50);
 }
 
 void newProvince(stUser *users, int index)  // carga una nueva provincia
 {
     printf("\nProvincia: ");
     fflush(stdin);
-    gets(users[index].address.province);
+    getString(users[index].address.province, 50);
 }
 
 void newCountry(stUser *users, int index)   // carga un nuevo pais
 {
     printf("\nPais: ");
     fflush(stdin);
-    gets(users[index].address.country);
+    getString(users[index].address.country, 50);
 }
 
 void newGender(stUser *users, int index) // carga un nuevo genero

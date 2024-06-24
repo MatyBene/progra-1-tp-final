@@ -31,6 +31,7 @@ void printBookAdmin(const void *elements, int index)
     printf("Categoria: ...... %s\n", books[index].category);
     printf("Valoracion: ..... %.2f\n", books[index].rating);
     printf("Eliminado: ...... %s\n", books[index].deleted ? "Si" : "No");
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
 }
 
 void printBook(const void *elements, int index)
@@ -225,7 +226,7 @@ void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt
 
     system("cls");
     printf("%s\n", prompt);
-    gets(searchTerm);
+    getString(searchTerm, 100);
 
     totalFoundBooks = matchFunc(books, totalBooks, searchTerm, foundBooks, totalFoundBooks);
 

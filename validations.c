@@ -57,6 +57,43 @@ int getNumber() // permite escribir unicamente numeros
     return atoi(num);
 }
 
+void getString(char* str, int maxBufferSize) // permite escribir un string evaluando cada caracter
+{
+    char *buffer = (char*) malloc((maxBufferSize) * sizeof(char));
+    int i = 0;
+    char ch;
+
+    do
+    {
+        ch = getch();
+
+        if (ch == 27) { // si se presiona esc se devuelve NULL
+            buffer = NULL;
+        } else if (ch == 13){
+            buffer[i] = '\0';
+        } else if (ch == 8) { // si se presiona backspace borra un caracter
+            if (i > 0) {
+                printf("\b \b");
+                i--;
+            }
+        } else {
+            buffer[i++] = ch;
+            printf("%c", ch);
+        }
+    }while (ch != 13);
+
+    if (i > maxBufferSize)
+    {
+        printf("\nMaximo de caracteres permitidos superado.");
+        sleep(1);
+    } else {
+        strcpy(str, buffer);
+    }
+
+    free(buffer);
+
+}
+
 void newField(char field[], char prompt[]){
 
     do{

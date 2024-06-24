@@ -27,7 +27,7 @@ int readFile (void *st, size_t stSize, char *fileName) // lee un archivo, ordena
 
 void saveFile (void *st, size_t stSize, int totalElements, char *fileName, int (*compare)(const void *, const void *)) // ordena y guarda la totalidad del arreglo en el archivo especificado
 {
-    qsort(st, totalElements, stSize, compare); // funcion de ordenamiento rapido de C
+//    qsort(st, totalElements, stSize, compare); // funcion de ordenamiento rapido de C
 
     FILE * fi = fopen(fileName, "wb");
 
