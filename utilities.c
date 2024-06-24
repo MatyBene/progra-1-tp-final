@@ -1,11 +1,5 @@
-#include "validations.h"
+#include "utilities.h"
 
-
-
-int isNotEmpty(char field[]) // valida que un string no este vacio
-{
-    return strlen(field) > 0;
-}
 
 int yesNo ()
 {
@@ -15,7 +9,8 @@ int yesNo ()
     {
         fflush(stdin);
         option = tolower(getch());
-    }while(option != 'y' && option != 'n');
+    }
+    while(option != 'y' && option != 'n');
 
     if(option == 'y')
     {
@@ -24,6 +19,29 @@ int yesNo ()
     else
     {
         return 0;
+    }
+}
+
+void printWithLineBreaks(char *str)
+{
+    int count = 0;
+
+    for (int i = 0; i < strlen(str); i++)
+    {
+        putchar(str[i]);
+        count++;
+
+        if (count >= 40 && str[i] == ' ')
+        {
+            putchar('\n');
+            printf("                      ");
+            count = 0;
+        }
+    }
+
+    if (count > 0)
+    {
+        putchar('\n');
     }
 }
 
@@ -38,7 +56,8 @@ int getNumber() // permite escribir unicamente numeros
         {
             fflush(stdin);
             num[i] = getch();
-        }while(!isdigit(num[i]) && num[i] != 13 && num[i] != 8);
+        }
+        while(!isdigit(num[i]) && num[i] != 13 && num[i] != 8);
 
         if (num[i] != 13 && num[i] != 8) // si la tecla pulsada no es intro ni backspace imprime el numero
         {
@@ -59,28 +78,39 @@ int getNumber() // permite escribir unicamente numeros
 
 void getString(char* str, int maxBufferSize) // permite escribir un string evaluando cada caracter
 {
-    if(strlen(str) <= maxBufferSize)
+    gets(str);
+    if(strlen(str) > maxBufferSize)
     {
-        gets(str);
+        printf("Se exedio el limite de caracteres permitidos.\n");
+        sleep(1);
+        str = NULL;
     }
 }
 
-void newField(char field[], char prompt[], int maxBufferSize){
+void newField(char field[], char prompt[], int maxBufferSize)
+{
 
-    do{
+    do
+    {
         printf("%s", prompt);
         fflush(stdin);
         getString(field, maxBufferSize);
         system("cls");
-        if(!isNotEmpty(field)){
+        if(!isNotEmpty(field))
+        {
             printf("El campo no puede estar vacio.\n\n");
         }
-    } while(!isNotEmpty(field));
+    }
+    while(!isNotEmpty(field));
 }
 
 
+/* >>>>>>>>>>>>>>>>>>>VALIDATIONS<<<<<<<<<<<<<<<<<<<<< */
 
-/* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
+int isNotEmpty(char field[]) // valida que un string no este vacio
+{
+    return strlen(field) > 0;
+}
 
 int existingBook(char title[], stBook books[], int index) // valida que un libro exista
 {
@@ -114,14 +144,6 @@ int isFavorite(stUser user, int bookId)
 
     return 0;
 }
-
-/* >>>>>>>>>>>>>>>>>>>BOOKS<<<<<<<<<<<<<<<<<<<<< */
-
-
-
-
-/* >>>>>>>>>>>>>>>>>>>USERS<<<<<<<<<<<<<<<<<<<<< */
-
 
 int validEmail(char *email) // valida que un mail sea valido
 {
@@ -201,7 +223,7 @@ int validPassword(char *pass) // comprueba que la contrase�a sea valida
 
     if (upper && lower && num && special)
     {
-       return 1;
+        return 1;
     }
     else
     {
@@ -306,40 +328,6 @@ int validDni(char *dni)
 
 }
 
-int matchId (stUser *users, int id, int totalUsers) // valida que exista un id y devuelve la posicion
-{
-    int i = 0;
+/* >>>>>>>>>>>>>>>>>>>VALIDATIONS<<<<<<<<<<<<<<<<<<<<< */
 
-    while (i < totalUsers)
-    {
-        if (users[i].userId == id)
-        {
-            return i;
-        }
-        i++;
-    }
-
-    return -1;
-}
-
-int compareUserId(const void *a, const void *b)
-{
-    stUser *userA = (stUser *) a;
-    stUser *userB = (stUser *) b;
-    return (userA->userId - userB->userId);
-}
-
-/* >>>>>>>>>>>>>>>>>>>USERS<<<<<<<<<<<<<<<<<<<<< */
-
-
-/* >>>>>>>>>>>>>>>>>>>COMMENTS<<<<<<<<<<<<<<<<<<<<< */
-
-int compareCommentId(const void *a, const void *b)
-{
-    stComment *commentA = (stComment *) a;
-    stComment *commentB = (stComment *) b;
-    return (commentA->commentId - commentB->commentId);
-}
-
-/* >>>>>>>>>>>>>>>>>>>COMMENTS<<<<<<<<<<<<<<<<<<<<< */
 

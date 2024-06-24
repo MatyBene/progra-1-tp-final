@@ -25,10 +25,12 @@ void commentRegister(stComment comments[], int *index, int idUser, int idBook);
 
 void printComment(const void *elements, int index);
 void printCommentAdmin(const void *elements, int index);
-int printCommentsBook(stComment *comments, int totalComments, int idBook);
+int haveComments(stComment *comments, int totalComments, int idBook, stComment *handleComments);
+int commentIndexById (stComment *comments, int id, int totalComments);
 
 float changeRatingBook(stComment *comments, int totalComments, int idBook);
-void deleteComment(int indexComment, stComment comments[], int *totalComments);
+void deleteComment(int idComment, stComment comments[], int *totalComments);
 void deleteCommentsBook(stComment *comments, int *totalComments, int idBook);
+void editComment(int idComment, stComment comments[], int totalComments);
 
 #endif // COMENT_H_INCLUDED

@@ -42,4 +42,10 @@ void newDate(stComment comments[], int index)
     strftime(comments[index].commentDate,sizeof(comments[index].commentDate),"%Y/%m/%d",local);
 }
 
+int compareCommentId(const void *a, const void *b)
+{
+    stComment *commentA = (stComment *) a;
+    stComment *commentB = (stComment *) b;
+    return (commentA->commentId - commentB->commentId);
+}
 

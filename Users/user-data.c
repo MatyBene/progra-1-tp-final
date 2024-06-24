@@ -203,6 +203,28 @@ void newDni(stUser *users, int index) // carga un nuevo dni
     system("cls");
 }
 
+int compareUserId(const void *a, const void *b)
+{
+    stUser *userA = (stUser *) a;
+    stUser *userB = (stUser *) b;
+    return (userA->userId - userB->userId);
+}
+
+int userIndexById (stUser *users, int id, int totalUsers) // valida que exista un id y devuelve la posicion
+{
+    int i = 0;
+
+    while (i < totalUsers)
+    {
+        if (users[i].userId == id)
+        {
+            return i;
+        }
+        i++;
+    }
+
+    return -1;
+}
 
 
 

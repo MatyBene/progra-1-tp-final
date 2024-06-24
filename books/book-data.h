@@ -2,7 +2,7 @@
 #define BOOK_DATA_H_INCLUDED
 
 #include "book.h"
-#include "../validations.h"
+#include "../utilities.h"
 #include "../Users/user.h"
 
 void newTitle(stBook books[], int index);

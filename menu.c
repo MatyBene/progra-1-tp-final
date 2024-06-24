@@ -214,7 +214,7 @@ void userInfoMenu (int index)
         printf("  1)  Editar Email.\n");
         printf("  2)  Editar Contraseña.\n");
         printf("  3)  Editar Nombre de Usuario.\n");
-        printf("  4)  Editar Genero (?.\n");
+        printf("  4)  Editar Genero.\n");
         printf("  5)  Editar Fecha de Nacimiento.\n");
         printf("  6)  Editar Libros Favoritos.\n");
         printf("  7)  Editar DNI.\n");
@@ -562,13 +562,17 @@ void sortBooksMenu(int index, void *elements, int *totalElements)
 void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex)
 {
     stBook *handleBooks = (stBook *) elements;
-    int idBook = handleBooks[bookIndex].bookId;
+    stComment handleComments[100];
+
 
     if(isNotEmpty(handleBooks[bookIndex].title) && !handleBooks[bookIndex].deleted)
     {
         char option;
 
         do{
+            int idBook = handleBooks[bookIndex].bookId;
+            int commentsInBook = haveComments(comments,totalComments,idBook, handleComments);
+
             system("cls");
             if (users[index].isAdmin)
             {
@@ -582,7 +586,7 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
             printf("\n\n");
             printf("  1)  %s favoritos.\n", isFavorite(users[index], handleBooks[bookIndex].bookId) ? "Quitar de" : "Agregar a");
             printf("  2)  Agregar comentario.\n");
-            printf("  3)  Ver comentarios.\n");
+            printf("  3)  Ver comentarios (%d)\n", commentsInBook);
             if (users[index].isAdmin){
                 printf("  4)  Modificar libro.\n");
                 printf("  5)  %s libro.\n", books[bookIndex].deleted == 0 ? "Deshabilitar" : "Activar");
@@ -614,11 +618,18 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
                     break;
                 case '3':
                     system("cls");
-                    int flag = printCommentsBook(comments,totalComments,idBook);
-                    if(flag == 0){
+
+                    if(commentsInBook){
+                            if(users[index].isAdmin)
+                            {
+                                paginated(index, handleComments, &commentsInBook, 5, printCommentAdmin, commentHandleMenu);
+                            }else{
+                                paginated(index, handleComments, &commentsInBook, 5, printComment, commentHandleMenu);
+                            }
+                    } else{
                         printf("El libro no tiene comentarios.\n");
+                        sleep(1);
                     }
-                    system("pause");
                     break;
                 case '4':
                     if (users[index].isAdmin)
@@ -786,6 +797,103 @@ void userHandleMenu(int index, void *elements, int *totalElements, int userIndex
 
 void commentHandleMenu(int index, void *elements, int *totalElements, int commentIndex)
 {
+    stComment *handleComments = (stComment *) elements;
+    int idComment = handleComments[commentIndex].commentId;
+
+    if(isNotEmpty(handleComments[commentIndex].commentTitle))
+    {
+        char option;
+
+        do
+        {
+            system("cls");
+            if (users[index].isAdmin)
+            {
+                printCommentAdmin(handleComments, commentIndex);
+            }
+            else
+            {
+                printComment(handleComments, commentIndex);
+            }
+
+
+            printf("\n\n");
+            if (users[index].userId == handleComments[commentIndex].userId && !users[index].isAdmin)
+            {
+                printf("  1)  Modificar comentario.\n");
+            }
+            if (users[index].isAdmin)
+            {
+                printf("  1)  %s comentario.\n", handleComments[commentIndex].deleted ? "Activar" : "Desactivar");
+                printf("  2)  Eliminar comentario.\n");
+            }
+            printf("esc)  Salir.\n\n");
+            printf("<-  -> ");
+
+            fflush(stdin);
+            option = getch();
+
+            switch(option)
+            {
+                case '1':
+
+                    if(users[index].userId == handleComments[commentIndex].userId)
+                    {
+                        editComment(idComment, comments, totalComments);
+                        changeRatingBook(comments, totalComments, handleComments[commentIndex].bookId);
+                        printf("Se modifico el comentario.");
+                    }
+                    else if(users[index].isAdmin)
+                    {
+                        if(handleComments[commentIndex].deleted)
+                        {
+                            handleComments[commentIndex].deleted = 0;
+                        }
+                        else
+                        {
+                            handleComments[commentIndex].deleted = 1;
+                        }
+                        printf("Se %s el comentario", handleComments[commentIndex].deleted ? "desactivó" : "activó");
+                    }
+                    sleep(1);
+                    break;
+                case '2':
+                    deleteComment(idComment, comments, &totalComments);
+                    printf("Se elimino el comentario.");
+                    sleep(1);
+                    option = 27;
+                    break;
+                case -32:
+
+                    fflush(stdin);
+                    option = getch();
+
+                    switch (option)
+                    {
+                    case 77:
+                        if (commentIndex < totalUsers-1)
+                        {
+                            commentIndex++;
+                        }
+                        break;
+                    case 75:
+                        if (commentIndex > 0)
+                        {
+                            commentIndex--;
+                        }
+                        break;
+                    }
+
+                case 27:
+
+                    system("cls");
+                    break;
+            }
+
+
+        }
+        while(option != 27);
+    }
 }
 
 /* >>>>>>>>>>>>>>>>>>>UTILITIES<<<<<<<<<<<<<<<<<<<<< */

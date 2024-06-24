@@ -137,7 +137,7 @@ void printUserExtended(const void *elements, int index)
 
 void deleteUser(int idUser, stUser users[], int *totalUsers)
 {
-    int index = matchId(users, idUser, *totalUsers);
+    int index = userIndexById(users, idUser, *totalUsers);
     deleteFile(users, sizeof(stUser), index, *totalUsers, USERS);
     *totalUsers = readFile(users, sizeof(stUser), USERS);
 }

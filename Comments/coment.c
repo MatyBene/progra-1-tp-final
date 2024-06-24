@@ -20,46 +20,73 @@ void commentRegister(stComment comments[], int *totalComments, int idUser, int i
 void printComment(const void *elements, int index)
 {
     stComment *comments = (stComment*) elements;
-
-    printf("Titulo: ....... %s\n", comments[index].commentTitle);
-    printf("IDLIBRO: ....... %d\n", comments[index].bookId);
-    printf("Descripción: .. %s\n", comments[index].description);
-    printf("Valoración: ... %d\n", comments[index].rating);
-    printf("Fecha: ........ %s\n",comments[index].commentDate);
-    printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
+    if(!comments[index].deleted)
+    {
+        printf("Titulo: ............. %s\n", comments[index].commentTitle);
+        printf("IDLIBRO: ............ %d\n", comments[index].bookId);
+        printf("Descripción: ........ ");
+        printWithLineBreaks(comments[index].description);
+        printf("\n");
+        printf("Valoración: ......... %d\n", comments[index].rating);
+        printf("Fecha: .............. %s\n",comments[index].commentDate);
+        printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
+    }
 }
 
 void printCommentAdmin(const void *elements, int index)
 {
     stComment *comments = (stComment*) elements;
 
+    if(comments[index].deleted)
+    {
+        printf("\t\tDESACTIVADO\n\n");
+    }
+
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n");
-    printf("ID: ........... %d\n", comments[index].commentId);
-    printf("ID usuario: ........... %d\n", comments[index].userId);
-    printf("ID libro: ........... %d\n", comments[index].bookId);
-    printf("Titulo: ....... %s\n", comments[index].commentTitle);
-    printf("Descripción: .. %s\n", comments[index].description);
-    printf("Valoración: ... %d\n", comments[index].rating);
-    printf("Fecha: ........ %s\n", comments[index].commentDate);
-    printf("Eliminado: .... %s\n", comments[index].deleted ? "Si" : "No");
+    printf("ID: ................. %d\n\n", comments[index].commentId);
+    printf("ID usuario: ......... %d\n\n", comments[index].userId);
+    printf("ID libro: ........... %d\n\n", comments[index].bookId);
+    printf("Titulo: ............. %s\n\n", comments[index].commentTitle);
+    printf("Descripción: ........ ");
+    printWithLineBreaks(comments[index].description);
+    printf("\n");
+    printf("Valoración: ......... %d\n\n", comments[index].rating);
+    printf("Fecha: .............. %s\n\n", comments[index].commentDate);
+    printf("Eliminado: .......... %s\n\n", comments[index].deleted ? "Si" : "No");
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 
-int printCommentsBook(stComment *comments, int totalComments, int idBook)
+int haveComments(stComment *comments, int totalComments, int idBook, stComment *handleComments)
 {
-    int flag = 0;
+    int numComments = 0;
 
     for(int i = 0; i<totalComments; i++)
     {
         if (comments[i].bookId == idBook)
         {
-            printComment(comments,i);
-            flag = 1;
+            handleComments[numComments] = comments[i];
+            numComments++;
         }
     }
 
-    return flag;
+    return numComments;
 
+}
+
+int commentIndexById (stComment *comments, int id, int totalComments)
+{
+    int i = 0;
+
+    while (i < totalComments)
+    {
+        if (comments[i].commentId == id)
+        {
+            return i;
+        }
+        i++;
+    }
+
+    return -1;
 }
 
 float changeRatingBook(stComment *comments, int totalComments, int idBook){
@@ -83,7 +110,8 @@ float changeRatingBook(stComment *comments, int totalComments, int idBook){
     return rating;
 }
 
-void deleteComment(int indexComment, stComment comments[], int *totalComments){
+void deleteComment(int idComment, stComment comments[], int *totalComments){
+    int indexComment = commentIndexById(comments, idComment, *totalComments);
     deleteFile(comments, sizeof(stComment), indexComment, *totalComments, COMMENTS);
     *totalComments = readFile(comments, sizeof(stComment), COMMENTS);
 }
@@ -95,7 +123,52 @@ void deleteCommentsBook(stComment *comments, int *totalComments, int idBook)
     {
         if (comments[i].bookId == idBook)
         {
-            deleteComment(i, comments, totalComments);
+            deleteComment(comments[i].commentId, comments, totalComments);
         }
     }
+}
+
+void editComment(int idComment, stComment comments[], int totalComments){
+
+    char option;
+    int indexComment = commentIndexById(comments, idComment, totalComments);
+    do{
+        system("cls");
+        printf("Dato que quiere editar: \n\n");
+
+        printf("  1)  Editar titulo.\n");
+        printf("  2)  Editar descripcion.\n");
+        printf("  3)  Editar valoracion.\n");
+        printf("esc)  Volver.\n");
+
+        fflush(stdin);
+        option = getch();
+
+        switch(option){
+        case 27:
+            system("cls");
+            break;
+        case '1':
+            system("cls");
+            printf("El titulo actual es: %s\n", comments[indexComment].commentTitle);
+            newCommentTitle(comments, indexComment);
+            printf("El titulo ha sido actualizado a %s\n", comments[indexComment].commentTitle);
+            system("pause");
+            break;
+        case '2':
+            system("cls");
+            printf("La descripcion actual es: %s\n", comments[indexComment].description);
+            newDescription(comments, indexComment);
+            printf("La descripcion ha sido actualizado a %s\n", comments[indexComment].description);
+            system("pause");
+            break;
+        case '3':
+            system("cls");
+            printf("Ingrese una nueva valoracion:\n");
+            newRating(comments, indexComment);
+            printf("La valoracion ha sido actualizada a: %d\n", comments[indexComment].rating);
+            system("pause");
+            break;
+        }
+    } while(option != 27);
 }

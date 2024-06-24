@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../Users/user.h"
-#include "../validations.h"
+#include "../utilities.h"
 
 
 int readFile (void *st, size_t stSize, char *fileName);
