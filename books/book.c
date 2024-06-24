@@ -1,7 +1,6 @@
 #include "book.h"
 #include "book-data.h"
 #include "../menu.h"
-#include <ctype.h>
 #include <unistd.h>
 
 void bookRegister(stBook books[], int *totalBooks)
@@ -25,11 +24,11 @@ void printBookAdmin(const void *elements, int index)
 
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
     printf("ID: ............. %d\n", books[index].bookId);
-    printf("Titulo: ......... %s\n", books[index].title);
+    printf("Título: ......... %s\n", books[index].title);
     printf("Editorial: ...... %s\n", books[index].publisher);
     printf("Autor: .......... %s\n", books[index].author);
-    printf("Categoria: ...... %s\n", books[index].category);
-    printf("Valoracion: ..... %.2f\n", books[index].rating);
+    printf("Categoría: ...... %s\n", books[index].category);
+    printf("Valoración: ..... %.2f\n", books[index].rating);
     printf("Eliminado: ...... %s\n", books[index].deleted ? "Si" : "No");
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
 }
@@ -59,11 +58,11 @@ void printBookExtended(const void *elements, int index)
     }
 
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
-    printf("\tTitulo: ......... %s\n", books[index].title);
+    printf("\tTítulo: ......... %s\n", books[index].title);
     printf("\tEditorial: ...... %s\n", books[index].publisher);
     printf("\tAutor: .......... %s\n", books[index].author);
-    printf("\tCategoria: ...... %s\n", books[index].category);
-    printf("\tValoracion: ..... %.2f\n\n", books[index].rating);
+    printf("\tCategoría: ...... %s\n", books[index].category);
+    printf("\tValoración: ..... %.2f\n\n", books[index].rating);
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 
@@ -118,9 +117,9 @@ void searchBooks(int index, stBook books[], int totalBooks)
     do
     {
         printf("Seleccione como desea buscar libros: \n");
-        printf("  1) Por titulo.\n");
+        printf("  1) Por título.\n");
         printf("  2) Por autor.\n");
-        printf("  3) Por categoria.\n");
+        printf("  3) Por categoría.\n");
         printf("esc) Volver al menu.\n");
 
         fflush(stdin);
@@ -141,7 +140,7 @@ void searchBooks(int index, stBook books[], int totalBooks)
             break;
         default:
             system("cls");
-            printf("La opcion ingresada no es valida.");
+            printf("La opción ingresada no es válida.");
             sleep(1);
             system("cls");
             break;
@@ -242,7 +241,7 @@ void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt
 
     if (totalFoundBooks == 0)
     {
-        printf("No se encontro ningun libro con ese criterio.");
+        printf("No se encontro ningún libro con ese criterio.");
         sleep(1);
     }
     else
@@ -253,7 +252,7 @@ void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt
 
 void searchBooksByTitle(int index, stBook books[], int totalBooks)
 {
-    searchBooksBy(index, books, totalBooks, "Ingrese el titulo del libro:", matchTitleBook);
+    searchBooksBy(index, books, totalBooks, "Ingrese el título del libro:", matchTitleBook);
 }
 
 void searchBooksByAuthor(int index, stBook books[], int totalBooks)
@@ -263,7 +262,7 @@ void searchBooksByAuthor(int index, stBook books[], int totalBooks)
 
 void searchBooksByCategory(int index, stBook books[], int totalBooks)
 {
-    searchBooksBy(index, books, totalBooks, "Ingrese la categoria:", matchCategoryBook);
+    searchBooksBy(index, books, totalBooks, "Ingrese la categoría:", matchCategoryBook);
 }
 
 int searchIndexBookById(int idBook, stBook books[], int totalBooks){
@@ -302,10 +301,10 @@ void editBook(int idBook, stBook books[], int totalBooks){
         system("cls");
         printf("Dato que quiere editar: \n\n");
 
-        printf("  1)  Editar titulo.\n");
+        printf("  1)  Editar título.\n");
         printf("  2)  Editar editorial.\n");
         printf("  3)  Editar autor.\n");
-        printf("  4)  Editar categoria.\n");
+        printf("  4)  Editar categoría.\n");
         printf("esc)  Volver.\n");
 
         fflush(stdin);
@@ -317,9 +316,9 @@ void editBook(int idBook, stBook books[], int totalBooks){
             break;
         case '1':
             system("cls");
-            printf("El titulo actual es: %s\n", books[indexBook].title);
+            printf("El título actual es: %s\n", books[indexBook].title);
             newTitle(books, indexBook);
-            printf("El titulo ha sido actualizado a %s\n", books[indexBook].title);
+            printf("El título ha sido actualizado a %s\n", books[indexBook].title);
             system("pause");
             break;
         case '2':
@@ -338,9 +337,9 @@ void editBook(int idBook, stBook books[], int totalBooks){
             break;
         case '4':
             system("cls");
-            printf("La categoria actual es: %s\n", books[indexBook].category);
+            printf("La categoría actual es: %s\n", books[indexBook].category);
             newCategory(books, indexBook);
-            printf("El titulo ha sido actualizado a %s\n", books[indexBook].category);
+            printf("El categoría ha sido actualizado a %s\n", books[indexBook].category);
             system("pause");
             break;
         }

@@ -96,7 +96,7 @@ char userMenu(int index)
     {
         system("cls");
         printf("MENU PRINCIPAL\n\n");
-        printf("  0)  Cerrar sesion.\n");
+        printf("  0)  Cerrar sesión.\n");
         printf("  1)  Perfil.\n");
         printf("  2)  Editar informacion personal.\n");
         printf("  3)  Ver listado de libros.\n");
@@ -216,9 +216,8 @@ void userInfoMenu (int index)
         printf("  3)  Editar Nombre de Usuario.\n");
         printf("  4)  Editar Genero.\n");
         printf("  5)  Editar Fecha de Nacimiento.\n");
-        printf("  6)  Editar Libros Favoritos.\n");
-        printf("  7)  Editar DNI.\n");
-        printf("  8)  Editar Direccion.\n");
+        printf("  6)  Editar DNI.\n");
+        printf("  7)  Editar Direccion.\n");
         printf("esc)  Volver.\n");
 
         fflush(stdin);
@@ -273,18 +272,13 @@ void userInfoMenu (int index)
         }
         case '6':
         {
-
-            break;
-        }
-        case '7':
-        {
             system("cls");
             newDni(users, index);
             printf("El DNI ha sido actualizado a %s\n", users[index].dni);
             system("pause");
             break;
         }
-        case '8':
+        case '7':
         {
             system("cls");
             newAdress(users, index);
