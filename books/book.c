@@ -21,14 +21,18 @@ void bookRegister(stBook books[], int *totalBooks)
 void printBookAdmin(const void *elements, int index)
 {
     stBook *books = (stBook*) elements;
+    if(books[index].deleted)
+    {
+        printf("\t\tDESACTIVADO\n\n");
+    }
 
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
     printf("ID: ............. %d\n", books[index].bookId);
-    printf("Título: ......... %s\n", books[index].title);
+    printf("Tï¿½tulo: ......... %s\n", books[index].title);
     printf("Editorial: ...... %s\n", books[index].publisher);
     printf("Autor: .......... %s\n", books[index].author);
-    printf("Categoría: ...... %s\n", books[index].category);
-    printf("Valoración: ..... %.2f\n", books[index].rating);
+    printf("Categorï¿½a: ...... %s\n", books[index].category);
+    printf("Valoraciï¿½n: ..... %.2f\n", books[index].rating);
     printf("Eliminado: ...... %s\n", books[index].deleted ? "Si" : "No");
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
 }
@@ -45,7 +49,7 @@ void printBook(const void *elements, int index)
     printf("\tTitulo: ......... %s\n", books[index].title);
     printf("\tCategoria: ...... %s\n", books[index].category);
     printf("\tValoracion: ..... %.2f\n\n", books[index].rating);
-    printf("<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
 }
 
 void printBookExtended(const void *elements, int index)
@@ -57,13 +61,13 @@ void printBookExtended(const void *elements, int index)
         printf("\t\tDESACTIVADO\n\n");
     }
 
-    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
-    printf("\tTítulo: ......... %s\n", books[index].title);
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
+    printf("\tTitulo: ......... %s\n", books[index].title);
     printf("\tEditorial: ...... %s\n", books[index].publisher);
     printf("\tAutor: .......... %s\n", books[index].author);
-    printf("\tCategoría: ...... %s\n", books[index].category);
-    printf("\tValoración: ..... %.2f\n\n", books[index].rating);
-    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
+    printf("\tCategoria: ...... %s\n", books[index].category);
+    printf("\tValoracion: ..... %.2f\n\n", books[index].rating);
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 
 int compareBookId(const void *a, const void *b)
@@ -108,45 +112,6 @@ int compareCategory(const void *a, const void *b)
     stBook *bookB = (stBook *) b;
 
     return strcmp(bookA->category, bookB->category);
-}
-
-void searchBooks(int index, stBook books[], int totalBooks)
-{
-    char opcion ;
-
-    do
-    {
-        printf("Seleccione como desea buscar libros: \n");
-        printf("  1) Por título.\n");
-        printf("  2) Por autor.\n");
-        printf("  3) Por categoría.\n");
-        printf("esc) Volver al menu.\n");
-
-        fflush(stdin);
-        opcion = getch();
-        switch(opcion)
-        {
-        case 49:
-            searchBooksByTitle(index, books, totalBooks);
-            break;
-        case 50:
-            searchBooksByAuthor(index, books, totalBooks);
-            break;
-        case 51:
-            searchBooksByCategory(index, books, totalBooks);
-            break;
-        case 27:
-            system("cls");
-            break;
-        default:
-            system("cls");
-            printf("La opción ingresada no es válida.");
-            sleep(1);
-            system("cls");
-            break;
-        }
-    }
-    while(opcion != 49 && opcion != 50 && opcion != 51 && opcion != 27);
 }
 
 void toLowerCase(char *str)
@@ -241,7 +206,7 @@ void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt
 
     if (totalFoundBooks == 0)
     {
-        printf("No se encontro ningún libro con ese criterio.");
+        printf("No se encontro ningï¿½n libro con ese criterio.");
         sleep(1);
     }
     else
@@ -252,7 +217,7 @@ void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt
 
 void searchBooksByTitle(int index, stBook books[], int totalBooks)
 {
-    searchBooksBy(index, books, totalBooks, "Ingrese el título del libro:", matchTitleBook);
+    searchBooksBy(index, books, totalBooks, "Ingrese el tï¿½tulo del libro:", matchTitleBook);
 }
 
 void searchBooksByAuthor(int index, stBook books[], int totalBooks)
@@ -262,7 +227,7 @@ void searchBooksByAuthor(int index, stBook books[], int totalBooks)
 
 void searchBooksByCategory(int index, stBook books[], int totalBooks)
 {
-    searchBooksBy(index, books, totalBooks, "Ingrese la categoría:", matchCategoryBook);
+    searchBooksBy(index, books, totalBooks, "Ingrese la categorï¿½a:", matchCategoryBook);
 }
 
 int searchIndexBookById(int idBook, stBook books[], int totalBooks){
@@ -301,10 +266,10 @@ void editBook(int idBook, stBook books[], int totalBooks){
         system("cls");
         printf("Dato que quiere editar: \n\n");
 
-        printf("  1)  Editar título.\n");
+        printf("  1)  Editar tï¿½tulo.\n");
         printf("  2)  Editar editorial.\n");
         printf("  3)  Editar autor.\n");
-        printf("  4)  Editar categoría.\n");
+        printf("  4)  Editar categorï¿½a.\n");
         printf("esc)  Volver.\n");
 
         fflush(stdin);
@@ -316,9 +281,9 @@ void editBook(int idBook, stBook books[], int totalBooks){
             break;
         case '1':
             system("cls");
-            printf("El título actual es: %s\n", books[indexBook].title);
+            printf("El tï¿½tulo actual es: %s\n", books[indexBook].title);
             newTitle(books, indexBook);
-            printf("El título ha sido actualizado a %s\n", books[indexBook].title);
+            printf("El tï¿½tulo ha sido actualizado a %s\n", books[indexBook].title);
             system("pause");
             break;
         case '2':
@@ -337,9 +302,9 @@ void editBook(int idBook, stBook books[], int totalBooks){
             break;
         case '4':
             system("cls");
-            printf("La categoría actual es: %s\n", books[indexBook].category);
+            printf("La categorï¿½a actual es: %s\n", books[indexBook].category);
             newCategory(books, indexBook);
-            printf("El categoría ha sido actualizado a %s\n", books[indexBook].category);
+            printf("El categorï¿½a ha sido actualizado a %s\n", books[indexBook].category);
             system("pause");
             break;
         }
