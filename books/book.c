@@ -28,11 +28,11 @@ void printBookAdmin(const void *elements, int index)
 
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
     printf("ID: ............. %d\n", books[index].bookId);
-    printf("T�tulo: ......... %s\n", books[index].title);
+    printf("Titulo: ......... %s\n", books[index].title);
     printf("Editorial: ...... %s\n", books[index].publisher);
     printf("Autor: .......... %s\n", books[index].author);
-    printf("Categor�a: ...... %s\n", books[index].category);
-    printf("Valoraci�n: ..... %.2f\n", books[index].rating);
+    printf("Categoria: ...... %s\n", books[index].category);
+    printf("Valoracion: ..... %.2f\n", books[index].rating);
     printf("Eliminado: ...... %s\n", books[index].deleted ? "Si" : "No");
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
 }

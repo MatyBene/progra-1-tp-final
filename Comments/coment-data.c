@@ -49,3 +49,14 @@ int compareCommentId(const void *a, const void *b)
     return (commentA->commentId - commentB->commentId);
 }
 
+int firstFreeIdComment(stComment comments[], int totalComments)
+{
+    int i = 0;
+
+    while (i < totalComments && i == comments[i].commentId-1){
+        i++;
+    }
+
+    return i+1;
+}
+

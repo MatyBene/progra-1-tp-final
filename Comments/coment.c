@@ -4,7 +4,7 @@
 
 void commentRegister(stComment comments[], int *totalComments, int idUser, int idBook)
 {
-    comments[*totalComments].commentId = *totalComments + 1;
+    comments[*totalComments].commentId = firstFreeIdComment(comments, *totalComments);
     comments[*totalComments].userId = idUser;
     comments[*totalComments].bookId = idBook;
     newCommentTitle(comments, *totalComments);

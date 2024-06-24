@@ -96,7 +96,7 @@ char userMenu(int index)
     {
         system("cls");
         printf("MENU PRINCIPAL\n\n");
-        printf("  0)  Cerrar sesión.\n");
+        printf("  0)  Cerrar sesion.\n");
         printf("  1)  Perfil.\n");
         printf("  2)  Editar informacion personal.\n");
         printf("  3)  Ver listado de libros.\n");
@@ -395,7 +395,7 @@ void dashboardMenu(int index)
         case '4':
         {
             system("cls");
-            userHandleMenu(index, users, &totalUsers, totalUsers-1);
+            userHandleMenu(index, users, &totalUsers, totalUsers - 1);
             break;
         }
         case '5':
@@ -658,13 +658,17 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
                     {
                         system("cls");
                         handleBooks[bookIndex].deleted = 1;
-                        deleteBook(idBook, books, &totalBooks);
                         for (int i = 0; i < totalUsers; i++)
                         {
                             removeFavorite(users, i, idBook);
+//                            if (comments[i].bookId == idBook)
+//                            {
+//                                deleteComment(idComment, comments, &totalComments);
+//                            }
                         }
                         deleteCommentsBook(comments, &totalComments, idBook);
-                        printf("El libro %s se elimino correctamente.\n", handleBooks[bookIndex].title);
+                        deleteBook(idBook, books, &totalBooks);
+                        printf("El libro se elimino correctamente.\n");
                         sleep(1);
                         option = 27;
                     }
@@ -759,6 +763,7 @@ void userHandleMenu(int index, void *elements, int *totalElements, int userIndex
                 case '3':
                     deleteUser(idUser, users, &totalUsers);
                     printf("Se elimino al usuario.");
+                    handleUsers[userIndex].deleted = 1;
                     sleep(1);
                     option = 27;
                     break;
