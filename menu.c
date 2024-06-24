@@ -730,8 +730,8 @@ void userHandleMenu(int index, void *elements, int *totalElements, int userIndex
                     break;
                 case '3':
 
-//                    int deleteIndex = matchId(users, handleUsers[userIndex].userId, totalUsers);
-//                    deleteUser(users, deleteIndex, &totalUsers);
+                    int deleteIndex = matchId(users, handleUsers[userIndex].userId, totalUsers);
+                    deleteUser(users, deleteIndex, &totalUsers);
                     printf("Se elimino al usuario.");
                     sleep(1);
                     option = 27;
