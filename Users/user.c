@@ -1,6 +1,7 @@
 #include "user.h"
 #include "user-data.h"
 #include "../Files/files.h"
+#include "../menu.h"
 
 #define USERS "Files/F_USERS.dat"
 
@@ -104,7 +105,7 @@ void printUser(const void *elements, int index)
     printf("ID:....................... %d\n", users[index].userId);
     printf("User Name:................ %s\n", users[index].username);
     printf("Email:.................... %s\n\n", users[index].email);
-    printf("><><><><><><><><><><><><><><><><><><><><><><><><\n");
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
 }
 
 void printUserExtended(const void *elements, int index)
@@ -132,7 +133,7 @@ void printUserExtended(const void *elements, int index)
     printf("Pais:..................... %s\n", users[index].address.country);
     printf("Codigo Postal:............ %s\n", users[index].address.zipCode);
     printf("Fecha de nacimiento:...... %s\n", users[index].birthDate);
-    printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
+    printf("\n><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 
 void deleteUser(int idUser, stUser users[], int *totalUsers)
@@ -193,3 +194,71 @@ void removeFavorite(stUser users[], int userIndex, int bookId)
         j++;
     }
 }
+
+int matchUsername(stUser users[], int totalUsers, char searchUsername[], stUser foundUsers[], int totalFoundUsers)
+{
+    char lowerSearchUsername[100];
+    char lowerUsername[100];
+
+    strcpy(lowerSearchUsername, searchUsername);
+    toLowerCase(lowerSearchUsername);
+
+    for(int i = 0; i < totalUsers; i++)
+    {
+        strcpy(lowerUsername, users[i].username);
+        toLowerCase(lowerUsername);
+
+        if(strstr(lowerUsername, lowerSearchUsername) != NULL)
+        {
+            foundUsers[totalFoundUsers] = users[i];
+            (totalFoundUsers)++;
+        }
+    }
+
+    return totalFoundUsers;
+}
+
+int matchId(stUser users[], int totalUsers, char searchId[], stUser foundUsers[], int totalFoundUsers)
+{
+    int searchIndex = userIndexById(users, users[atoi(searchId)].userId, totalUsers);
+    if(searchIndex >= 0)
+    {
+        foundUsers[0] = users[searchIndex];
+        totalFoundUsers = 1;
+    }
+
+    return totalFoundUsers;
+}
+
+void searchUsersBy(int index, stUser users[], int totalUsers, const char *prompt, MatchFunctionUser matchFunc){
+    char searchTerm[100];
+    stUser foundUsers[20];
+    int totalFoundUsers = 0;
+
+    system("cls");
+    printf("%s\n", prompt);
+    getString(searchTerm, 100);
+
+    totalFoundUsers = matchFunc(users, totalUsers, searchTerm, foundUsers, totalFoundUsers);
+
+    if (totalFoundUsers == 0)
+    {
+        printf("No se encontro ningun usuario con ese criterio.");
+        sleep(1);
+    }
+    else
+    {
+        paginated(index, foundUsers, &totalFoundUsers, 5, printUserExtended, userHandleMenu);
+    }
+}
+
+void searchUsersByUsername(int index, stUser users[], int totalUsers)
+{
+    searchUsersBy(index, users, totalUsers, "Ingrese el nombre de usuario:", matchUsername);
+}
+
+void searchUsersById(int index, stUser users[], int totalUsers)
+{
+    searchUsersBy(index, users, totalUsers, "Ingrese el numero de ID:", matchId);
+}
+

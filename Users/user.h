@@ -31,6 +31,8 @@ typedef struct{
     int deleted;  /// 0 si est� activo - 1 si est� eliminado
 } stUser;
 
+typedef int (*MatchFunctionUser)(stUser[], int, char[], stUser[], int);
+
 void userRegister(stUser users[], int *index);
 int userLogin(stUser users[], int totalUsers);
 
@@ -46,5 +48,10 @@ void activateUser(stUser users[], int index, int *totalUsers);
 
 void addFavorite(stUser users[], int userIndex, int bookId);
 void removeFavorite(stUser users[], int userIndex, int bookId);
+
+int matchUsername(stUser users[], int totalUsers, char searchUsername[], stUser foundUsers[], int totalFoundUsers);
+int matchId(stUser users[], int totalUsers, char searchId[], stUser foundUsers[], int totalFoundUsers);
+void searchUsersByUsername(int index, stUser users[], int totalUsers);
+void searchUsersById(int index, stUser users[], int totalUsers);
 
 #endif // USER_H_INCLUDED

@@ -37,5 +37,7 @@ void sortBooksMenu(int index, void *elements, int *totalElements);
 void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex);
 void userHandleMenu(int index, void *elements, int *totalElements, int userIndex);
 void commentHandleMenu(int index, void *elements, int *totalElements, int commentIndex);
+void searchBooksMenu(int index);
+void searchUsersMenu(int index);
 
 #endif // MENU_H_INCLUDED

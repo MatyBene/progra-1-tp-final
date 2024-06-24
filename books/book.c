@@ -1,7 +1,6 @@
 #include "book.h"
 #include "book-data.h"
 #include "../menu.h"
-#include <ctype.h>
 #include <unistd.h>
 
 void bookRegister(stBook books[], int *totalBooks)
@@ -22,6 +21,10 @@ void bookRegister(stBook books[], int *totalBooks)
 void printBookAdmin(const void *elements, int index)
 {
     stBook *books = (stBook*) elements;
+    if(books[index].deleted)
+    {
+        printf("\t\tDESACTIVADO\n\n");
+    }
 
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
     printf("ID: ............. %d\n", books[index].bookId);
@@ -46,7 +49,7 @@ void printBook(const void *elements, int index)
     printf("\tTitulo: ......... %s\n", books[index].title);
     printf("\tCategoria: ...... %s\n", books[index].category);
     printf("\tValoracion: ..... %.2f\n\n", books[index].rating);
-    printf("<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
 }
 
 void printBookExtended(const void *elements, int index)
@@ -58,13 +61,13 @@ void printBookExtended(const void *elements, int index)
         printf("\t\tDESACTIVADO\n\n");
     }
 
-    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
     printf("\tTitulo: ......... %s\n", books[index].title);
     printf("\tEditorial: ...... %s\n", books[index].publisher);
     printf("\tAutor: .......... %s\n", books[index].author);
     printf("\tCategoria: ...... %s\n", books[index].category);
     printf("\tValoracion: ..... %.2f\n\n", books[index].rating);
-    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 
 int compareBookId(const void *a, const void *b)
@@ -109,45 +112,6 @@ int compareCategory(const void *a, const void *b)
     stBook *bookB = (stBook *) b;
 
     return strcmp(bookA->category, bookB->category);
-}
-
-void searchBooks(int index, stBook books[], int totalBooks)
-{
-    char opcion ;
-
-    do
-    {
-        printf("Seleccione como desea buscar libros: \n");
-        printf("  1) Por titulo.\n");
-        printf("  2) Por autor.\n");
-        printf("  3) Por categoria.\n");
-        printf("esc) Volver al menu.\n");
-
-        fflush(stdin);
-        opcion = getch();
-        switch(opcion)
-        {
-        case 49:
-            searchBooksByTitle(index, books, totalBooks);
-            break;
-        case 50:
-            searchBooksByAuthor(index, books, totalBooks);
-            break;
-        case 51:
-            searchBooksByCategory(index, books, totalBooks);
-            break;
-        case 27:
-            system("cls");
-            break;
-        default:
-            system("cls");
-            printf("La opcion ingresada no es valida.");
-            sleep(1);
-            system("cls");
-            break;
-        }
-    }
-    while(opcion != 49 && opcion != 50 && opcion != 51 && opcion != 27);
 }
 
 void toLowerCase(char *str)
