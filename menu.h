@@ -28,7 +28,6 @@ char adminMenu(int index);
 
 void dashboardMenu(int index);
 void userInfoMenu(int index);
-void actionUserMenu(char *prompt, void (*action)(stUser *, int, int *));
 
 void paginated(int index, void *elements, int *totalElements, int pageSize, printFunction printElement, elementMenu handleMenu);
 void displayPage(const void *elements, int totalElements, int page, int pageSize, printFunction printElement);

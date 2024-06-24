@@ -38,6 +38,11 @@ void printBook(const void *elements, int index)
 {
     stBook *books = (stBook*) elements;
 
+    if(books[index].deleted)
+    {
+        printf("\t\tDESACTIVADO\n\n");
+    }
+
     printf("\tTitulo: ......... %s\n", books[index].title);
     printf("\tCategoria: ...... %s\n", books[index].category);
     printf("\tValoracion: ..... %.2f\n\n", books[index].rating);
@@ -47,6 +52,11 @@ void printBook(const void *elements, int index)
 void printBookExtended(const void *elements, int index)
 {
     stBook *books = (stBook*) elements;
+
+    if(books[index].deleted)
+    {
+        printf("\t\tDESACTIVADO\n\n");
+    }
 
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
     printf("\tTitulo: ......... %s\n", books[index].title);

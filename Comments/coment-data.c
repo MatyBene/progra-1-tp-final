@@ -3,12 +3,12 @@
 
 void newCommentTitle(stComment comments[], int index)
 {
-    newField(comments[index].commentTitle, "Ingrese el título del comentario: ");
+    newField(comments[index].commentTitle, "Ingrese el título del comentario: ", 100);
 }
 
 void newDescription(stComment comments[], int index)
 {
-    newField(comments[index].description, "Ingrese la descripción del comentario: ");
+    newField(comments[index].description, "Ingrese la descripción del comentario: ", 500);
 }
 
 void newRating(stComment comments[], int index)
@@ -39,7 +39,7 @@ void newDate(stComment comments[], int index)
     now = time(NULL);
     local = localtime(&now);
 
-    strftime(comments[index].commentDate,sizeof(comments[index].commentDate),"%Y/%m/%d %H:%M:%S",local);
+    strftime(comments[index].commentDate,sizeof(comments[index].commentDate),"%Y/%m/%d",local);
 }
 
 

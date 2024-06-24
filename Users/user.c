@@ -46,7 +46,7 @@ int enterEmail(stUser users[], int totalUsers)
 
     printf("Ingrese su correo electronico: ");
     fflush(stdin);
-    gets(email);
+    getString(email, 100);
     index = existingEmail(email, users, totalUsers);
     if(!index)
     {
@@ -135,8 +135,9 @@ void printUserExtended(const void *elements, int index)
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 
-void deleteUser(stUser users[], int index, int *totalUsers)
+void deleteUser(int idUser, stUser users[], int *totalUsers)
 {
+    int index = matchId(users, idUser, *totalUsers);
     deleteFile(users, sizeof(stUser), index, *totalUsers, USERS);
     *totalUsers = readFile(users, sizeof(stUser), USERS);
 }

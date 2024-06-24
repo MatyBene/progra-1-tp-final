@@ -20,15 +20,15 @@ void newTitle(stBook books[], int index){
 }
 
 void newPublisher(stBook books[], int index){
-    newField(books[index].publisher, "Ingrese la editorial: ");
+    newField(books[index].publisher, "Ingrese la editorial: ", 50);
 }
 
 void newAuthor(stBook books[], int index){
-    newField(books[index].author, "Ingrese el autor: ");
+    newField(books[index].author, "Ingrese el autor: ", 50);
 }
 
 void newCategory(stBook books[], int index){
-    newField(books[index].category, "Ingrese la categoría: ");
+    newField(books[index].category, "Ingrese la categoría: ", 50);
 }
 
 int fisrtFreeIdBook(stBook books[], int totalBooks){
