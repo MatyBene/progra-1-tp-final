@@ -22,9 +22,13 @@ typedef struct
 } stComment;
 
 void commentRegister(stComment comments[], int *index, int idUser, int idBook);
+
 void printComment(const void *elements, int index);
 void printCommentAdmin(const void *elements, int index);
-void printCommentsBook(stComment *comments, int totalComments, int idBook);
+int printCommentsBook(stComment *comments, int totalComments, int idBook);
 
+float changeRatingBook(stComment *comments, int totalComments, int idBook);
+void deleteComment(int indexComment, stComment comments[], int *totalComments);
+void deleteCommentsBook(stComment *comments, int *totalComments, int idBook);
 
 #endif // COMENT_H_INCLUDED

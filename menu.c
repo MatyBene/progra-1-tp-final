@@ -629,12 +629,15 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
                     break;
                 case '2':
                     system("cls");
-                    commentRegister(comments, &totalComments,users[index].userId, handleBooks[bookIndex].bookId);
-                    system("pause");
+                    commentRegister(comments, &totalComments,users[index].userId, idBook);
+                    books[pos].rating = changeRatingBook(comments, totalComments, idBook);
                     break;
                 case '3':
                     system("cls");
-                    printCommentsBook(comments,totalComments,handleBooks[bookIndex].bookId - 1);
+                    int flag = printCommentsBook(comments,totalComments,idBook);
+                    if(flag == 0){
+                        printf("El libro no tiene comentarios.\n");
+                    }
                     system("pause");
                     break;
                 case '4':
@@ -647,6 +650,7 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
                         activateBook(idBook, books, &totalBooks);
                     } else {
                         disableBook(idBook, books, &totalBooks);
+                        removeFavorite(users, index, handleBooks[bookIndex].bookId);
                     }
                     printf("Se %s el libro: %s\n", books[pos].deleted == 0 ? "activo" : "deshabilito", handleBooks[bookIndex].title);
                     sleep(1);
@@ -654,6 +658,8 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
                 case '6':
                     system("cls");
                     deleteBook(idBook, books, &totalBooks);
+                    removeFavorite(users, index, handleBooks[bookIndex].bookId);
+                    deleteCommentsBook(comments, &totalComments, idBook);
                     printf("El libro %s se elimino correctamente.\n", handleBooks[bookIndex].title);
                     sleep(1);
                     adminMenu(index);

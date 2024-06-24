@@ -4,16 +4,19 @@
 #include <ctype.h>
 #include <unistd.h>
 
-void bookRegister(stBook books[], int *index)
+void bookRegister(stBook books[], int *totalBooks)
 {
-    books[*index].bookId = *index + 1;
-    newTitle(books, *index);
-    newPublisher(books, *index);
-    newAuthor(books, *index);
-    newCategory(books, *index);
-    books[*index].rating = 0;
-    books[*index].deleted = 0;
-    (*index)++;
+    books[*totalBooks].bookId = fisrtFreeIdBook(books, *totalBooks);
+    newTitle(books, *totalBooks);
+    newPublisher(books, *totalBooks);
+    newAuthor(books, *totalBooks);
+    newCategory(books, *totalBooks);
+    books[*totalBooks].rating = 0;
+    books[*totalBooks].deleted = 0;
+
+    appendFile(books, sizeof(stBook), *totalBooks, BOOKS);
+    (*totalBooks)++;
+
 }
 
 void printBookAdmin(const void *elements, int index)

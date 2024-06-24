@@ -31,4 +31,14 @@ void newCategory(stBook books[], int index){
     newField(books[index].category, "Ingrese la categoría: ");
 }
 
+int fisrtFreeIdBook(stBook books[], int totalBooks){
+    int i = 0;
+
+    while (i < totalBooks && i == books[i].bookId-1){
+        i++;
+    }
+
+    return i+1;
+}
+
 
