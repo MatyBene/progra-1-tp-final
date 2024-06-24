@@ -113,8 +113,9 @@ void deleteComment(int idComment, stComment comments[], int *totalComments){
 
 void deleteCommentsBook(stComment *comments, int *totalComments, int idBook)
 {
+    int count = *totalComments;
 
-    for(int i = 0; i<*totalComments; i++)
+    for(int i = 0; i<count; i++)
     {
         if (comments[i].bookId == idBook)
         {

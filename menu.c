@@ -610,6 +610,7 @@ void bookHandleMenu(int index, void *elements, int *totalElements, int bookIndex
                     system("cls");
                     commentRegister(comments, &totalComments,users[index].userId, idBook);
                     books[pos].rating = changeRatingBook(comments, totalComments, idBook);
+                    handleBooks[bookIndex] = books[pos];
                     break;
                 case '3':
                     system("cls");
