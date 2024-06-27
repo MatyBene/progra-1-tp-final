@@ -8,7 +8,7 @@
 
 void newEmail (stUser *users, int index);
 void getPass(char *pass);
-int getFirstFreeId (stUser *users, int totalUsers);
+int getFirstFreeIdUser (stUser *users, int totalUsers);
 void newPassword(stUser *users, int index);
 void newUserName (stUser *users, int index);
 void newAdress (stUser *users, int index);

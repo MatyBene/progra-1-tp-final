@@ -2,20 +2,20 @@
 
 
 
-void newEmail (stUser *users, int index) //comprueba el mail y lo carga
+void newEmail (stUser *users, int index) /// COMPRUEBA QUE EL MAIL SEA CORRECTO Y LO CARGA
 {
     printf("Ingrese un mail valido: ");
     fflush(stdin);
     getString(users[index].email, 100);
     system("cls");
 
-    if (existingEmail(users[index].email, users, index))  // mientras el mail ya este registrado se repite el bucle recursivo
+    if (existingEmail(users[index].email, users, index))  /// EVALUA QUE EL MAIL NO ESTE REGISTRADO
     {
         printf("El mail ingresado ya esta registrado. ");
 
         newEmail(users, index);
     }
-    else if (!validEmail(users[index].email)) // mientras el mail no sea valido se repite el bucle recursivo
+    else if (!validEmail(users[index].email)) /// EVALUA QUE EL MAIL SEA VALIDO
     {
         printf("El mail ingresado no es valido. ");
 
@@ -23,7 +23,7 @@ void newEmail (stUser *users, int index) //comprueba el mail y lo carga
     }
 }
 
-void getPass(char *pass) // permite escribir una contraseña sin mostrar el contenido
+void getPass(char *pass) /// PERMITE ESCRIBIR SIN MOSTRAR EL CONTENIDO EN CONSOLA
 {
     int i = 0;
 
@@ -32,12 +32,12 @@ void getPass(char *pass) // permite escribir una contraseña sin mostrar el conte
         fflush(stdin);
         pass[i] = getch();
 
-        if (pass[i] != 13 && pass[i] != 8 && i < 20) // si la tecla pulsada no es intro ni backspace imprime * en lugar del char
+        if (pass[i] != 13 && pass[i] != 8 && i < 20) /// si la tecla pulsada no es intro ni backspace imprime * en lugar del char
         {
             printf("*");
             i++;
         }
-        else if (pass[i] == 8 && i > 0) // si se pulsa backspace mueve el cursor atras, imprime un espacio y mueve atras de nuevo
+        else if (pass[i] == 8 && i > 0) /// si se pulsa backspace mueve el cursor atras, imprime un espacio y mueve atras de nuevo
         {
             printf("\b \b");
             i--;
@@ -46,7 +46,7 @@ void getPass(char *pass) // permite escribir una contraseña sin mostrar el conte
     pass[i] = 0;
 }
 
-int getFirstFreeId (stUser *users, int totalUsers)
+int getFirstFreeIdUser (stUser *users, int totalUsers) /// ENCUENTRA LA PRIMER ID DISPONIBLE DE USUARIOS Y LA DEVUELVE
 {
     int i = 0;
 
@@ -58,14 +58,14 @@ int getFirstFreeId (stUser *users, int totalUsers)
     return i+1;
 }
 
-void newPassword(stUser *users, int index) // asigna una contraseña a un usuario nuevo
+void newPassword(stUser *users, int index) /// ASIGNA UNA NUEVA CONTRASEÑA
 {
     char pass[20];
 
     printf("Cree una nueva contraseña: ");
     getPass(pass);
     system("cls");
-    if (validPassword(pass)) // mientras la contraseña no sea valida se repite el bucle recursivo
+    if (validPassword(pass)) /// EVALUA QUE LA CONTRASEÑA SEA VALIDA
     {
         printf("Repita su contraseña: ");
         getPass(users[index].password);
@@ -85,7 +85,7 @@ void newPassword(stUser *users, int index) // asigna una contraseña a un usuario
 
 }
 
-void newUserName (stUser *users, int index) // carga un nuevo nombre de usuario
+void newUserName (stUser *users, int index) /// ASIGNA UN NUEVO NOMBRE DE USUARIO
 {
     printf("Ingrese su nuevo nombre de usuario: ");
     fflush(stdin);
@@ -98,7 +98,7 @@ void newUserName (stUser *users, int index) // carga un nuevo nombre de usuario
     }
 }
 
-void newAdress (stUser *users, int index) // llama a las funciones de carga de domicilio
+void newAdress (stUser *users, int index) /// LLAMA A LAS FUNCIONES DE CARGA DE DOMICILIO
 {
     newStreet(users, index);
     newZipCode(users, index);
@@ -108,7 +108,7 @@ void newAdress (stUser *users, int index) // llama a las funciones de carga de d
     system("cls");
 }
 
-void newStreet(stUser *users, int index) // carga una nueva calle
+void newStreet(stUser *users, int index) /// ASIGNA UNA NUEVA CALLE
 {
     printf("Domicilio: \n");
     printf("\nCalle: ");
@@ -118,35 +118,35 @@ void newStreet(stUser *users, int index) // carga una nueva calle
     itoa(getNumber(), users[index].address.number, 10);
 }
 
-void newZipCode(stUser *users, int index) // carga un nuevo codigo postal
+void newZipCode(stUser *users, int index) /// ASIGNA UN NUEVO CODIGO POSTAL
 {
     printf("\nCodigo Postal: ");
     fflush(stdin);
     getString(users[index].address.zipCode, 50);
 }
 
-void newCity(stUser *users, int index)  // carga una nueva ciudad
+void newCity(stUser *users, int index)  /// ASIGNA UNA NUEVA CIUDAD
 {
     printf("\nCiudad: ");
     fflush(stdin);
     getString(users[index].address.city, 50);
 }
 
-void newProvince(stUser *users, int index)  // carga una nueva provincia
+void newProvince(stUser *users, int index)  /// ASIGNA UNA NUEVA PROVINCIA
 {
     printf("\nProvincia: ");
     fflush(stdin);
     getString(users[index].address.province, 50);
 }
 
-void newCountry(stUser *users, int index)   // carga un nuevo pais
+void newCountry(stUser *users, int index)   /// ASIGNA UN NUEVO PAIS
 {
     printf("\nPais: ");
     fflush(stdin);
     getString(users[index].address.country, 50);
 }
 
-void newGender(stUser *users, int index) // carga un nuevo genero
+void newGender(stUser *users, int index) /// ASIGNA UN NUEVO GENERO
 {
     printf("Seleccione el genero con el que se identifica: (M / F)\n");
     fflush(stdin);
@@ -161,7 +161,7 @@ void newGender(stUser *users, int index) // carga un nuevo genero
     system("cls");
 }
 
-void newBirthDate(stUser *users, int index) // carga una nueva fecha de nacimiento
+void newBirthDate(stUser *users, int index) /// ASIGNA UNA NUEVA FECHA DE NACIMIENTO
 {
     int day, month, year;
 
@@ -189,7 +189,7 @@ void newBirthDate(stUser *users, int index) // carga una nueva fecha de nacimien
 
 }
 
-void newDni(stUser *users, int index) // carga un nuevo dni
+void newDni(stUser *users, int index) /// ASIGNA UN NUEVO DNI
 {
     printf("Ingrese su numero de DNI: ");
     itoa(getNumber(), users[index].dni, 10);
@@ -203,14 +203,14 @@ void newDni(stUser *users, int index) // carga un nuevo dni
     system("cls");
 }
 
-int compareUserId(const void *a, const void *b)
+int compareUserId(const void *a, const void *b) /// FUNCION DE COMPARACION USADA EN QSORT
 {
     stUser *userA = (stUser *) a;
     stUser *userB = (stUser *) b;
     return (userA->userId - userB->userId);
 }
 
-int userIndexById (stUser *users, int id, int totalUsers) // valida que exista un id y devuelve la posicion
+int userIndexById (stUser *users, int id, int totalUsers) /// SI EXISTE UNA ID DE USUARIO DEVUELVE LA POSICION SINO -1
 {
     int i = 0;
 

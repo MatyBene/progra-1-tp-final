@@ -39,7 +39,6 @@ int searchIndexBookById(int idBook, stBook books[], int totalBooks);
 
 void favBooks(int favorites[], int numFavorites, stBook books[], int totalBooks, stBook favs[]);
 
-void editBook(int idBook, stBook books[], int totalBooks);
 void activateBook(int idBook, stBook books[], int *totalBooks);
 void disableBook(int idBook, stBook books[], int *totalBooks);
 void deleteBook(int index, stBook books[], int *totalBooks);

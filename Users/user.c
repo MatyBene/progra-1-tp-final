@@ -6,11 +6,11 @@
 #define USERS "Files/F_USERS.dat"
 
 
-void userRegister(stUser users[], int *totalUsers) // registro de usuarios
+void userRegister(stUser users[], int *totalUsers) /// REGISTRO DE UN NUEVO USUARIO
 {
     users[*totalUsers].isAdmin = 0;
     users[*totalUsers].deleted = 0;
-    users[*totalUsers].userId = getFirstFreeId(users, *totalUsers);
+    users[*totalUsers].userId = getFirstFreeIdUser(users, *totalUsers);
     newEmail(users, *totalUsers);
     newPassword(users, *totalUsers);
     newUserName(users, *totalUsers);
@@ -20,11 +20,11 @@ void userRegister(stUser users[], int *totalUsers) // registro de usuarios
     newDni(users, *totalUsers);
     printf("El usuario %s fue registrado con exito. Id de usuario: %d.\n", users[*totalUsers].username, users[*totalUsers].userId);
 
-    appendFile(users, sizeof(stUser), *totalUsers, USERS);   // guarda el nuevo usuario en el archivo
+    appendFile(users, sizeof(stUser), *totalUsers, USERS);   /// GUARDA EL USUARIO EN EL ARCHIVO
     (*totalUsers)++;
 }
 
-int userLogin(stUser users[], int totalUsers) // permite al usuario iniciar sesion
+int userLogin(stUser users[], int totalUsers) /// INICIO DE SESION DE USUARIOS
 {
     int index;
 
@@ -40,7 +40,7 @@ int userLogin(stUser users[], int totalUsers) // permite al usuario iniciar sesi
     return index;
 }
 
-int enterEmail(stUser users[], int totalUsers)
+int enterEmail(stUser users[], int totalUsers) /// INGRESO DE EMAIL PARA LOGIN
 {
     char email[100];
     int index;
@@ -63,7 +63,7 @@ int enterEmail(stUser users[], int totalUsers)
     return index;
 }
 
-int enterPassword(stUser users[], int index)
+int enterPassword(stUser users[], int index) /// INGRESO DE CONTRASEÑA PARA LOGIN
 {
     char password[20];
     int i = 0;
@@ -89,7 +89,7 @@ int enterPassword(stUser users[], int index)
     return index;
 }
 
-void printUser(const void *elements, int index)
+void printUser(const void *elements, int index) /// MUESTRA UN USUARIO
 {
     stUser *users = (stUser*) elements;
 
@@ -108,21 +108,21 @@ void printUser(const void *elements, int index)
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
 }
 
-void printUserExtended(const void *elements, int index)
+void printUserExtended(const void *elements, int index) /// MUESTRA LOS DETALLES DE UN USUARIO
 {
     stUser *users = (stUser*) elements;
 
-    printf("><><><><><><><><><><><><><><><><><><><><><><><><\n");
+    printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
     if(users[index].isAdmin)
     {
         printf("\t\tADMIN\n\n");
+        printf("ID:....................... %d\n", users[index].userId);
     }
     else if (users[index].deleted)
     {
         printf("\t\tDESACTIVADO\n\n");
     }
 
-    printf("ID:....................... %d\n", users[index].userId);
     printf("User Name:................ %s\n", users[index].username);
     printf("Email:.................... %s\n", users[index].email);
     printf("Genero:................... %c\n", users[index].gender);
@@ -136,48 +136,21 @@ void printUserExtended(const void *elements, int index)
     printf("\n><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 
-void deleteUser(int idUser, stUser users[], int *totalUsers)
+void deleteUser(int idUser, stUser users[], int *totalUsers) /// BORRA PERMANENTEMENTE UN USUARIO
 {
     int index = userIndexById(users, idUser, *totalUsers);
     deleteFile(users, sizeof(stUser), index, *totalUsers, USERS);
     *totalUsers = readFile(users, sizeof(stUser), USERS);
 }
 
-void disableUser(stUser users[], int index, int *totalUsers)
-{
-    if(!users[index].deleted)
-    {
-        users[index].deleted = 1;
-        users[index].isAdmin = 0;
-        printf("Se desactivo al usuario.\n");
-    }
-    else
-    {
-        printf("El usuario ya esta desactivado.\n");
-    }
-}
-
-void activateUser(stUser users[], int index, int *totalUsers)
-{
-    if(users[index].deleted)
-    {
-        users[index].deleted = 0;
-        printf("Se activo al usuario.\n");
-    }
-    else
-    {
-        printf("El usuario no esta desactivado.\n");
-    }
-}
-
-void addFavorite(stUser users[], int userIndex, int bookId)
+void addFavorite(stUser users[], int userIndex, int bookId) /// AGREGA UN LIBRO A LOS FAVORITOS DEL USUARIO
 {
     users[userIndex].favoriteBooks[users[userIndex].numFavorites] = bookId;
 
     users[userIndex].numFavorites++;
 }
 
-void removeFavorite(stUser users[], int userIndex, int bookId)
+void removeFavorite(stUser users[], int userIndex, int bookId) /// ELIMINA UN LIBRO DE LOS FAVORITOS DEL USUARIO
 {
     users[userIndex].numFavorites--;
 
@@ -195,7 +168,7 @@ void removeFavorite(stUser users[], int userIndex, int bookId)
     }
 }
 
-int matchUsername(stUser users[], int totalUsers, char searchUsername[], stUser foundUsers[], int totalFoundUsers)
+int matchUsername(stUser users[], int totalUsers, char searchUsername[], stUser foundUsers[], int totalFoundUsers) /// CARGA UN ARREGLO CON LAS COINCIDENCIAS DE NOMBRE DE USUARIO Y DEVUELVE LA CANTIDAD DE COINCIDENCIAS
 {
     char lowerSearchUsername[100];
     char lowerUsername[100];
@@ -218,7 +191,7 @@ int matchUsername(stUser users[], int totalUsers, char searchUsername[], stUser 
     return totalFoundUsers;
 }
 
-int matchId(stUser users[], int totalUsers, char searchId[], stUser foundUsers[], int totalFoundUsers)
+int matchId(stUser users[], int totalUsers, char searchId[], stUser foundUsers[], int totalFoundUsers) /// CARGA UN ARREGLO CON LAS COINCIDENCIAS DE ID Y DEVUELVE LA CANTIDAD DE COINCIDENCIAS
 {
     int searchIndex = userIndexById(users, users[atoi(searchId)].userId, totalUsers);
     if(searchIndex >= 0)
@@ -230,7 +203,7 @@ int matchId(stUser users[], int totalUsers, char searchId[], stUser foundUsers[]
     return totalFoundUsers;
 }
 
-void searchUsersBy(int index, stUser users[], int totalUsers, const char *prompt, MatchFunctionUser matchFunc){
+void searchUsersBy(int index, stUser users[], int totalUsers, const char *prompt, MatchFunctionUser matchFunc){ /// FUNCION GENERICA PARA BUSCAR USUARIOS POR PARAMETRO
     char searchTerm[100];
     stUser foundUsers[20];
     int totalFoundUsers = 0;
@@ -252,12 +225,12 @@ void searchUsersBy(int index, stUser users[], int totalUsers, const char *prompt
     }
 }
 
-void searchUsersByUsername(int index, stUser users[], int totalUsers)
+void searchUsersByUsername(int index, stUser users[], int totalUsers) /// BUSCA USUARIOS POR NOMBRE DE USUARIO
 {
     searchUsersBy(index, users, totalUsers, "Ingrese el nombre de usuario:", matchUsername);
 }
 
-void searchUsersById(int index, stUser users[], int totalUsers)
+void searchUsersById(int index, stUser users[], int totalUsers) /// BUSCA USUARIOS POR ID
 {
     searchUsersBy(index, users, totalUsers, "Ingrese el numero de ID:", matchId);
 }

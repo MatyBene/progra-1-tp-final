@@ -10,7 +10,7 @@
 
 int isNotEmpty(char field[]);
 int yesNo ();
-void printWithLineBreaks(char *str);
+void printWithLineBreaks(char *str, int charsBeforLinebreak);
 void newField(char field[], char prompt[], int maxBufferSize);
 int getNumber(); // permite escribir unicamente numeros
 void getString(char* str, int maxBufferSize);

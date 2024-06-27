@@ -1,6 +1,6 @@
 #include "files.h"
 
-int readFile (void *st, size_t stSize, char *fileName) // lee un archivo, ordena el arreglo y retorna la cantidad de leidos
+int readFile (void *st, size_t stSize, char *fileName) /// LEE UN ARCHIVO Y DEVUELVE LA CANTIDAD DE LEIDOS
 {
     FILE * fi = fopen(fileName, "rb");
 
@@ -25,9 +25,8 @@ int readFile (void *st, size_t stSize, char *fileName) // lee un archivo, ordena
     }
 }
 
-void saveFile (void *st, size_t stSize, int totalElements, char *fileName, int (*compare)(const void *, const void *)) // ordena y guarda la totalidad del arreglo en el archivo especificado
+void saveFile (void *st, size_t stSize, int totalElements, char *fileName, int (*compare)(const void *, const void *)) /// GUARDA UN ARREGLO DE ESTRUCTURAS EN UN ARCHIVO
 {
-//    qsort(st, totalElements, stSize, compare); // funcion de ordenamiento rapido de C
 
     FILE * fi = fopen(fileName, "wb");
 
@@ -47,7 +46,7 @@ void saveFile (void *st, size_t stSize, int totalElements, char *fileName, int (
     }
 }
 
-void deleteFile (void *st, size_t stSize, int index, int totalElements, char *fileName)     // elimina un elemento del archivo
+void deleteFile (void *st, size_t stSize, int index, int totalElements, char *fileName)     /// ELIMINA UN ELEMENTO ESPECIFICADO DEL ARCHIVO
 {
     FILE * fi = fopen(fileName, "wb");
 
@@ -70,7 +69,7 @@ void deleteFile (void *st, size_t stSize, int index, int totalElements, char *fi
 }
 
 
-void appendFile (void *st, size_t stSize, int index, char *fileName) // agrega un elemento a un archivo sin eliminar lo existente
+void appendFile (void *st, size_t stSize, int index, char *fileName) /// AGREGA UN ELEMENTO A UN ARCHIVO
 {
     FILE * fi = fopen(fileName, "ab");
 

@@ -31,6 +31,5 @@ int commentIndexById (stComment *comments, int id, int totalComments);
 float changeRatingBook(stComment *comments, int totalComments, int idBook);
 void deleteComment(int idComment, stComment comments[], int *totalComments);
 void deleteCommentsBook(stComment *comments, int *totalComments, int idBook);
-void editComment(int idComment, stComment comments[], int totalComments);
 
 #endif // COMENT_H_INCLUDED

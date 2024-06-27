@@ -3,7 +3,7 @@
 
 int main()
 {
-    setlocale(LC_ALL, "spanish");
+    setlocale(LC_ALL, "spanish"); /// SE SUPONE QUE PONIA LA CONSOLA EN ESPAÑOL
 
     run();
 

@@ -1,7 +1,7 @@
 #include "utilities.h"
 
 
-int yesNo ()
+int yesNo () /// EVALUA LA RESPUESTA DEL USUARIO (SI O NO UNICAMENTE)
 {
     char option;
 
@@ -22,7 +22,7 @@ int yesNo ()
     }
 }
 
-void printWithLineBreaks(char *str)
+void printWithLineBreaks(char *str, int charsBeforLinebreak) /// IMPRIME UN SALTO DE LINEA DESPUES DE LLEGAR A UN NUMERO DE CARACTERES
 {
     int count = 0;
 
@@ -31,7 +31,7 @@ void printWithLineBreaks(char *str)
         putchar(str[i]);
         count++;
 
-        if (count >= 40 && str[i] == ' ')
+        if (count >= charsBeforLinebreak && str[i] == ' ')
         {
             putchar('\n');
             printf("                      ");
@@ -45,7 +45,7 @@ void printWithLineBreaks(char *str)
     }
 }
 
-int getNumber() // permite escribir unicamente numeros
+int getNumber() /// PERMITE ESCRIBIR UNICAMENTE NUMEROS
 {
     char num[20];
     int i = 0;
@@ -59,12 +59,12 @@ int getNumber() // permite escribir unicamente numeros
         }
         while(!isdigit(num[i]) && num[i] != 13 && num[i] != 8);
 
-        if (num[i] != 13 && num[i] != 8) // si la tecla pulsada no es intro ni backspace imprime el numero
+        if (num[i] != 13 && num[i] != 8) /// si la tecla pulsada no es intro ni backspace imprime el numero
         {
             printf("%c", num[i]);
             i++;
         }
-        else if (num[i] == 8 && i > 0) // si se pulsa backspace mueve el cursor atras, imprime un espacio y mueve atras de nuevo
+        else if (num[i] == 8 && i > 0) /// si se pulsa backspace mueve el cursor atras, imprime un espacio y mueve atras de nuevo
         {
             printf("\b \b");
             i--;
@@ -76,7 +76,7 @@ int getNumber() // permite escribir unicamente numeros
     return atoi(num);
 }
 
-void getString(char* str, int maxBufferSize) // permite escribir un string evaluando cada caracter
+void getString(char* str, int maxBufferSize) /// PERMITE CONTROLAR EL MAXIMO DE CARACTEERES INGRESADOS PARA EVITAR ERRORES
 {
     gets(str);
     if(strlen(str) > maxBufferSize)
@@ -87,7 +87,7 @@ void getString(char* str, int maxBufferSize) // permite escribir un string evalu
     }
 }
 
-void newField(char field[], char prompt[], int maxBufferSize)
+void newField(char field[], char prompt[], int maxBufferSize) /// CARGA UN CAMPO CON EL INGRESO DE UN USUARIO
 {
 
     do
@@ -107,12 +107,12 @@ void newField(char field[], char prompt[], int maxBufferSize)
 
 /* >>>>>>>>>>>>>>>>>>>VALIDATIONS<<<<<<<<<<<<<<<<<<<<< */
 
-int isNotEmpty(char field[]) // valida que un string no este vacio
+int isNotEmpty(char field[]) /// VALIDA QUE UN STRING NO ESTE VACIO
 {
     return strlen(field) > 0;
 }
 
-int existingBook(char title[], stBook books[], int index) // valida que un libro exista
+int existingBook(char title[], stBook books[], int index) /// VALIDA QUE UN LIBRO EXISTA
 {
     int i = 0;
     int flag = 0;
@@ -129,7 +129,7 @@ int existingBook(char title[], stBook books[], int index) // valida que un libro
     return flag;
 }
 
-int isFavorite(stUser user, int bookId)
+int isFavorite(stUser user, int bookId) /// VALIDA QUE UN LIBRO SEA FAVORITO
 {
     int i = 0;
 
@@ -145,7 +145,7 @@ int isFavorite(stUser user, int bookId)
     return 0;
 }
 
-int validEmail(char *email) // valida que un mail sea valido
+int validEmail(char *email) /// VALIDA QUE UN MAIL SEA VALIDO
 {
     int i = 0, a = 0;
 
@@ -169,7 +169,7 @@ int validEmail(char *email) // valida que un mail sea valido
     return 0;
 }
 
-int existingEmail(char *mail, stUser *users, int index) // valida que un email esta registrado y devuelve la posicion en el arreglo
+int existingEmail(char *mail, stUser *users, int index) /// valida que un email esta registrado y devuelve la posicion en el arreglo
 {
     int i = 0;
 
@@ -185,7 +185,7 @@ int existingEmail(char *mail, stUser *users, int index) // valida que un email e
     return 0;
 }
 
-int validPassword(char *pass) // comprueba que la contrase�a sea valida
+int validPassword(char *pass) /// comprueba que la contraseña sea valida
 {
     int size = strlen(pass);
     int upper = 0, lower = 0, num = 0, special = 0;
@@ -193,11 +193,11 @@ int validPassword(char *pass) // comprueba que la contrase�a sea valida
     if (size < 8 || size > 20)
     {
         system("cls");
-        printf("La contrase�a debe tener entre 8 y 20 caracteres.\n\n");
+        printf("La contraseña debe tener entre 8 y 20 caracteres.\n\n");
         return 0;
     }
 
-    for (int i = 0; i < size; i++) // valida que se cumplan los requisitos
+    for (int i = 0; i < size; i++) /// valida que se cumplan los requisitos
     {
         if (isupper(pass[i]))
         {
@@ -228,14 +228,14 @@ int validPassword(char *pass) // comprueba que la contrase�a sea valida
     else
     {
         system("cls");
-        printf("La contrase�a debe incluir al menos una: Mayuscula, Minuscula, Numero, Caracter especial.\n\n");
+        printf("La contraseña debe incluir al menos una: Mayuscula, Minuscula, Numero, Caracter especial.\n\n");
 
         return 0;
     }
 
 }
 
-int matchPassword(char *pass1, char *pass2) // evalua que las contrase�as coincidan
+int matchPassword(char *pass1, char *pass2) /// evalua que las contraseñas coincidan
 {
     if (strcmp(pass1, pass2) != 0)
     {
@@ -245,7 +245,7 @@ int matchPassword(char *pass1, char *pass2) // evalua que las contrase�as coin
     return 1;
 }
 
-int validUserName(char *uName, stUser *users, int index) // valida que el nombre de usuario sea valido y no se repita
+int validUserName(char *uName, stUser *users, int index) /// valida que el nombre de usuario sea valido y no se repita
 {
     int size = strlen(uName);
     int i = 0;
@@ -271,7 +271,7 @@ int validUserName(char *uName, stUser *users, int index) // valida que el nombre
     return 1;
 }
 
-int validGender(char gender)
+int validGender(char gender) /// VALIDA QUE EL GENERO SEA CORRECTO
 {
     if (gender != 'M' && gender != 'F')
     {
@@ -282,11 +282,11 @@ int validGender(char gender)
     return 1;
 }
 
-int validDate(int year, int month, int day)
+int validDate(int year, int month, int day) /// VALIDA QUE LA FECHA INGRESADA SEA CORRECTA
 {
     if (year < 1900 || year > 2023)
     {
-        printf("El a�o seleccionado no es valido. ");
+        printf("El año seleccionado no es valido. ");
     }
     else if (month < 1 || month > 12)
     {
@@ -305,7 +305,7 @@ int validDate(int year, int month, int day)
 
 }
 
-int validDni(char *dni)
+int validDni(char *dni) /// VALIDA QUE UN DNI SEA VALIDO
 {
     int i = 0, lon = strlen(dni);
 

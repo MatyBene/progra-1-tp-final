@@ -3,7 +3,7 @@
 #include "../menu.h"
 #include <unistd.h>
 
-void bookRegister(stBook books[], int *totalBooks)
+void bookRegister(stBook books[], int *totalBooks) /// PERMITE REGISTRAR UN NUEVO LIBRO A LOS USUARIOS
 {
     books[*totalBooks].bookId = fisrtFreeIdBook(books, *totalBooks);
     newTitle(books, *totalBooks);
@@ -18,7 +18,7 @@ void bookRegister(stBook books[], int *totalBooks)
 
 }
 
-void printBookAdmin(const void *elements, int index)
+void printBookAdmin(const void *elements, int index) /// MUESTRA EL LIBRO CON LOS DETALLES DEL ADMIN
 {
     stBook *books = (stBook*) elements;
     if(books[index].deleted)
@@ -37,7 +37,7 @@ void printBookAdmin(const void *elements, int index)
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
 }
 
-void printBook(const void *elements, int index)
+void printBook(const void *elements, int index) /// MUESTRA LOS DATOS PRINCIPALES DE UN LIBRO
 {
     stBook *books = (stBook*) elements;
 
@@ -52,7 +52,7 @@ void printBook(const void *elements, int index)
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n");
 }
 
-void printBookExtended(const void *elements, int index)
+void printBookExtended(const void *elements, int index) /// MUESTRA LOS DETALLES DEL LIBRO
 {
     stBook *books = (stBook*) elements;
 
@@ -70,14 +70,14 @@ void printBookExtended(const void *elements, int index)
     printf("><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><\n\n");
 }
 
-int compareBookId(const void *a, const void *b)
+int compareBookId(const void *a, const void *b) /// FUNCION DE COMPARACION USADA PARA QSORT
 {
     stBook *bookA = (stBook *) a;
     stBook *bookB = (stBook *) b;
     return (bookA->bookId - bookB->bookId);
 }
 
-int compareRating(const void *a, const void *b)
+int compareRating(const void *a, const void *b) /// FUNCION DE COMPARACION USADA PARA QSORT
 {
     int flag;
     stBook *bookA = (stBook *) a;
@@ -98,7 +98,7 @@ int compareRating(const void *a, const void *b)
     return flag;
 }
 
-int compareTitle(const void *a, const void *b)
+int compareTitle(const void *a, const void *b) /// FUNCION DE COMPARACION USADA PARA QSORT
 {
     stBook *bookA = (stBook *) a;
     stBook *bookB = (stBook *) b;
@@ -106,7 +106,7 @@ int compareTitle(const void *a, const void *b)
     return strcmp(bookA->title, bookB->title);
 }
 
-int compareCategory(const void *a, const void *b)
+int compareCategory(const void *a, const void *b) /// FUNCION DE COMPARACION USADA PARA QSORT
 {
     stBook *bookA = (stBook *) a;
     stBook *bookB = (stBook *) b;
@@ -114,7 +114,7 @@ int compareCategory(const void *a, const void *b)
     return strcmp(bookA->category, bookB->category);
 }
 
-void toLowerCase(char *str)
+void toLowerCase(char *str) /// CONVIERTE UN STRING A MINUSCULAS
 {
     for (int i = 0; str[i]; i++)
     {
@@ -124,6 +124,8 @@ void toLowerCase(char *str)
 
 int matchTitleBook(stBook books[], int totalBooks, char searchTitle[], stBook foundBooks[], int totalFoundBooks)
 {
+    /// VERIFICA LA COINCIDENCIA DE UN TEXTO CON UN TITULO Y DEVUELVE LA CANTIDAD ENCONTRADA
+
     char lowerSearchTitle[100];
     char lowerTitle[100];
 
@@ -148,6 +150,8 @@ int matchTitleBook(stBook books[], int totalBooks, char searchTitle[], stBook fo
 
 int matchAuthorBook(stBook books[], int totalBooks, char searchAuthor[], stBook foundBooks[], int totalFoundBooks)
 {
+    /// VERIFICA LA COINCIDENCIA DE UN TEXTO CON UN AUTOR Y DEVUELVE LA CANTIDAD ENCONTRADA
+
     char lowerSearchAuthor[100];
     char lowerAuthor[100];
 
@@ -172,6 +176,8 @@ int matchAuthorBook(stBook books[], int totalBooks, char searchAuthor[], stBook 
 
 int matchCategoryBook(stBook books[], int totalBooks, char searchCategory[], stBook foundBooks[], int totalFoundBooks)
 {
+    /// VERIFICA LA COINCIDENCIA DE UN TEXTO CON UNA CATEGORIA Y DEVUELVE LA CANTIDAD ENCONTRADA
+
     char lowerSearchCategory[100];
     char lowerCategory[100];
 
@@ -193,7 +199,10 @@ int matchCategoryBook(stBook books[], int totalBooks, char searchCategory[], stB
     return totalFoundBooks;
 }
 
-void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt, MatchFunction matchFunc){
+void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt, MatchFunction matchFunc)
+{
+    /// FUNCION GENERICA PARA BUSCAR LIBROS SEGUN PARAMETRO
+
     char searchTerm[100];
     stBook foundBooks[1000];
     int totalFoundBooks = 0;
@@ -215,27 +224,30 @@ void searchBooksBy(int index, stBook books[], int totalBooks, const char *prompt
     }
 }
 
-void searchBooksByTitle(int index, stBook books[], int totalBooks)
+void searchBooksByTitle(int index, stBook books[], int totalBooks) /// BUSCA LIBROS POR TITULO
 {
-    searchBooksBy(index, books, totalBooks, "Ingrese el t�tulo del libro:", matchTitleBook);
+    searchBooksBy(index, books, totalBooks, "Ingrese el titulo del libro:", matchTitleBook);
 }
 
-void searchBooksByAuthor(int index, stBook books[], int totalBooks)
+void searchBooksByAuthor(int index, stBook books[], int totalBooks) /// BUSCA LIBROS POR AUTOR
 {
     searchBooksBy(index, books, totalBooks, "Ingrese el autor:", matchAuthorBook);
 }
 
-void searchBooksByCategory(int index, stBook books[], int totalBooks)
+void searchBooksByCategory(int index, stBook books[], int totalBooks) /// BUSCA LIBROS POR CATEGORIA
 {
-    searchBooksBy(index, books, totalBooks, "Ingrese la categor�a:", matchCategoryBook);
+    searchBooksBy(index, books, totalBooks, "Ingrese la categoria:", matchCategoryBook);
 }
 
-int searchIndexBookById(int idBook, stBook books[], int totalBooks){
+int searchIndexBookById(int idBook, stBook books[], int totalBooks) /// DEVUELVE LA POSICION DE UN LIBRO A PARTIR DE SU ID
+{
     int indexBook = -1;
     int i = 0;
 
-    while(indexBook == -1 && i < totalBooks){
-        if(idBook == books[i].bookId){
+    while(indexBook == -1 && i < totalBooks)
+    {
+        if(idBook == books[i].bookId)
+        {
             indexBook = i;
         }
         i++;
@@ -244,13 +256,17 @@ int searchIndexBookById(int idBook, stBook books[], int totalBooks){
     return indexBook;
 }
 
-void favBooks(int favorites[], int numFavorites, stBook books[], int totalBooks, stBook favs[]){
-    for(int i = 0; i < numFavorites; i++){
+void favBooks(int favorites[], int numFavorites, stBook books[], int totalBooks, stBook favs[]) /// CREA UN ARREGLO CON LOS LIBROS FAVORITOS
+{
+    for(int i = 0; i < numFavorites; i++)
+    {
         int flag = 0;
         int j = 0;
 
-        while(j < totalBooks && flag == 0){
-            if(books[j].bookId == favorites[i]){
+        while(j < totalBooks && flag == 0)
+        {
+            if(books[j].bookId == favorites[i])
+            {
                 favs[i] = books[j];
                 flag = 1;
             }
@@ -259,73 +275,26 @@ void favBooks(int favorites[], int numFavorites, stBook books[], int totalBooks,
     }
 }
 
-void editBook(int idBook, stBook books[], int totalBooks){
-    char option;
-    int indexBook = searchIndexBookById(idBook, books, totalBooks);
-    do{
-        system("cls");
-        printf("Dato que quiere editar: \n\n");
-
-        printf("  1)  Editar t�tulo.\n");
-        printf("  2)  Editar editorial.\n");
-        printf("  3)  Editar autor.\n");
-        printf("  4)  Editar categor�a.\n");
-        printf("esc)  Volver.\n");
-
-        fflush(stdin);
-        option = getch();
-
-        switch(option){
-        case 27:
-            system("cls");
-            break;
-        case '1':
-            system("cls");
-            printf("El t�tulo actual es: %s\n", books[indexBook].title);
-            newTitle(books, indexBook);
-            printf("El t�tulo ha sido actualizado a %s\n", books[indexBook].title);
-            system("pause");
-            break;
-        case '2':
-            system("cls");
-            printf("La editorial actual es: %s\n", books[indexBook].publisher);
-            newPublisher(books, indexBook);
-            printf("La editorial ha sido actualizado a %s\n", books[indexBook].publisher);
-            system("pause");
-            break;
-        case '3':
-            system("cls");
-            printf("El autor actual es: %s\n", books[indexBook].author);
-            newAuthor(books, indexBook);
-            printf("El autor ha sido actualizado a %s\n", books[indexBook].author);
-            system("pause");
-            break;
-        case '4':
-            system("cls");
-            printf("La categor�a actual es: %s\n", books[indexBook].category);
-            newCategory(books, indexBook);
-            printf("El categor�a ha sido actualizado a %s\n", books[indexBook].category);
-            system("pause");
-            break;
-        }
-    } while(option != 27);
-}
-
-void activateBook(int idBook, stBook books[], int *totalBooks){
+void activateBook(int idBook, stBook books[], int *totalBooks) /// ACTIVA UN LIBRO
+{
     int indexBook = searchIndexBookById(idBook, books, *totalBooks);
-    if(books[indexBook].deleted){
+    if(books[indexBook].deleted)
+    {
         books[indexBook].deleted = 0;
     }
 }
 
-void disableBook(int idBook, stBook books[], int *totalBooks){
+void disableBook(int idBook, stBook books[], int *totalBooks) /// DESACTIVA UN LIBRO
+{
     int indexBook = searchIndexBookById(idBook, books, *totalBooks);
-    if(!books[indexBook].deleted){
+    if(!books[indexBook].deleted)
+    {
         books[indexBook].deleted = 1;
     }
 }
 
-void deleteBook(int idBook, stBook books[], int *totalBooks){
+void deleteBook(int idBook, stBook books[], int *totalBooks) /// BORRA UN LIBRO PERMANENTEMENTE
+{
     int indexBook = searchIndexBookById(idBook, books, *totalBooks);
     deleteFile(books, sizeof(stBook), indexBook, *totalBooks, BOOKS);
     *totalBooks = readFile(books, sizeof(stBook), BOOKS);
